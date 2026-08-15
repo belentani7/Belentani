@@ -75,6 +75,8 @@ La implementación no constituye una certificación SOC 2, ISO 27001, GDPR, AI A
 
 La escritura de validación y evidencia se realiza en dos operaciones de persistencia independientes. Para entornos de alta criticidad, la siguiente iteración debe encapsular ambas escrituras en una transacción o en un outbox transaccional para evitar un registro de validación sin evidencia si la segunda operación falla.
 
+La revisión directa de `client/src/pages/Home.tsx` confirma que el panel consume `trpc.pvcu.tenants` y `trpc.pvcu.overview`, mantiene el tenant seleccionado en scope, y muestra estados explícitos de autenticación, carga, error y vacío tanto para tenants como para el ledger. La compilación posterior confirmó que esta integración no rompe TypeScript ni el build.
+
 El panel operativo actual no implementa todavía toda la superficie del diseño universal: exportación de evidencia, revisión dual, edición versionada de perfiles, diff de políticas, retención ejecutable, notificaciones push PVC-U, adaptadores externos, reconciliación de eventos y pruebas end-to-end contra una base de datos real.
 
 La función administrativa permite consultar cualquier tenant al nivel del router, pero todas las operaciones siguen recibiendo explícitamente el `tenantKey`; los accesos de administración deben someterse a controles RBAC y auditoría adicionales antes de habilitarse en producción.

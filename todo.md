@@ -12,7 +12,7 @@
 - [x] Núcleo PVC-U L0-L8 implementado.
 - [x] Persistencia PVC-U y migraciones aplicadas para tenants, perfiles, validaciones, evidencias y excepciones; la transacción atómica queda como deuda técnica.
 - [x] Router tRPC PVC-U y aislamiento por owner/tenant verificados con pruebas de usuario, administrador y doble Drizzle controlado; E2E contra MySQL queda como deuda técnica.
-- [ ] Panel operativo PVC-U integrado (integración básica; cobertura ampliada pendiente).
+- [x] Panel operativo PVC-U integrado en alcance básico; consume tRPC real y maneja autenticación, carga, error y vacío; cobertura avanzada permanece documentada como deuda técnica.
 - [x] Pruebas core, TypeScript y build ejecutados con éxito.
 - [x] Dependencias directas de alta prioridad actualizadas: axios, drizzle-orm y Vite.
 
