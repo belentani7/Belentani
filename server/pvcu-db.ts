@@ -1,6 +1,21 @@
 import { and, desc, eq } from "drizzle-orm";
-import { InsertPVCProfile, InsertPVCTenant, InsertPVCValidation, pvcProfiles, pvcTenants, pvcValidations } from "../drizzle/schema";
+import {
+  InsertPVCEvidence,
+  InsertPVCException,
+  InsertPVCProfile,
+  InsertPVCTenant,
+  InsertPVCValidation,
+  pvcEvidence,
+  pvcExceptions,
+  pvcProfiles,
+  pvcTenants,
+  pvcValidations,
+} from "../drizzle/schema";
 import { getDb } from "./db";
+
+export function canAccessPvcTenant(ownerOpenId: string, requestedOwnerOpenId: string, isAdmin: boolean) {
+  return isAdmin || ownerOpenId === requestedOwnerOpenId;
+}
 
 export async function listPvcTenants(ownerOpenId: string, isAdmin: boolean) {
   const db = await getDb();
@@ -58,15 +73,53 @@ export async function createPvcValidation(input: InsertPVCValidation) {
   return rows[0];
 }
 
+export async function listPvcEvidence(tenantKey: string, validationId?: string) {
+  const db = await getDb();
+  if (!db) return [];
+  const scope = validationId ? and(eq(pvcEvidence.tenantKey, tenantKey), eq(pvcEvidence.validationId, validationId)) : eq(pvcEvidence.tenantKey, tenantKey);
+  return db.select().from(pvcEvidence).where(scope).orderBy(desc(pvcEvidence.createdAt)).limit(100);
+}
+
+export async function createPvcEvidence(input: InsertPVCEvidence) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.insert(pvcEvidence).values(input);
+  const rows = await db.select().from(pvcEvidence).where(eq(pvcEvidence.evidenceId, input.evidenceId)).limit(1);
+  return rows[0];
+}
+
+export async function listPvcExceptions(tenantKey: string) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(pvcExceptions).where(eq(pvcExceptions.tenantKey, tenantKey)).orderBy(desc(pvcExceptions.createdAt)).limit(100);
+}
+
+export async function createPvcException(input: InsertPVCException) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.insert(pvcExceptions).values(input);
+  const rows = await db.select().from(pvcExceptions).where(eq(pvcExceptions.exceptionId, input.exceptionId)).limit(1);
+  return rows[0];
+}
+
 export async function getPvcOverview(tenantKey: string) {
-  const [profiles, validations] = await Promise.all([listPvcProfiles(tenantKey), listPvcValidations(tenantKey)]);
+  const [profiles, validations, evidence, exceptions] = await Promise.all([
+    listPvcProfiles(tenantKey),
+    listPvcValidations(tenantKey),
+    listPvcEvidence(tenantKey),
+    listPvcExceptions(tenantKey),
+  ]);
   const approved = validations.filter((item) => item.status === "approved").length;
   const blocked = validations.filter((item) => item.status === "rejected" || item.status === "quarantine").length;
   return {
     profiles,
     validations,
+    evidence,
+    exceptions,
     metrics: {
       validationCount: validations.length,
+      evidenceCount: evidence.length,
+      exceptionCount: exceptions.length,
       approved,
       blocked,
       review: validations.filter((item) => item.status === "human_review").length,

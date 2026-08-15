@@ -95,3 +95,22 @@ export const pvcExceptions = mysqlTable("pvc_exceptions", {
 
 export type PVCException = typeof pvcExceptions.$inferSelect;
 export type InsertPVCException = typeof pvcExceptions.$inferInsert;
+
+/**
+ * PVC-U immutable evidence metadata. Payload bytes remain outside the database;
+ * this table stores only digest, provenance and retention metadata.
+ */
+export const pvcEvidence = mysqlTable("pvc_evidence", {
+  id: int("id").autoincrement().primaryKey(),
+  evidenceId: varchar("evidenceId", { length: 96 }).notNull().unique(),
+  validationId: varchar("validationId", { length: 64 }).notNull(),
+  tenantKey: varchar("tenantKey", { length: 64 }).notNull(),
+  evidenceHash: varchar("evidenceHash", { length: 128 }).notNull(),
+  algorithm: varchar("algorithm", { length: 32 }).default("sha256").notNull(),
+  provenance: json("provenance"),
+  retentionUntil: timestamp("retentionUntil"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PVCEvidence = typeof pvcEvidence.$inferSelect;
+export type InsertPVCEvidence = typeof pvcEvidence.$inferInsert;

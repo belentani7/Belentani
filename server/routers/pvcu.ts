@@ -3,11 +3,15 @@ import { nanoid } from "nanoid";
 import { z } from "zod";
 import { protectedProcedure, router } from "../_core/trpc";
 import {
+  createPvcEvidence,
+  createPvcException,
   createPvcProfile,
   createPvcTenant,
   createPvcValidation,
   getPvcOverview,
   getPvcTenant,
+  listPvcEvidence,
+  listPvcExceptions,
   listPvcProfiles,
   listPvcTenants,
   listPvcValidations,
@@ -65,6 +69,35 @@ export const pvcuRouter = router({
   validations: protectedProcedure.input(z.object({ tenantKey: z.string() })).query(({ ctx, input }) =>
     requireTenant(input.tenantKey, ctx.user).then(() => listPvcValidations(input.tenantKey))),
 
+  evidence: protectedProcedure.input(z.object({ tenantKey: z.string(), validationId: z.string().optional() })).query(({ ctx, input }) =>
+    requireTenant(input.tenantKey, ctx.user).then(() => listPvcEvidence(input.tenantKey, input.validationId))),
+
+  exceptions: protectedProcedure.input(z.object({ tenantKey: z.string() })).query(({ ctx, input }) =>
+    requireTenant(input.tenantKey, ctx.user).then(() => listPvcExceptions(input.tenantKey))),
+
+  createException: protectedProcedure.input(z.object({
+    tenantKey: z.string(),
+    profileId: z.string().min(2).max(128),
+    reason: z.string().min(1).max(2000),
+    compensatingControls: z.string().min(1).max(4000),
+    expiresAt: z.coerce.date(),
+  })).mutation(async ({ ctx, input }) => {
+    await requireTenant(input.tenantKey, ctx.user);
+    if (input.expiresAt.getTime() <= Date.now()) {
+      throw new TRPCError({ code: "BAD_REQUEST", message: "Exception must expire in the future" });
+    }
+    return createPvcException({
+      exceptionId: `exc-${nanoid(12)}`,
+      tenantKey: input.tenantKey,
+      profileId: input.profileId,
+      reason: input.reason,
+      compensatingControls: input.compensatingControls,
+      expiresAt: input.expiresAt,
+      approvedBy: ctx.user.openId,
+      status: "active",
+    });
+  }),
+
   overview: protectedProcedure.input(z.object({ tenantKey: z.string() })).query(({ ctx, input }) =>
     requireTenant(input.tenantKey, ctx.user).then(() => getPvcOverview(input.tenantKey))),
 
@@ -85,8 +118,9 @@ export const pvcuRouter = router({
     const selected = profile.find((item) => item.profileId === input.profileId);
     const definition = (selected?.definition ?? defaultPvcProfile()) as Record<string, unknown>;
     const result = validatePvc(input, definition);
-    return createPvcValidation({
-      validationId: `${result.validationId}-${nanoid(6)}`,
+    const validationId = `${result.validationId}-${nanoid(6)}`;
+    const validation = await createPvcValidation({
+      validationId,
       tenantKey: input.tenantKey,
       profileId: input.profileId,
       artifactType: input.artifactType,
@@ -98,5 +132,19 @@ export const pvcuRouter = router({
       evidenceHash: result.evidenceHash,
       metadata: result.metadata,
     });
+    await createPvcEvidence({
+      evidenceId: `evi-${nanoid(12)}`,
+      validationId,
+      tenantKey: input.tenantKey,
+      evidenceHash: result.evidenceHash,
+      algorithm: "sha256",
+      provenance: {
+        operationId: input.operationId,
+        artifactType: input.artifactType,
+        profileId: input.profileId,
+        generatedAt: new Date().toISOString(),
+      },
+    });
+    return validation;
   }),
 });
