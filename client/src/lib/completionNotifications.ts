@@ -41,9 +41,9 @@ export async function requestDesktopNotificationPermission() {
   if (typeof window === "undefined" || !("Notification" in window)) {
     return "unsupported" as const;
   }
-  if (Notification.permission === "granted") return "granted" as const;
-  if (Notification.permission === "denied") return "denied" as const;
-  return Notification.requestPermission();
+  if (window.Notification.permission === "granted") return "granted" as const;
+  if (window.Notification.permission === "denied") return "denied" as const;
+  return window.Notification.requestPermission();
 }
 
 export function playCompletionSound() {
@@ -93,10 +93,10 @@ export function notifyCompletion(title = "Tarea completada", detail?: string) {
     preferences.desktop &&
     typeof window !== "undefined" &&
     "Notification" in window &&
-    Notification.permission === "granted"
+    window.Notification.permission === "granted"
   ) {
     try {
-      new Notification("NOIACORE LAB", {
+      new window.Notification("NOIACORE LAB", {
         body: detail ? `${title}: ${detail}` : title,
         icon: "/favicon.ico",
         tag: "noiacore-completion",
