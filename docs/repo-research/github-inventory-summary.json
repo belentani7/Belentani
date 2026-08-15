@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-08-15T11:13:34.395Z",
+  "files": [
+    "accessibility.json",
+    "automation.json",
+    "backend.json",
+    "content.json",
+    "css-tokens.json",
+    "database.json",
+    "design-systems.json",
+    "forms.json",
+    "react-ui.json",
+    "seo.json",
+    "ux-research.json",
+    "visualization.json"
+  ],
+  "uniqueRepositories": 99,
+  "categories": [
+    "accessibility",
+    "automation",
+    "backend",
+    "content",
+    "css-tokens",
+    "database",
+    "design-systems",
+    "forms",
+    "react-ui",
+    "seo",
+    "ux-research",
+    "visualization"
+  ]
+}

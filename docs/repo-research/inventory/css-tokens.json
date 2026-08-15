@@ -1,0 +1,122 @@
+[1;37m[[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Display design token documentation generated from your stylesheets and icon files. Preview design token changes in the browser. Add your design tokens to your Storybook Docs pages using the custom Doc Blocks."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"UX-and-I/storybook-design-token"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 683[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-10T12:27:36Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/UX-and-I/storybook-design-token"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Designsystemet"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"digdir/designsystemet"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 206[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T08:49:43Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/digdir/designsystemet"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Extract any website’s design system into tokens in seconds: logo, colors, typography, borders & more. One command."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"dembrandt/dembrandt"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 2824[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T09:28:35Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/dembrandt/dembrandt"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Eleventy starter with CUBE CSS, Every Layout and global design tokens. A workflow for modern & resilient websites, based on the CUBE CSS boilerplate."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"madrilene/eleventy-excellent"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"other"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Other"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 612[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-07T11:20:40Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/madrilene/eleventy-excellent"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A specification for defining theme objects & design tokens for use with UI components"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"system-ui/theme-specification"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 553[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-01T14:56:30Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/system-ui/theme-specification"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"URL one-shot design system extractor — fetches real CSS, analyzes tokens, generates design.md + interactive HTML report"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"fivetaku/insane-design"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 121[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-13T11:34:18Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/fivetaku/insane-design"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Use DTCG tokens JSON to generate code for web, mobile, native apps, and more"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"terrazzoapp/terrazzo"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 443[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T11:02:27Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/terrazzoapp/terrazzo"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Compile your design system into an Agent Plugin. Extract an identity from any reference, emit SKILL.md + tokens.css, lint what bypasses your tokens."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"Railly/tinte"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 613[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-13T03:22:22Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/Railly/tinte"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"DB UX Design System monorepo - Provides Design Tokens and components for Web UIs"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"db-ux-design-system/core-web"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"other"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Other"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 126[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T09:51:36Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/db-ux-design-system/core-web"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Create, manage and distribute design tokens."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"mateoroldos/tokenbase"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"agpl-3.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"GNU Affero General Public License v3.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/agpl-3.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 140[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-07-15T20:38:24Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/mateoroldos/tokenbase"[m
+  [1;37m}[m
+[1;37m][m

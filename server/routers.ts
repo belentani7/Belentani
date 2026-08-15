@@ -413,6 +413,67 @@ export const appRouter = router({
         });
         return { success: true, slug };
       }),
+    catalogUpdate: adminProcedure
+      .input(
+        z.object({
+          id: z.number().int().positive(),
+          name: z.string().trim().min(2).max(220),
+          category: z.string().trim().min(2).max(120),
+          description: z.string().trim().min(10).max(5000),
+          url: z.string().url().max(500).nullable().optional(),
+          tags: z.string().max(1000).nullable().optional(),
+          status: z.enum(["draft", "published", "archived"]).optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        await db
+          .update(catalogItems)
+          .set({
+            name: input.name,
+            category: input.category,
+            description: input.description,
+            url: input.url ?? null,
+            tags: input.tags ?? null,
+            ...(input.status ? { status: input.status } : {}),
+          })
+          .where(eq(catalogItems.id, input.id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "catalog_update",
+          entityType: "catalog_item",
+          entityId: input.id,
+          outcome: "success",
+        });
+        return { success: true };
+      }),
+    catalogArchive: adminProcedure
+      .input(z.object({ id: z.number().int().positive() }))
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        await db
+          .update(catalogItems)
+          .set({ status: "archived" })
+          .where(eq(catalogItems.id, input.id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "catalog_archive",
+          entityType: "catalog_item",
+          entityId: input.id,
+          outcome: "success",
+        });
+        return { success: true };
+      }),
     mediaAdminList: adminProcedure.query(async () => {
       const db = await getDb();
       if (!db) return [];
@@ -446,6 +507,41 @@ export const appRouter = router({
           entityId: input.id,
         });
         return { success: true, status: input.status };
+      }),
+    mediaUpdate: adminProcedure
+      .input(
+        z.object({
+          id: z.number().int().positive(),
+          title: z.string().trim().min(2).max(220),
+          description: z.string().trim().max(10000).nullable().optional(),
+          durationSeconds: z.number().int().nonnegative().nullable().optional(),
+          status: z.enum(["draft", "published", "archived"]).optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        await db
+          .update(mediaResources)
+          .set({
+            title: input.title,
+            description: input.description ?? null,
+            durationSeconds: input.durationSeconds ?? null,
+            ...(input.status ? { status: input.status } : {}),
+          })
+          .where(eq(mediaResources.id, input.id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "media_update",
+          entityType: "media_resource",
+          entityId: input.id,
+          outcome: "success",
+        });
+        return { success: true };
       }),
     changelogAdmin: adminProcedure.query(async () => {
       const db = await getDb();
@@ -493,6 +589,28 @@ export const appRouter = router({
         return { success: true };
       }),
     auditLog: adminProcedure.query(() => listAdminActions()),
+    changelogArchive: adminProcedure
+      .input(z.object({ id: z.number().int().positive() }))
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        await db
+          .update(changelogEntries)
+          .set({ publishedAt: null })
+          .where(eq(changelogEntries.id, input.id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "changelog_archive",
+          entityType: "changelog_entry",
+          entityId: input.id,
+          outcome: "success",
+        });
+        return { success: true };
+      }),
     emailDrafts: adminProcedure.query(() => listPrivateEmailDrafts()),
     emailDraftAudit: adminProcedure
       .input(z.object({ draftId: z.number().int().positive() }))
@@ -630,6 +748,28 @@ export const appRouter = router({
         .from(emailTemplates)
         .orderBy(desc(emailTemplates.updatedAt));
     }),
+    templateArchive: adminProcedure
+      .input(z.object({ id: z.number().int().positive() }))
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        await db
+          .update(emailTemplates)
+          .set({ status: "archived", updatedByUserId: ctx.user.id })
+          .where(eq(emailTemplates.id, input.id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "template_archive",
+          entityType: "email_template",
+          entityId: input.id,
+          outcome: "success",
+        });
+        return { success: true };
+      }),
     templateUpsert: adminProcedure
       .input(
         z.object({

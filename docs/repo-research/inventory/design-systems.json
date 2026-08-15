@@ -1,0 +1,122 @@
+[1;37m[[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"An implementation of GitHub's Primer Design System using React"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"primer/react"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 3885[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T04:50:31Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/primer/react"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Salesforce Lightning Design System for React"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"salesforce/design-system-react"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"bsd-3-clause"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"BSD 3-Clause \"New\" or \"Revised\" License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/bsd-3-clause"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 981[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-07-28T14:56:19Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/salesforce/design-system-react"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"React version of Argon Design System"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"creativetimofficial/argon-design-system-react"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 692[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-05-17T20:50:41Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/creativetimofficial/argon-design-system-react"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Shopify's Polaris Design System - React implementation (Deprecated)"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"Shopify/polaris-react-archive"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"other"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Other"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 6177[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T04:24:05Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/Shopify/polaris-react-archive"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A design system built by IBM"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"carbon-design-system/carbon"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 9355[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T08:42:02Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/carbon-design-system/carbon"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"React version of BLK Design System: "[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"creativetimofficial/blk-design-system-react"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 206[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-05-31T12:28:39Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/creativetimofficial/blk-design-system-react"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A React-based UI toolkit for the web"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"palantir/blueprint"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 21992[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T08:42:02Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/palantir/blueprint"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Fluent System Icons are a collection of familiar, friendly and modern icons from Microsoft."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"microsoft/fluentui-system-icons"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 10776[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T07:14:08Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/microsoft/fluentui-system-icons"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Curated front end system design resources for interviews and learning"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"greatfrontend/awesome-front-end-system-design"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 8430[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T02:34:35Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/greatfrontend/awesome-front-end-system-design"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Enterprise Design System"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"Tencent/tdesign"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 4007[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T02:58:35Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/Tencent/tdesign"[m
+  [1;37m}[m
+[1;37m][m

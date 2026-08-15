@@ -1,0 +1,122 @@
+[1;37m[[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Interactive Data Visualization in the browser, from  Python"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"bokeh/bokeh"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"bsd-3-clause"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"BSD 3-Clause \"New\" or \"Revised\" License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/bsd-3-clause"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 20430[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T08:42:03Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/bokeh/bokeh"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Misc data visualization projects, examples, and demos: mostly Python (pandas + matplotlib) and JavaScript (leaflet)."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"gboeing/data-visualization"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 747[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-10T20:07:01Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/gboeing/data-visualization"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A persistent service that generates mock data quickly and provids visualization view."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"easy-mock/easy-mock"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"gpl-3.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"GNU General Public License v3.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/gpl-3.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 8962[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T13:12:34Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/easy-mock/easy-mock"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Customizable SVG map visualizations for the web in a single Javascript file using D3.js"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"markmarkoh/datamaps"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 3799[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-11T23:19:29Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/markmarkoh/datamaps"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A data visualization and analytics component, especially well-suited for large and/or streaming datasets."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"perspective-dev/perspective"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 11110[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T04:32:23Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/perspective-dev/perspective"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Make Your Company Data Driven. Connect to any data source, easily visualize, dashboard and share your data."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"getredash/redash"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"bsd-2-clause"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"BSD 2-Clause \"Simplified\" License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/bsd-2-clause"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 28746[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T10:46:17Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/getredash/redash"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"🌎 Large-scale WebGL-powered Geospatial Data Visualization analysis engine."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"antvis/L7"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 4048[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-13T08:33:59Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/antvis/L7"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"TypeScript/JavaScript 3D maps and geospatial data visualization engine library"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"openglobus/openglobus"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 925[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T02:25:39Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/openglobus/openglobus"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Loaders for big data visualization. Website:"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"visgl/loaders.gl"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"other"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Other"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 849[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T06:25:01Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/visgl/loaders.gl"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"🌏  A Declarative 3D Globe Data Visualization Library built with Three.js"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"syt123450/giojs"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 1739[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-12T03:51:13Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/syt123450/giojs"[m
+  [1;37m}[m
+[1;37m][m

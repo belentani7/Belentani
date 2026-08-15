@@ -55,8 +55,20 @@ export default function Admin() {
       });
     },
   });
+  const templates = trpc.admin.templates.useQuery(undefined, {
+    enabled: Boolean(isAuthenticated),
+  });
   const saveTemplate = trpc.admin.templateUpsert.useMutation({
-    onSuccess: () => notifyCompletion("Plantilla de correo guardada"),
+    onSuccess: () => {
+      notifyCompletion("Plantilla de correo guardada");
+      void templates.refetch();
+    },
+  });
+  const archiveTemplate = trpc.admin.templateArchive.useMutation({
+    onSuccess: () => {
+      notifyCompletion("Plantilla archivada");
+      void templates.refetch();
+    },
   });
   const ingestSource = trpc.admin.ingestSource.useMutation({
     onSuccess: () => notifyCompletion("Ingesta de catálogo completada"),
@@ -85,6 +97,12 @@ export default function Admin() {
   const saveChangelog = trpc.admin.changelogUpsert.useMutation({
     onSuccess: () => {
       notifyCompletion("Entrada editorial guardada");
+      void changelogAdmin.refetch();
+    },
+  });
+  const archiveChangelog = trpc.admin.changelogArchive.useMutation({
+    onSuccess: () => {
+      notifyCompletion("Entrada editorial archivada");
       void changelogAdmin.refetch();
     },
   });
@@ -391,6 +409,26 @@ export default function Admin() {
                   No se pudo guardar la plantilla.
                 </p>
               )}
+              {templates.data?.map(item => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between gap-3 rounded-xl border border-border/60 p-3 text-sm"
+                >
+                  <span>
+                    {item.key} · {item.status}
+                  </span>
+                  {item.status !== "archived" && (
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="rounded-full"
+                      onClick={() => archiveTemplate.mutate({ id: item.id })}
+                    >
+                      Archivar
+                    </Button>
+                  )}
+                </div>
+              ))}
             </CardContent>
           </Card>
         </div>
@@ -849,9 +887,24 @@ export default function Admin() {
               <Save className="mr-2 size-4" /> Guardar contenido
             </Button>
             {changelogAdmin.data?.map(entry => (
-              <p key={entry.id} className="text-sm text-muted-foreground">
-                {entry.title} · {entry.publishedAt ? "publicado" : "borrador"}
-              </p>
+              <div
+                key={entry.id}
+                className="flex items-center justify-between gap-3 rounded-xl border border-border/60 p-3 text-sm"
+              >
+                <span>
+                  {entry.title} · {entry.publishedAt ? "publicado" : "borrador"}
+                </span>
+                {!entry.publishedAt && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="rounded-full"
+                    onClick={() => archiveChangelog.mutate({ id: entry.id })}
+                  >
+                    Archivar
+                  </Button>
+                )}
+              </div>
             ))}
           </CardContent>
         </Card>

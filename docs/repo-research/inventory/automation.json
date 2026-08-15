@@ -1,0 +1,122 @@
+[1;37m[[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"n8n-io/n8n"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"other"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Other"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 200688[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T11:01:57Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/n8n-io/n8n"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Customizable no-code component for building flow-based programming applications or workflow automation. 0 external dependencies. Check out https://nocode-js.com"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"nocode-js/sequential-workflow-designer"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 1461[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T20:54:29Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/nocode-js/sequential-workflow-designer"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"AI assistant integration for n8n workflow automation through Model Context Protocol (MCP). Connect Claude Desktop, ChatGPT, and other AI assistants to n8n for natural language workflow management."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"makafeli/n8n-workflow-builder"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 539[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-10T17:50:09Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/makafeli/n8n-workflow-builder"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"AI agent framework for plan-first development workflows with approval-based execution. Multi-language support (TypeScript, Python, Go, Rust) with automatic testing, code review, and validation built for OpenCode"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"darrenhinde/OpenAgentsControl"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 4724[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T05:51:10Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/darrenhinde/OpenAgentsControl"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Sim is the collaborative workspace to build, deploy, and monitor AI agents and workflows. Used by 100,000+ builders."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"simstudioai/sim"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 29423[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T09:16:45Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/simstudioai/sim"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"FlowGram is an extensible workflow development framework with built-in canvas, form, variable, and materials that helps developers build AI workflow platforms faster and simpler."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"bytedance/flowgram.ai"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 8361[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T21:36:40Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/bytedance/flowgram.ai"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Open-source platform that unifies AI agent orchestration and workflow automation — autonomy and precision in one platform."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"bytechefhq/bytechef"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"other"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Other"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 938[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-13T13:02:19Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/bytechefhq/bytechef"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"AI workflow automation plugin for intelligent code generation with Claude/Codex"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"Dong90/oh-my-taiyiforge"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 938[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-12T08:39:48Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/Dong90/oh-my-taiyiforge"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Educational application aimed at automating user-defined workflows for the mobile game, \"Granblue Fantasy\", using a variety of CV technologies in the backend such as OpenCV, PyAutoGUI and EasyOCR and a frontend coded in Typescript."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"steve1316/granblue-automation-pyautogui"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 132[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T03:14:58Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/steve1316/granblue-automation-pyautogui"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A TypeScript monorepo of Pi Coding Agent extensions for automation, planning, language tooling, browser control, web research, Git workflows, and configuration sync."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"narumiruna/pi-extensions"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 332[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T08:21:14Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/narumiruna/pi-extensions"[m
+  [1;37m}[m
+[1;37m][m

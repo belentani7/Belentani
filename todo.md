@@ -196,7 +196,7 @@
 ## Rediseño visual NOIACORE LAB — solo identidad
 
 - [x] Mantener literalmente todos los textos, la fuente actual del título, la estructura, el orden de bloques y las funcionalidades.
-- [x] Sustituir únicamente la paleta por negro absoluto, azules profundos desaturados y blancos fríos, sin tonos cálidos ni saturados.
+- [x] Sustituir únicamente la paleta por negro absoluto, grafito, gris piedra y blancos espectrales, sin tonos cálidos ni saturados.
 - [x] Aplicar atmósfera oscura, silenciosa, tecnológica y monumental mediante fondos, bordes, superficies y geometría sutil.
 - [x] Mantener botones, formularios, enlaces y flujos existentes, ajustando solo su tratamiento cromático y visual.
 - [x] Verificar que no se modificaron textos ni arquitectura de información mediante typecheck, pruebas y revisión visual.
@@ -343,3 +343,27 @@
 - [x] Añadir una atmósfera de fondo de movimiento lento, discreto y no distractor, sin desplazar contenido ni afectar la interacción.
 - [x] Aplicar fallback estático y `prefers-reduced-motion` para evitar movimiento a usuarios que lo soliciten.
 - [x] Validar contraste, typecheck, lint, tests, build y revisión visual antes del checkpoint.
+
+## Enriquecimiento autorizado de NOIACORE LAB
+
+- [ ] Recibir o localizar únicamente los currículums, proyectos, emails y fotos que el usuario autorice de forma concreta.
+- [ ] Crear un inventario privado de materiales con origen, permiso de uso, sensibilidad y decisión de publicación.
+- [x] Investigar fuentes fiables sobre frontend, bases de datos, Gestalt, teoría de la mente, metacognición, armonía perceptiva y escaparatismo.
+- [x] Convertir la investigación en principios de narrativa, arquitectura de información, jerarquía visual y recorridos de usuario.
+- [ ] Aplicar mejoras a la web sin inventar biografía, logros, proyectos, testimonios, reseñas ni datos personales.
+- [ ] Validar privacidad, accesibilidad, rendimiento, SEO, motion y regresiones antes de un checkpoint.
+
+## Inventario de repositorios GitHub para enriquecimiento
+
+- [x] Definir categorías prioritarias y criterios de selección: actividad, licencia, documentación, seguridad, compatibilidad y mantenimiento.
+- [x] Buscar repositorios públicos relevantes para frontend, bases de datos, accesibilidad, percepción, visualización y automatización.
+- [x] Guardar URLs, licencia, señales de salud, encaje técnico y riesgos de cada candidato.
+- [ ] Seleccionar integraciones que no alteren textos, privacidad, contratos ni mantenimiento sin aprobación.
+- [ ] Aplicar únicamente mejoras compatibles y validar la suite completa antes del checkpoint.
+
+- [x] Inventario GitHub ampliado a más de 80 repositorios únicos con criterios de licencia y mantenimiento
+
+- [x] Eliminar el token azul residual de NotFound y actualizar la auditoría WCAG para reflejar la paleta negro/gris piedra/blanco espectral.
+- [x] Ejecutar una comprobación estática final de paleta, motion, secretos, build y pruebas tras la corrección visual.
+
+- [ ] Completar mutaciones CRUD administrativas no destructivas para catálogo, multimedia, plantillas y changelog, con auditoría y pruebas de autorización.

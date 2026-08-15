@@ -1,0 +1,122 @@
+[1;37m[[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"lumen beat gpt-5.6 sol at html/react accessibility repair, with an estimated ~200× lower inference cost."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"harrrshall/lumen"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 23[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-13T01:09:12Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/harrrshall/lumen"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A React Accessibility Component"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"stefantrinh1/react-accessibility"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 6[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2025-03-22T19:08:57Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/stefantrinh1/react-accessibility"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"React: Accessibility"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"gajusp/react-accessibility"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 0[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2022-02-07T16:26:56Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/gajusp/react-accessibility"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"react accessible accordion"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"jasonpberry/react-accessible-accordion"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 0[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2019-01-30T02:33:01Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/jasonpberry/react-accessible-accordion"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"react-accessible-page"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"GuruDevCoder/react-accessible-page"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 1[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2023-05-12T23:50:26Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/GuruDevCoder/react-accessible-page"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"React Accessible Gallery"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"Angel-Hime/week-06-assignment"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 0[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-03-30T17:37:51Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/Angel-Hime/week-06-assignment"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"React Accessible Tabs"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"niktayv/react-acc-tabs"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"unlicense"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"The Unlicense"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/unlicense"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 0[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2022-08-02T12:44:13Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/niktayv/react-acc-tabs"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"React-Accessibility-Widget"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"ROTEMIL95/React-Accessibility-Widget"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 1[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-03-24T22:09:09Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/ROTEMIL95/React-Accessibility-Widget"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"React accessibility example"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"henryzarza/react-accessibility"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 0[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2021-01-26T00:08:38Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/henryzarza/react-accessibility"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A Gatsby plugin to add @axe-core/react accessibility testing to Gatsby markup."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"curology/gatsby-plugin-axe-core-react"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 3[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2022-04-29T20:15:48Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/curology/gatsby-plugin-axe-core-react"[m
+  [1;37m}[m
+[1;37m][m

@@ -22,4 +22,20 @@ describe("platform contracts", () => {
       caller.catalog.list({ query: "", page: 1, pageSize: 1000 })
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
   });
+
+  it("protects administrative CRUD mutations when unauthenticated", async () => {
+    const caller = appRouter.createCaller(context);
+    await expect(caller.admin.catalogArchive({ id: 1 })).rejects.toMatchObject({
+      code: "UNAUTHORIZED",
+    });
+    await expect(
+      caller.admin.mediaUpdate({ id: 1, title: "Media title" })
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    await expect(caller.admin.templateArchive({ id: 1 })).rejects.toMatchObject(
+      { code: "UNAUTHORIZED" }
+    );
+    await expect(
+      caller.admin.changelogArchive({ id: 1 })
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+  });
 });

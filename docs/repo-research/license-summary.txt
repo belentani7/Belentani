@@ -1,0 +1,65 @@
+docs/repo-research/selected/TanStack_query.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/TanStack_query.json-    [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+docs/repo-research/selected/TanStack_query.json-    [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+docs/repo-research/selected/TanStack_query.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/TanStack_query.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/TanStack_table.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/TanStack_table.json-    [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+docs/repo-research/selected/TanStack_table.json-    [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+docs/repo-research/selected/TanStack_table.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/TanStack_table.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/colinhacks_zod.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/colinhacks_zod.json-    [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+docs/repo-research/selected/colinhacks_zod.json-    [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+docs/repo-research/selected/colinhacks_zod.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/colinhacks_zod.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/d3_d3.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/d3_d3.json-    [1;34m"key"[m[1;37m:[m [32m"isc"[m[1;37m,[m
+docs/repo-research/selected/d3_d3.json-    [1;34m"name"[m[1;37m:[m [32m"ISC License"[m[1;37m,[m
+docs/repo-research/selected/d3_d3.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/d3_d3.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/dequelabs_axe-core.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/dequelabs_axe-core.json-    [1;34m"key"[m[1;37m:[m [32m"mpl-2.0"[m[1;37m,[m
+docs/repo-research/selected/dequelabs_axe-core.json-    [1;34m"name"[m[1;37m:[m [32m"Mozilla Public License 2.0"[m[1;37m,[m
+docs/repo-research/selected/dequelabs_axe-core.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/dequelabs_axe-core.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/drizzle-team_drizzle-orm.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/drizzle-team_drizzle-orm.json-    [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+docs/repo-research/selected/drizzle-team_drizzle-orm.json-    [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+docs/repo-research/selected/drizzle-team_drizzle-orm.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/drizzle-team_drizzle-orm.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/motiondivision_motion.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/motiondivision_motion.json-    [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+docs/repo-research/selected/motiondivision_motion.json-    [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+docs/repo-research/selected/motiondivision_motion.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/motiondivision_motion.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/radix-ui_primitives.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/radix-ui_primitives.json-    [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+docs/repo-research/selected/radix-ui_primitives.json-    [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+docs/repo-research/selected/radix-ui_primitives.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/radix-ui_primitives.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/react-hook-form_react-hook-form.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/react-hook-form_react-hook-form.json-    [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+docs/repo-research/selected/react-hook-form_react-hook-form.json-    [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+docs/repo-research/selected/react-hook-form_react-hook-form.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/react-hook-form_react-hook-form.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/shadcn-ui_ui.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/shadcn-ui_ui.json-    [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+docs/repo-research/selected/shadcn-ui_ui.json-    [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+docs/repo-research/selected/shadcn-ui_ui.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/shadcn-ui_ui.json-  [1;37m}[m[1;37m,[m
+--
+docs/repo-research/selected/testing-library_react-testing-library.json:  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+docs/repo-research/selected/testing-library_react-testing-library.json-    [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+docs/repo-research/selected/testing-library_react-testing-library.json-    [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+docs/repo-research/selected/testing-library_react-testing-library.json-    [1;34m"nickname"[m[1;37m:[m [32m""[m
+docs/repo-research/selected/testing-library_react-testing-library.json-  [1;37m}[m[1;37m,[m

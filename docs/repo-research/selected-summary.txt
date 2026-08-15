@@ -1,0 +1,100 @@
+=== docs/repo-research/selected/ObservablePlot_plot.json
+=== docs/repo-research/selected/TanStack_query.json
+  [1;34m"description"[m[1;37m:[m [32m"🤖 Powerful asynchronous state management, server-state utilities and data fetching for the web. TS/JS, React Query, Solid Query, Svelte Query and Vue Query."[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"TanStack/query"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 50140[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T10:27:59Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/TanStack/query"[m
+=== docs/repo-research/selected/TanStack_table.json
+  [1;34m"description"[m[1;37m:[m [32m"🤖 Headless UI for building powerful tables & datagrids for TS/JS -  React-Table, Vue-Table, Solid-Table, Svelte-Table"[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"TanStack/table"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 28333[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T10:20:36Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/TanStack/table"[m
+=== docs/repo-research/selected/colinhacks_zod.json
+  [1;34m"description"[m[1;37m:[m [32m"TypeScript-first schema validation with static type inference"[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"colinhacks/zod"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 43464[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T08:46:23Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/colinhacks/zod"[m
+=== docs/repo-research/selected/d3_d3.json
+  [1;34m"description"[m[1;37m:[m [32m"Bring data to life with SVG, Canvas and HTML. :bar_chart::chart_with_upwards_trend::tada:"[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"d3/d3"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 113457[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T02:38:39Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/d3/d3"[m
+=== docs/repo-research/selected/dequelabs_axe-core.json
+  [1;34m"description"[m[1;37m:[m [32m"Accessibility engine for automated Web UI testing"[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"dequelabs/axe-core"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 7403[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T06:27:24Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/dequelabs/axe-core"[m
+=== docs/repo-research/selected/drizzle-team_drizzle-orm.json
+  [1;34m"description"[m[1;37m:[m [32m"ORM"[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"drizzle-team/drizzle-orm"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 35484[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T09:59:58Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/drizzle-team/drizzle-orm"[m
+=== docs/repo-research/selected/motiondivision_motion.json
+  [1;34m"description"[m[1;37m:[m [32m"A modern animation library for React and JavaScript"[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"motiondivision/motion"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 33245[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T10:23:36Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/motiondivision/motion"[m
+=== docs/repo-research/selected/radix-ui_primitives.json
+  [1;34m"description"[m[1;37m:[m [32m"Radix Primitives is an open-source UI component library for building high-quality, accessible design systems and web apps. Maintained by @workos."[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"radix-ui/primitives"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 19163[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T23:31:37Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/radix-ui/primitives"[m
+=== docs/repo-research/selected/react-hook-form_react-hook-form.json
+  [1;34m"description"[m[1;37m:[m [32m"📋 React Hooks for form state management and validation (Web + React Native)"[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"react-hook-form/react-hook-form"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 44824[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T11:06:56Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/react-hook-form/react-hook-form"[m
+=== docs/repo-research/selected/shadcn-ui_ui.json
+  [1;34m"description"[m[1;37m:[m [32m"A set of beautifully-designed, accessible components and a code distribution platform. Works with your favorite frameworks. Open Source. Open Code."[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"shadcn-ui/ui"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 121350[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T11:03:55Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/shadcn-ui/ui"[m
+=== docs/repo-research/selected/testing-library_react-testing-library.json
+  [1;34m"description"[m[1;37m:[m [32m"🐐 Simple and complete React DOM testing utilities that encourage good testing practices."[m[1;37m,[m
+  [1;34m"isArchived"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"isFork"[m[1;37m:[m [33mfalse[m[1;37m,[m
+  [1;34m"licenseInfo"[m[1;37m:[m [1;37m{[m
+  [1;34m"nameWithOwner"[m[1;37m:[m [32m"testing-library/react-testing-library"[m[1;37m,[m
+  [1;34m"stargazerCount"[m[1;37m:[m 19644[1;37m,[m
+  [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T13:12:36Z"[m[1;37m,[m
+  [1;34m"url"[m[1;37m:[m [32m"https://github.com/testing-library/react-testing-library"[m

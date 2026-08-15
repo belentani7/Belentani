@@ -1,0 +1,122 @@
+[1;37m[[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"📋 React Hooks for form state management and validation (Web + React Native)"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"react-hook-form/react-hook-form"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 44824[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T11:06:56Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/react-hook-form/react-hook-form"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A form input builder and validator for React JS"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"christianalfoni/formsy-react"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 2568[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-13T07:22:02Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/christianalfoni/formsy-react"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A form input builder and validator for React JS"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"formsy/formsy-react"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 762[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-02T07:36:09Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/formsy/formsy-react"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A Higher Order Component using react-redux to keep form state in a Redux store"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"redux-form/redux-form"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 12485[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-05T12:55:31Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/redux-form/redux-form"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"🏁 High performance subscription-based form state management for React"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"final-form/react-final-form"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 7439[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-03T07:44:07Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/final-form/react-final-form"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"React Form Validation Demo"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"learnetto/react-form-validation-demo"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 100[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-05-03T07:56:38Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/learnetto/react-form-validation-demo"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"react form based on json schema for form generation and validation"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"networknt/react-schema-form"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 356[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-11T03:24:07Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/networknt/react-schema-form"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A simple react form validator inspired by Laravel validation."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"dockwa/simple-react-validator"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 277[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-06-30T12:27:39Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/dockwa/simple-react-validator"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Progressively enhance HTML forms with React. Build resilient, type-safe forms with no hassle using web standards."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"edmundhung/conform"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 2574[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-13T21:34:06Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/edmundhung/conform"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"This is a model-driven approach to handling form inputs and validations, heavily inspired in Angular's Reactive Forms"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"joanpablo/reactive_forms"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 503[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-07-27T10:14:19Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/joanpablo/reactive_forms"[m
+  [1;37m}[m
+[1;37m][m

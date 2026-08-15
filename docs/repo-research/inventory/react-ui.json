@@ -1,0 +1,122 @@
+[1;37m[[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"The library for web and native user interfaces."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"react/react"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 247246[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T11:04:55Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/react/react"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A set of beautifully-designed, accessible components and a code distribution platform. Works with your favorite frameworks. Open Source. Open Code."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"shadcn-ui/ui"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 121350[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T11:03:55Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/shadcn-ui/ui"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"An enterprise-class UI design language and React UI library"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"ant-design/ant-design"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 99089[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T11:01:35Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/ant-design/ant-design"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Customizable set of components for React Native applications"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"shoutem/ui"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"other"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Other"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 4978[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-10T14:32:13Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/shoutem/ui"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Material UI: Comprehensive React component library that implements Google's Material Design. Free forever."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"mui/material-ui"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 98787[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T10:42:47Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/mui/material-ui"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"The official Semantic-UI-React integration"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"Semantic-Org/Semantic-UI-React"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 13215[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-12T05:16:48Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/Semantic-Org/Semantic-UI-React"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming. ReactiveUI allows you to  abstract mutable state away from your user interfaces, express the idea around a feature in one readable place and improve the testability of your application."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"reactiveui/ReactiveUI"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 8531[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T06:42:02Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/reactiveui/ReactiveUI"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Cross-Platform React Native UI Toolkit"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"react-native-elements/react-native-elements"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 25864[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T15:35:21Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/react-native-elements/react-native-elements"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Cross-platform React UI packages"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"necolas/react-native-web"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 22140[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T08:03:26Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/necolas/react-native-web"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Customizable Icons for React Native with support for image source and full styling."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"oblador/react-native-vector-icons"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 17907[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T12:24:50Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/oblador/react-native-vector-icons"[m
+  [1;37m}[m
+[1;37m][m

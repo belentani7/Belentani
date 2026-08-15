@@ -1,0 +1,122 @@
+[1;37m[[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Accessibility engine for automated Web UI testing"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"dequelabs/axe-core"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mpl-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Mozilla Public License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mpl-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 7403[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T06:27:24Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/dequelabs/axe-core"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"This is a library of accessibility-related testing and utility code."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"GoogleChrome/accessibility-developer-tools"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 2304[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-07-20T04:08:32Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/GoogleChrome/accessibility-developer-tools"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Pa11y is your automated accessibility testing pal"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"pa11y/pa11y"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"lgpl-3.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"GNU Lesser General Public License v3.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/lgpl-3.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 4489[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T08:49:04Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/pa11y/pa11y"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Easy regression testing for iOS accessibility"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"cashapp/AccessibilitySnapshot"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 656[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T02:35:49Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/cashapp/AccessibilitySnapshot"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Automated Accessibility Testing Tool"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"paypal/AATT"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"bsd-3-clause"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"BSD 3-Clause \"New\" or \"Revised\" License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/bsd-3-clause"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 610[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-13T06:30:04Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/paypal/AATT"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Accessibility checks for automated Android testing"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"google/Accessibility-Test-Framework-for-Android"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 517[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-11T19:44:56Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/google/Accessibility-Test-Framework-for-Android"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Accessibility conformance testing rules for HTML"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"act-rules/act-rules.github.io"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"other"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Other"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 164[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-07-29T15:12:04Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/act-rules/act-rules.github.io"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"🚀 A curated list of awesome software testing tools, from unit and load to accessibility, Web3, and contract testing 🚀"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"ZoranPandovski/awesome-testing-tools"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"cc0-1.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Creative Commons Zero v1.0 Universal"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/cc0-1.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 364[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-01T09:11:23Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/ZoranPandovski/awesome-testing-tools"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"A collection of useful tools for accessibility testing and debugging in the browser, online and desktop"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"akikoo/accessibility-testing-tools"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 218[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-07-29T23:21:51Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/akikoo/accessibility-testing-tools"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Test accessibility with axe-core in Cypress"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"component-driven/cypress-axe"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 642[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-04-12T17:46:27Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/component-driven/cypress-axe"[m
+  [1;37m}[m
+[1;37m][m

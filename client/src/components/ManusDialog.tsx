@@ -51,10 +51,10 @@ export function ManusDialog({
       open={onOpenChange ? open : internalOpen}
       onOpenChange={handleOpenChange}
     >
-      <DialogContent className="noiacore-glass py-5 bg-[#0F1C2E] rounded-[20px] w-[400px] shadow-[0px_4px_24px_0px_rgba(0,0,0,0.42)] border border-[rgba(184,203,237,0.2)] backdrop-blur-2xl p-0 gap-0 text-center">
+      <DialogContent className="noiacore-glass py-5 bg-[#1A1A18] rounded-[20px] w-[400px] shadow-[0px_4px_24px_0px_rgba(0,0,0,0.42)] border border-[rgba(214,214,208,0.16)] backdrop-blur-2xl p-0 gap-0 text-center">
         <div className="flex flex-col items-center gap-2 p-5 pt-12">
           {logo ? (
-            <div className="w-16 h-16 bg-[#F5F8FF] rounded-xl border border-[rgba(184,203,237,0.2)] flex items-center justify-center">
+            <div className="w-16 h-16 bg-[#F5F8FF] rounded-xl border border-[rgba(214,214,208,0.16)] flex items-center justify-center">
               <img
                 src={logo}
                 alt="Dialog graphic"
@@ -69,7 +69,7 @@ export function ManusDialog({
               {title}
             </DialogTitle>
           ) : null}
-          <DialogDescription className="text-sm text-[#9EAFD0] leading-5 tracking-[-0.154px]">
+          <DialogDescription className="text-sm text-[#B4B4AE] leading-5 tracking-[-0.154px]">
             Please login with Manus to continue
           </DialogDescription>
         </div>

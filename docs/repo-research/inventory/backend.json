@@ -1,0 +1,122 @@
+[1;37m[[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Node.js Backend Architecture Typescript - Learn to build a backend server for production ready blogging platform like Medium and FreeCodeCamp. Main Features: Role based, Express.js, Mongoose, Redis, Mongodb, Joi, Docker, JWT, Unit Tests, Integration Tests."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"afteracademy/nodejs-backend-architecture-typescript"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 3070[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-11T15:01:17Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/afteracademy/nodejs-backend-architecture-typescript"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Best practices, tools and guidelines for backend development. Code examples in TypeScript + NodeJS"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"Sairyss/backend-best-practices"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 2362[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-14T11:55:31Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/Sairyss/backend-best-practices"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"NodeJS Backend & Microservices for Youtube tutorial series. This series included all advanced topic of nodejs. Payment, SMS, Notifications, and deployed on AWS"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"codergogoi/NodeJS_Online_Food_Order_Backend_TypeScript_Youtube"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 92[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-13T22:14:41Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/codergogoi/NodeJS_Online_Food_Order_Backend_TypeScript_Youtube"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Production-ready Node.js TypeScript boilerplate: ESM, Vitest, ESLint, Prettier, GitHub Actions, Mise, and AGENTS.md included."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"jsynowiec/node-typescript-boilerplate"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 2954[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-12T10:35:51Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/jsynowiec/node-typescript-boilerplate"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Payload is the open-source, fullstack Next.js framework, giving you instant backend superpowers. Get a full TypeScript backend and admin panel instantly. Use Payload as a headless CMS or for building powerful applications."[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"payloadcms/payload"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 44150[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-15T09:53:21Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/payloadcms/payload"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Build a real fullstack app (backend+website+mobile) in 100% Typescript"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"shanhuiyang/TypeScript-MERN-Starter"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"mit"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"MIT License"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/mit"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 392[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-10T11:07:16Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/shanhuiyang/TypeScript-MERN-Starter"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Node.js Backend Engineer Roadmap 2025"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"alirezanqp/nodejs-backend-roadmap"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 292[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-07-30T09:58:07Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/alirezanqp/nodejs-backend-roadmap"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"🔷🌍 TypeScript API Skeleton: Bootstrap your new HTTP API backend with TypeScript"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"CodelyTV/typescript-api-skeleton"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 206[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-07-01T12:34:29Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/CodelyTV/typescript-api-skeleton"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Modern NodeJS Backend Development - WhereIsMyMotivation - Nestjs Backend Architecture - Learn to build a modular and secure backend services using very popular Nestjs framework. "[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"afteracademy/wimm-apis"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m"apache-2.0"[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m"Apache License 2.0"[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m"https://api.github.com/licenses/apache-2.0"[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 217[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-08-07T14:54:39Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/afteracademy/wimm-apis"[m
+  [1;37m}[m[1;37m,[m
+  [1;37m{[m
+    [1;34m"description"[m[1;37m:[m [32m"Sample code of my blog tutorials about backend web development"[m[1;37m,[m
+    [1;34m"fullName"[m[1;37m:[m [32m"tericcabrel/blog-tutorials"[m[1;37m,[m
+    [1;34m"license"[m[1;37m:[m [1;37m{[m
+      [1;34m"key"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"name"[m[1;37m:[m [32m""[m[1;37m,[m
+      [1;34m"url"[m[1;37m:[m [32m""[m
+    [1;37m}[m[1;37m,[m
+    [1;34m"stargazersCount"[m[1;37m:[m 415[1;37m,[m
+    [1;34m"updatedAt"[m[1;37m:[m [32m"2026-07-08T09:38:49Z"[m[1;37m,[m
+    [1;34m"url"[m[1;37m:[m [32m"https://github.com/tericcabrel/blog-tutorials"[m
+  [1;37m}[m
+[1;37m][m
