@@ -42,7 +42,7 @@
 - [x] Implementar control de roles y autorización en backend, no solo ocultación visual.
 - [ ] Crear auditoría de acciones administrativas con actor, acción, entidad, timestamp UTC y resultado.
 - [x] Aplicar esquema-first para las tablas y migraciones, verificando cada cambio en la base de datos.
-- [ ] Mantener separación entre datos públicos, privados, secretos, prompts y configuración.
+- [x] Mantener separación entre datos públicos, privados, secretos, prompts y configuración.
 
 ## SEO, crecimiento y evolución
 
@@ -99,7 +99,7 @@
 ## Brechas técnicas pendientes de verificación
 
 - [x] Documentar un design system verificable con tokens de tipografía, espaciado, sombras, iconografía y motion principles.
-- [ ] Separar prompts, configuración y datos sensibles en módulos dedicados y documentar la frontera entre datos públicos, privados y secretos.
+- [x] Separar prompts, configuración y datos sensibles en módulos dedicados y documentar la frontera entre datos públicos, privados y secretos.
 - [x] Auditar todas las animaciones para asegurar duraciones breves, reversibilidad y carácter no esencial, además de `prefers-reduced-motion`.
 - [ ] Implementar métricas operativas reales de latencia, estado de jobs y contadores, y unificar el logging estructurado.
 - [x] Ampliar `docs/architecture.md` con decisiones, supuestos y procedimientos operativos.
@@ -232,3 +232,8 @@
 
 - [x] Aplicar una política server-side que fuerce revisión humana para categorías o acciones sensibles antes de responder.
 - [x] Ampliar pruebas del agente con respuesta estructurada válida, fallback ante error o salida inválida y garantía de no registrar contenido sensible.
+
+## Fronteras de datos con módulos dedicados
+
+- [x] Crear un módulo de acceso privado para drafts/usuarios y conectar el router administrativo a sus funciones.
+- [x] Ampliar `docs/data-boundaries.md` con el mapeo verificable de módulo, tipo de dato y nivel de acceso.

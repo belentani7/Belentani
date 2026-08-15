@@ -15,6 +15,7 @@ import {
   mediaResources,
 } from "../drizzle/schema";
 import { getDb } from "./db";
+import { listPrivateEmailDrafts, updatePrivateEmailDraft } from "./privateData";
 import {
   and,
   asc,
@@ -370,15 +371,7 @@ export const appRouter = router({
         });
         return { success: true, slug };
       }),
-    emailDrafts: adminProcedure.query(async () => {
-      const db = await getDb();
-      if (!db) return [];
-      return db
-        .select()
-        .from(emailDrafts)
-        .orderBy(desc(emailDrafts.receivedAt))
-        .limit(100);
-    }),
+    emailDrafts: adminProcedure.query(() => listPrivateEmailDrafts()),
     emailDraftGenerate: adminProcedure
       .input(
         z.object({
@@ -459,21 +452,16 @@ export const appRouter = router({
         })
       )
       .mutation(async ({ input, ctx }) => {
-        const db = await getDb();
-        if (!db)
+        const updated = await updatePrivateEmailDraft(input.id, {
+          status: input.status,
+          reviewedByUserId: ctx.user.id,
+          ...(input.draftBody ? { draftBody: input.draftBody } : {}),
+        });
+        if (!updated)
           throw new TRPCError({
             code: "PRECONDITION_FAILED",
             message: "Database unavailable",
           });
-        await db
-          .update(emailDrafts)
-          .set({
-            status: input.status,
-            reviewedByUserId: ctx.user.id,
-            reviewedAt: new Date(),
-            ...(input.draftBody ? { draftBody: input.draftBody } : {}),
-          })
-          .where(eq(emailDrafts.id, input.id));
         return { success: true, status: input.status };
       }),
     templates: adminProcedure.query(async () => {
