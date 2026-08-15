@@ -53,3 +53,7 @@ El catálogo importado conserva `sourceName`, `sourceUrl`, `license`, `contentHa
 Los controles de automatización ejecutan un preflight desde la interfaz antes de activar un job. La activación se rechaza si el callback permitido o el task UID no están disponibles; la pausa no elimina la configuración. El endpoint periódico solo acepta identidades de cron válidas y omite jobs pausados.
 
 La integración de correo se mantiene en modo de borrador con revisión humana. El servidor puede clasificar y redactar a partir de mensajes autorizados, pero la aplicación no accede directamente a herramientas MCP del usuario ni envía mensajes externos de forma automática. La integración productiva de inbox requiere un conector/API gestionado y sus credenciales, que no se almacenan en el repositorio.
+
+## Automatización implementada: snapshot de catálogo
+
+El callback `POST /api/scheduled/catalog-refresh` autentica exclusivamente identidades cron, resuelve el job por `taskUid` y devuelve `200` para jobs huérfanos o pausados, evitando reintentos inútiles. Para un job activo ejecuta una lectura idempotente de los contadores total, publicado/aprobado, pendiente de revisión y cuarentena; registra el snapshot en logging estructurado, actualiza `lastRunAt` y responde con la evidencia del estado. No modifica contenido ni publica recursos automáticamente. La creación del job productivo requiere desplegar primero el callback, conservar el `scheduleCronTaskUid` en `automation_jobs` y mantener el preflight y la pausa desde administración.

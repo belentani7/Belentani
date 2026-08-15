@@ -1,0 +1,929 @@
+===== client/src/components/AIChatBox.tsx =====
+212-                    <button
+213-                      key={index}
+214-                      onClick={() => onSendMessage(prompt)}
+215-                      disabled={isLoading}
+216:                      className="rounded-lg border border-border bg-card px-4 py-2 text-sm transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
+217-                    >
+218-                      {prompt}
+219-                    </button>
+220-                  ))}
+--
+292-                  <div className="size-8 shrink-0 mt-1 rounded-full bg-primary/10 flex items-center justify-center">
+293-                    <Sparkles className="size-4 text-primary" />
+294-                  </div>
+295-                  <div className="rounded-lg bg-muted px-4 py-2.5">
+296:                    <Loader2 className="size-4 animate-spin text-muted-foreground" />
+297-                  </div>
+298-                </div>
+299-              )}
+300-            </div>
+--
+323-          disabled={!input.trim() || isLoading}
+324-          className="shrink-0 h-[38px] w-[38px]"
+325-        >
+326-          {isLoading ? (
+327:            <Loader2 className="size-4 animate-spin" />
+328-          ) : (
+329-            <Send className="size-4" />
+330-          )}
+331-        </Button>
+
+===== client/src/components/DashboardLayout.tsx =====
+70-          </div>
+71-          <Button
+72-            onClick={() => startLogin()}
+73-            size="lg"
+74:            className="w-full shadow-lg hover:shadow-xl transition-all"
+75-          >
+76-            Sign in
+77-          </Button>
+78-        </div>
+--
+157-          className="border-r-0"
+158-          disableTransition={isResizing}
+159-        >
+160-          <SidebarHeader className="h-16 justify-center">
+161:            <div className="flex items-center gap-3 px-2 transition-all w-full">
+162-              <button
+163-                onClick={toggleSidebar}
+164:                className="h-8 w-8 flex items-center justify-center hover:bg-accent rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shrink-0"
+165-                aria-label="Toggle navigation"
+166-              >
+167-                <PanelLeft className="h-4 w-4 text-muted-foreground" />
+168-              </button>
+--
+185-                    <SidebarMenuButton
+186-                      isActive={isActive}
+187-                      onClick={() => setLocation(item.path)}
+188-                      tooltip={item.label}
+189:                      className={`h-10 transition-all font-normal`}
+190-                    >
+191-                      <item.icon
+192-                        className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}
+193-                      />
+--
+201-
+202-          <SidebarFooter className="p-3">
+203-            <DropdownMenu>
+204-              <DropdownMenuTrigger asChild>
+205:                <button className="flex items-center gap-3 rounded-lg px-1 py-1 hover:bg-accent/50 transition-colors w-full text-left group-data-[collapsible=icon]:justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+206-                  <Avatar className="h-9 w-9 border shrink-0">
+207-                    <AvatarFallback className="text-xs font-medium">
+208-                      {user?.name?.charAt(0).toUpperCase()}
+209-                    </AvatarFallback>
+--
+230-            </DropdownMenu>
+231-          </SidebarFooter>
+232-        </Sidebar>
+233-        <div
+234:          className={`absolute top-0 right-0 w-1 h-full cursor-col-resize hover:bg-primary/20 transition-colors ${isCollapsed ? "hidden" : ""}`}
+235-          onMouseDown={() => {
+236-            if (isCollapsed) return;
+237-            setIsResizing(true);
+238-          }}
+
+===== client/src/components/ui/accordion.tsx =====
+32-    <AccordionPrimitive.Header className="flex">
+33-      <AccordionPrimitive.Trigger
+34-        data-slot="accordion-trigger"
+35-        className={cn(
+36:          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
+37-          className
+38-        )}
+39-        {...props}
+40-      >
+41-        {children}
+42:        <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+43-      </AccordionPrimitive.Trigger>
+44-    </AccordionPrimitive.Header>
+45-  );
+46-}
+--
+52-}: React.ComponentProps<typeof AccordionPrimitive.Content>) {
+53-  return (
+54-    <AccordionPrimitive.Content
+55-      data-slot="accordion-content"
+56:      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+57-      {...props}
+58-    >
+59-      <div className={cn("pt-0 pb-4", className)}>{children}</div>
+60-    </AccordionPrimitive.Content>
+
+===== client/src/components/ui/alert-dialog.tsx =====
+33-  return (
+34-    <AlertDialogPrimitive.Overlay
+35-      data-slot="alert-dialog-overlay"
+36-      className={cn(
+37:        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+38-        className
+39-      )}
+40-      {...props}
+41-    />
+--
+51-      <AlertDialogOverlay />
+52-      <AlertDialogPrimitive.Content
+53-        data-slot="alert-dialog-content"
+54-        className={cn(
+55:          "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
+56-          className
+57-        )}
+58-        {...props}
+59-      />
+
+===== client/src/components/ui/badge.tsx =====
+4-
+5-import { cn } from "@/lib/utils";
+6-
+7-const badgeVariants = cva(
+8:  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+9-  {
+10-    variants: {
+11-      variant: {
+12-        default:
+
+===== client/src/components/ui/breadcrumb.tsx =====
+42-
+43-  return (
+44-    <Comp
+45-      data-slot="breadcrumb-link"
+46:      className={cn("hover:text-foreground transition-colors", className)}
+47-      {...props}
+48-    />
+49-  );
+50-}
+
+===== client/src/components/ui/button.tsx =====
+4-
+5-import { cn } from "@/lib/utils";
+6-
+7-const buttonVariants = cva(
+8:  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+9-  {
+10-    variants: {
+11-      variant: {
+12-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+
+===== client/src/components/ui/checkbox.tsx =====
+11-  return (
+12-    <CheckboxPrimitive.Root
+13-      data-slot="checkbox"
+14-      className={cn(
+15:        "peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+16-        className
+17-      )}
+18-      {...props}
+19-    >
+20-      <CheckboxPrimitive.Indicator
+21-        data-slot="checkbox-indicator"
+22:        className="flex items-center justify-center text-current transition-none"
+23-      >
+24-        <CheckIcon className="size-3.5" />
+25-      </CheckboxPrimitive.Indicator>
+26-    </CheckboxPrimitive.Root>
+
+===== client/src/components/ui/context-menu.tsx =====
+63-    <ContextMenuPrimitive.SubTrigger
+64-      data-slot="context-menu-sub-trigger"
+65-      data-inset={inset}
+66-      className={cn(
+67:        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+68-        className
+69-      )}
+70-      {...props}
+71-    >
+--
+82-  return (
+83-    <ContextMenuPrimitive.SubContent
+84-      data-slot="context-menu-sub-content"
+85-      className={cn(
+86:        "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg",
+87-        className
+88-      )}
+89-      {...props}
+90-    />
+--
+99-    <ContextMenuPrimitive.Portal>
+100-      <ContextMenuPrimitive.Content
+101-        data-slot="context-menu-content"
+102-        className={cn(
+103:          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-context-menu-content-available-height) min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md",
+104-          className
+105-        )}
+106-        {...props}
+107-      />
+
+===== client/src/components/ui/dialog.tsx =====
+78-  return (
+79-    <DialogPrimitive.Overlay
+80-      data-slot="dialog-overlay"
+81-      className={cn(
+82:        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+83-        className
+84-      )}
+85-      {...props}
+86-    />
+--
+123-      <DialogOverlay />
+124-      <DialogPrimitive.Content
+125-        data-slot="dialog-content"
+126-        className={cn(
+127:          "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
+128-          className
+129-        )}
+130-        onEscapeKeyDown={handleEscapeKeyDown}
+131-        {...props}
+--
+133-        {children}
+134-        {showCloseButton && (
+135-          <DialogPrimitive.Close
+136-            data-slot="dialog-close"
+137:            className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+138-          >
+139-            <XIcon />
+140-            <span className="sr-only">Close</span>
+141-          </DialogPrimitive.Close>
+
+===== client/src/components/ui/drawer.tsx =====
+34-  return (
+35-    <DrawerPrimitive.Overlay
+36-      data-slot="drawer-overlay"
+37-      className={cn(
+38:        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+39-        className
+40-      )}
+41-      {...props}
+42-    />
+
+===== client/src/components/ui/dropdown-menu.tsx =====
+39-      <DropdownMenuPrimitive.Content
+40-        data-slot="dropdown-menu-content"
+41-        sideOffset={sideOffset}
+42-        className={cn(
+43:          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md",
+44-          className
+45-        )}
+46-        {...props}
+47-      />
+--
+208-    <DropdownMenuPrimitive.SubTrigger
+209-      data-slot="dropdown-menu-sub-trigger"
+210-      data-inset={inset}
+211-      className={cn(
+212:        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+213-        className
+214-      )}
+215-      {...props}
+216-    >
+--
+227-  return (
+228-    <DropdownMenuPrimitive.SubContent
+229-      data-slot="dropdown-menu-sub-content"
+230-      className={cn(
+231:        "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg",
+232-        className
+233-      )}
+234-      {...props}
+235-    />
+
+===== client/src/components/ui/hover-card.tsx =====
+29-        data-slot="hover-card-content"
+30-        align={align}
+31-        sideOffset={sideOffset}
+32-        className={cn(
+33:          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-64 origin-(--radix-hover-card-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden",
+34-          className
+35-        )}
+36-        {...props}
+37-      />
+
+===== client/src/components/ui/input-group.tsx =====
+11-    <div
+12-      data-slot="input-group"
+13-      role="group"
+14-      className={cn(
+15:        "group/input-group border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none",
+16-        "h-9 min-w-0 has-[>textarea]:h-auto",
+17-
+18-        // Variants based on alignment.
+19-        "has-[>[data-align=inline-start]]:[&>input]:pl-2",
+
+===== client/src/components/ui/input-otp.tsx =====
+48-    <div
+49-      data-slot="input-otp-slot"
+50-      data-active={isActive}
+51-      className={cn(
+52:        "data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[active=true]:aria-invalid:border-destructive dark:bg-input/30 border-input relative flex h-9 w-9 items-center justify-center border-y border-r text-sm shadow-xs transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md data-[active=true]:z-10 data-[active=true]:ring-[3px]",
+53-        className
+54-      )}
+55-      {...props}
+56-    >
+57-      {char}
+58-      {hasFakeCaret && (
+59-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+60:          <div className="animate-caret-blink bg-foreground h-4 w-px duration-1000" />
+61-        </div>
+62-      )}
+63-    </div>
+64-  );
+
+===== client/src/components/ui/input.tsx =====
+53-    <input
+54-      type={type}
+55-      data-slot="input"
+56-      className={cn(
+57:        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+58-        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+59-        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+60-        className
+61-      )}
+
+===== client/src/components/ui/item.tsx =====
+30-  );
+31-}
+32-
+33-const itemVariants = cva(
+34:  "group/item flex items-center border border-transparent text-sm rounded-md transition-colors [a]:hover:bg-accent/50 [a]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+35-  {
+36-    variants: {
+37-      variant: {
+38-        default: "bg-transparent",
+
+===== client/src/components/ui/menubar.tsx =====
+53-  return (
+54-    <MenubarPrimitive.Trigger
+55-      data-slot="menubar-trigger"
+56-      className={cn(
+57:        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex items-center rounded-sm px-2 py-1 text-sm font-medium outline-hidden select-none",
+58-        className
+59-      )}
+60-      {...props}
+61-    />
+--
+76-        align={align}
+77-        alignOffset={alignOffset}
+78-        sideOffset={sideOffset}
+79-        className={cn(
+80:          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[12rem] origin-(--radix-menubar-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-md",
+81-          className
+82-        )}
+83-        {...props}
+84-      />
+--
+226-    <MenubarPrimitive.SubTrigger
+227-      data-slot="menubar-sub-trigger"
+228-      data-inset={inset}
+229-      className={cn(
+230:        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[inset]:pl-8",
+231-        className
+232-      )}
+233-      {...props}
+234-    >
+--
+245-  return (
+246-    <MenubarPrimitive.SubContent
+247-      data-slot="menubar-sub-content"
+248-      className={cn(
+249:        "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] origin-(--radix-menubar-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg",
+250-        className
+251-      )}
+252-      {...props}
+253-    />
+
+===== client/src/components/ui/navigation-menu.tsx =====
+58-  );
+59-}
+60-
+61-const navigationMenuTriggerStyle = cva(
+62:  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:bg-accent data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+63-);
+64-
+65-function NavigationMenuTrigger({
+66-  className,
+--
+74-      {...props}
+75-    >
+76-      {children}{" "}
+77-      <ChevronDownIcon
+78:        className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+79-        aria-hidden="true"
+80-      />
+81-    </NavigationMenuPrimitive.Trigger>
+82-  );
+--
+89-  return (
+90-    <NavigationMenuPrimitive.Content
+91-      data-slot="navigation-menu-content"
+92-      className={cn(
+93:        "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
+94:        "group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-[state=open]:animate-in group-data-[viewport=false]/navigation-menu:data-[state=closed]:animate-out group-data-[viewport=false]/navigation-menu:data-[state=closed]:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:fade-in-0 group-data-[viewport=false]/navigation-menu:data-[state=closed]:fade-out-0 group-data-[viewport=false]/navigation-menu:top-full group-data-[viewport=false]/navigation-menu:mt-1.5 group-data-[viewport=false]/navigation-menu:overflow-hidden group-data-[viewport=false]/navigation-menu:rounded-md group-data-[viewport=false]/navigation-menu:border group-data-[viewport=false]/navigation-menu:shadow group-data-[viewport=false]/navigation-menu:duration-200 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+95-        className
+96-      )}
+97-      {...props}
+98-    />
+--
+111-    >
+112-      <NavigationMenuPrimitive.Viewport
+113-        data-slot="navigation-menu-viewport"
+114-        className={cn(
+115:          "origin-top-center bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border shadow md:w-[var(--radix-navigation-menu-viewport-width)]",
+116-          className
+117-        )}
+118-        {...props}
+119-      />
+--
+128-  return (
+129-    <NavigationMenuPrimitive.Link
+130-      data-slot="navigation-menu-link"
+131-      className={cn(
+132:        "data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4",
+133-        className
+134-      )}
+135-      {...props}
+136-    />
+--
+144-  return (
+145-    <NavigationMenuPrimitive.Indicator
+146-      data-slot="navigation-menu-indicator"
+147-      className={cn(
+148:        "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden",
+149-        className
+150-      )}
+151-      {...props}
+152-    >
+
+===== client/src/components/ui/popover.tsx =====
+27-        data-slot="popover-content"
+28-        align={align}
+29-        sideOffset={sideOffset}
+30-        className={cn(
+31:          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden",
+32-          className
+33-        )}
+34-        {...props}
+35-      />
+
+===== client/src/components/ui/progress.tsx =====
+18-      {...props}
+19-    >
+20-      <ProgressPrimitive.Indicator
+21-        data-slot="progress-indicator"
+22:        className="bg-primary h-full w-full flex-1 transition-all"
+23-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+24-      />
+25-    </ProgressPrimitive.Root>
+26-  );
+
+===== client/src/components/ui/radio-group.tsx =====
+24-  return (
+25-    <RadioGroupPrimitive.Item
+26-      data-slot="radio-group-item"
+27-      className={cn(
+28:        "border-input text-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+29-        className
+30-      )}
+31-      {...props}
+32-    >
+
+===== client/src/components/ui/scroll-area.tsx =====
+15-      {...props}
+16-    >
+17-      <ScrollAreaPrimitive.Viewport
+18-        data-slot="scroll-area-viewport"
+19:        className="focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1"
+20-      >
+21-        {children}
+22-      </ScrollAreaPrimitive.Viewport>
+23-      <ScrollBar />
+--
+35-    <ScrollAreaPrimitive.ScrollAreaScrollbar
+36-      data-slot="scroll-area-scrollbar"
+37-      orientation={orientation}
+38-      className={cn(
+39:        "flex touch-none p-px transition-colors select-none",
+40-        orientation === "vertical" &&
+41-          "h-full w-2.5 border-l border-l-transparent",
+42-        orientation === "horizontal" &&
+43-          "h-2.5 flex-col border-t border-t-transparent",
+
+===== client/src/components/ui/select.tsx =====
+34-    <SelectPrimitive.Trigger
+35-      data-slot="select-trigger"
+36-      data-size={size}
+37-      className={cn(
+38:        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+39-        className
+40-      )}
+41-      {...props}
+42-    >
+--
+59-    <SelectPrimitive.Portal>
+60-      <SelectPrimitive.Content
+61-        data-slot="select-content"
+62-        className={cn(
+63:          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md",
+64-          position === "popper" &&
+65-            "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+66-          className
+67-        )}
+
+===== client/src/components/ui/sheet.tsx =====
+35-  return (
+36-    <SheetPrimitive.Overlay
+37-      data-slot="sheet-overlay"
+38-      className={cn(
+39:        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+40-        className
+41-      )}
+42-      {...props}
+43-    />
+--
+57-      <SheetOverlay />
+58-      <SheetPrimitive.Content
+59-        data-slot="sheet-content"
+60-        className={cn(
+61:          "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-200",
+62-          side === "right" &&
+63:            "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
+64-          side === "left" &&
+65:            "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
+66-          side === "top" &&
+67:            "data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b",
+68-          side === "bottom" &&
+69:            "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
+70-          className
+71-        )}
+72-        {...props}
+73-      >
+74-        {children}
+75:        <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none">
+76-          <XIcon className="size-4" />
+77-          <span className="sr-only">Close</span>
+78-        </SheetPrimitive.Close>
+79-      </SheetPrimitive.Content>
+
+===== client/src/components/ui/sidebar.tsx =====
+220-        data-slot="sidebar-gap"
+221-        className={cn(
+222-          "relative w-(--sidebar-width) bg-transparent",
+223-          disableTransition
+224:            ? "transition-none"
+225:            : "transition-[width] duration-200 ease-linear",
+226-          "group-data-[collapsible=offcanvas]:w-0",
+227-          "group-data-[side=right]:rotate-180",
+228-          variant === "floating" || variant === "inset"
+229-            ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
+--
+234-        data-slot="sidebar-container"
+235-        className={cn(
+236-          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) md:flex",
+237-          disableTransition
+238:            ? "transition-none"
+239:            : "transition-[left,right,width] duration-200 ease-linear",
+240-          side === "left"
+241-            ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
+242-            : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
+243-          // Adjust the padding for floating and inset variants.
+--
+297-      tabIndex={-1}
+298-      onClick={toggleSidebar}
+299-      title="Toggle Sidebar"
+300-      className={cn(
+301:        "hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex",
+302-        "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
+303-        "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
+304-        "hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full",
+305-        "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
+--
+316-    <main
+317-      data-slot="sidebar-inset"
+318-      className={cn(
+319-        "bg-background relative flex w-full flex-1 flex-col",
+320:        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
+321-        className
+322-      )}
+323-      {...props}
+324-    />
+--
+411-    <Comp
+412-      data-slot="sidebar-group-label"
+413-      data-sidebar="group-label"
+414-      className={cn(
+415:        "text-sidebar-foreground/70 ring-sidebar-ring flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium outline-hidden transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+416-        "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
+417-        className
+418-      )}
+419-      {...props}
+--
+432-    <Comp
+433-      data-slot="sidebar-group-action"
+434-      data-sidebar="group-action"
+435-      className={cn(
+436:        "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+437-        // Increases the hit area of the button on mobile.
+438-        "after:absolute after:-inset-2 md:after:hidden",
+439-        "group-data-[collapsible=icon]:hidden",
+440-        className
+--
+480-  );
+481-}
+482-
+483-const sidebarMenuButtonVariants = cva(
+484:  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+485-  {
+486-    variants: {
+487-      variant: {
+488-        default: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+489-        outline:
+490:          "bg-background shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))]",
+491-      },
+492-      size: {
+493-        default: "h-8 text-sm",
+494-        sm: "h-7 text-xs",
+--
+567-    <Comp
+568-      data-slot="sidebar-menu-action"
+569-      data-sidebar="menu-action"
+570-      className={cn(
+571:        "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+572-        // Increases the hit area of the button on mobile.
+573-        "after:absolute after:-inset-2 md:after:hidden",
+574-        "peer-data-[size=sm]/menu-button:top-1",
+575-        "peer-data-[size=default]/menu-button:top-1.5",
+576-        "peer-data-[size=lg]/menu-button:top-2.5",
+577-        "group-data-[collapsible=icon]:hidden",
+578-        showOnHover &&
+579:          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0",
+580-        className
+581-      )}
+582-      {...props}
+583-    />
+
+===== client/src/components/ui/skeleton.tsx =====
+3-function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
+4-  return (
+5-    <div
+6-      data-slot="skeleton"
+7:      className={cn("bg-accent animate-pulse rounded-md", className)}
+8-      {...props}
+9-    />
+10-  );
+11-}
+
+===== client/src/components/ui/slider.tsx =====
+50-      {Array.from({ length: _values.length }, (_, index) => (
+51-        <SliderPrimitive.Thumb
+52-          data-slot="slider-thumb"
+53-          key={index}
+54:          className="border-primary ring-ring/50 block size-4 shrink-0 rounded-full border bg-white shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+55-        />
+56-      ))}
+57-    </SliderPrimitive.Root>
+58-  );
+
+===== client/src/components/ui/spinner.tsx =====
+6-  return (
+7-    <Loader2Icon
+8-      role="status"
+9-      aria-label="Loading"
+10:      className={cn("size-4 animate-spin", className)}
+11-      {...props}
+12-    />
+13-  );
+14-}
+
+===== client/src/components/ui/switch.tsx =====
+10-  return (
+11-    <SwitchPrimitive.Root
+12-      data-slot="switch"
+13-      className={cn(
+14:        "peer data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+15-        className
+16-      )}
+17-      {...props}
+18-    >
+19-      <SwitchPrimitive.Thumb
+20-        data-slot="switch-thumb"
+21-        className={cn(
+22:          "bg-background dark:data-[state=unchecked]:bg-foreground dark:data-[state=checked]:bg-primary-foreground pointer-events-none block size-4 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0"
+23-        )}
+24-      />
+25-    </SwitchPrimitive.Root>
+26-  );
+
+===== client/src/components/ui/table.tsx =====
+54-  return (
+55-    <tr
+56-      data-slot="table-row"
+57-      className={cn(
+58:        "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors",
+59-        className
+60-      )}
+61-      {...props}
+62-    />
+
+===== client/src/components/ui/tabs.tsx =====
+39-  return (
+40-    <TabsPrimitive.Trigger
+41-      data-slot="tabs-trigger"
+42-      className={cn(
+43:        "data-[state=active]:bg-background dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+44-        className
+45-      )}
+46-      {...props}
+47-    />
+
+===== client/src/components/ui/textarea.tsx =====
+52-  return (
+53-    <textarea
+54-      data-slot="textarea"
+55-      className={cn(
+56:        "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+57-        className
+58-      )}
+59-      onCompositionStart={handleCompositionStart}
+60-      onCompositionEnd={handleCompositionEnd}
+
+===== client/src/components/ui/toggle.tsx =====
+4-
+5-import { cn } from "@/lib/utils";
+6-
+7-const toggleVariants = cva(
+8:  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium hover:bg-muted hover:text-muted-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-[color,box-shadow] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap",
+9-  {
+10-    variants: {
+11-      variant: {
+12-        default: "bg-transparent",
+
+===== client/src/components/ui/tooltip.tsx =====
+43-      <TooltipPrimitive.Content
+44-        data-slot="tooltip-content"
+45-        sideOffset={sideOffset}
+46-        className={cn(
+47:          "bg-foreground text-background animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance",
+48-          className
+49-        )}
+50-        {...props}
+51-      >
+
+===== client/src/index.css =====
+1-@import "tailwindcss";
+2:@import "tw-animate-css";
+3-
+4-@custom-variant dark (&:is(.dark *));
+5-
+6-@theme inline {
+--
+133-  }
+134-}
+135-
+136-/* Motion budget: explicit cap for interactive transitions and entry/exit animations. */
+137:@media (prefers-reduced-motion: no-preference) {
+138:  *[class*="transition-"] {
+139:    transition-duration: 200ms !important;
+140-  }
+141-
+142:  *[class*="animate-"] {
+143-    animation-duration: 200ms !important;
+144-  }
+145-}
+146-
+147:@media (prefers-reduced-motion: reduce) {
+148-  *,
+149-  *::before,
+150-  *::after {
+151-    animation-duration: 0.01ms !important;
+152-    animation-iteration-count: 1 !important;
+153:    transition-duration: 0.01ms !important;
+154-    scroll-behavior: auto !important;
+155-  }
+156-}
+157-
+--
+230-    transform: scale(0.97);
+231-  }
+232-}
+233-
+234:@media (prefers-reduced-motion: reduce) {
+235-  .brand-interactive,
+236-  .brand-interactive:active {
+237-    transform: none;
+238-    transition: none;
+
+===== client/src/pages/Catalog.tsx =====
+123-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+124-            {Array.from({ length: 6 }).map((_, index) => (
+125-              <div
+126-                key={index}
+127:                className="h-56 animate-pulse rounded-2xl bg-muted"
+128-                aria-label="Cargando recurso"
+129-              />
+130-            ))}
+131-          </div>
+--
+164-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+165-            {items.map(item => (
+166-              <Card
+167-                key={item.id}
+168:                className="border-border/60 transition-all duration-200 hover:-translate-y-1 hover:border-primary/40"
+169-              >
+170-                <CardHeader>
+171-                  <Badge variant="secondary" className="w-fit rounded-full">
+172-                    {item.category}
+--
+223-                onClick={() => setPage(value => value + 1)}
+224-                aria-label="Página siguiente"
+225-              >
+226-                {catalog.isFetching ? (
+227:                  <Loader2 className="size-4 animate-spin" />
+228-                ) : (
+229-                  <ArrowRight className="size-4" />
+230-                )}
+231-              </Button>
+
+===== client/src/pages/Home.tsx =====
+59-            href="#top"
+60-            className="group flex items-center gap-3"
+61-            aria-label="Belentani Studio, inicio"
+62-          >
+63:            <span className="grid size-10 place-items-center rounded-full bg-foreground text-background transition-transform duration-200 group-hover:rotate-6">
+64-              B
+65-            </span>
+66-            <span className="text-sm font-semibold tracking-[0.28em] uppercase">
+67-              Belentani Studio
+--
+69-          </a>
+70-          <div className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
+71-            <a
+72-              href="#catalogo"
+73:              className="transition-colors hover:text-foreground"
+74-            >
+75-              Catálogo
+76-            </a>
+77-            <a
+78-              href="#recursos"
+79:              className="transition-colors hover:text-foreground"
+80-            >
+81-              Recursos
+82-            </a>
+83-            <a
+84-              href="#evolucion"
+85:              className="transition-colors hover:text-foreground"
+86-            >
+87-              Evolución
+88-            </a>
+89-          </div>
+--
+190-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+191-          {featured.map((item, index) => (
+192-            <Card
+193-              key={item.title}
+194:              className="group min-h-64 overflow-hidden border-border/60 bg-card transition-all duration-200 hover:-translate-y-1 hover:border-primary/40"
+195-            >
+196-              <CardHeader>
+197-                <div className="flex items-center justify-between text-xs uppercase tracking-[.2em] text-muted-foreground">
+198-                  <span>{item.category}</span>
+--
+203-                </CardTitle>
+204-              </CardHeader>
+205-              <CardContent className="flex items-end justify-between text-sm leading-6 text-muted-foreground">
+206-                {item.text}
+207:                <ArrowUpRight className="size-4 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+208-              </CardContent>
+209-            </Card>
+210-          ))}
+211-        </div>
+
+===== client/src/pages/NotFound.tsx =====
+15-      <Card className="w-full max-w-lg mx-4 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+16-        <CardContent className="pt-8 pb-8 text-center">
+17-          <div className="flex justify-center mb-6">
+18-            <div className="relative">
+19:              <div className="absolute inset-0 bg-red-100 rounded-full animate-pulse" />
+20-              <AlertCircle className="relative h-16 w-16 text-red-500" />
+21-            </div>
+22-          </div>
+23-
+--
+38-            className="flex flex-col sm:flex-row gap-3 justify-center"
+39-          >
+40-            <Button
+41-              onClick={handleGoHome}
+42:              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+43-            >
+44-              <Home className="w-4 h-4 mr-2" />
+45-              Go Home
+46-            </Button>
+
+===== client/src/pages/Resources.tsx =====
+96-          para respetar el ritmo de cada dispositivo.
+97-        </p>
+98-        {isLoading && (
+99-          <div className="mt-12 grid gap-5 md:grid-cols-2">
+100:            <div className="h-64 animate-pulse rounded-2xl bg-muted" />
+101:            <div className="h-64 animate-pulse rounded-2xl bg-muted" />
+102-          </div>
+103-        )}
+104-        {isError && (
+105-          <Card className="mt-12">
+

@@ -10,8 +10,12 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { sdk } from "./sdk";
 import { getDb } from "../db";
-import { automationJobs, mediaResources } from "../../drizzle/schema";
-import { eq } from "drizzle-orm";
+import {
+  automationJobs,
+  catalogItems,
+  mediaResources,
+} from "../../drizzle/schema";
+import { and, count, eq } from "drizzle-orm";
 import { storagePut } from "../storage";
 import { getMetrics, recordScheduled } from "../observability";
 
@@ -58,6 +62,33 @@ async function scheduledCatalogRefresh(
       return res
         .status(200)
         .json({ ok: true, skipped: job ? "paused" : "orphan" });
+    const [totalRows, publishedRows, pendingRows, quarantinedRows] =
+      await Promise.all([
+        db.select({ value: count() }).from(catalogItems),
+        db
+          .select({ value: count() })
+          .from(catalogItems)
+          .where(
+            and(
+              eq(catalogItems.status, "published"),
+              eq(catalogItems.reviewStatus, "approved")
+            )
+          ),
+        db
+          .select({ value: count() })
+          .from(catalogItems)
+          .where(eq(catalogItems.reviewStatus, "pending_review")),
+        db
+          .select({ value: count() })
+          .from(catalogItems)
+          .where(eq(catalogItems.reviewStatus, "quarantined")),
+      ]);
+    const snapshot = {
+      total: totalRows[0]?.value ?? 0,
+      published: publishedRows[0]?.value ?? 0,
+      pendingReview: pendingRows[0]?.value ?? 0,
+      quarantined: quarantinedRows[0]?.value ?? 0,
+    };
     await db
       .update(automationJobs)
       .set({ lastRunAt: new Date(), status: "active" })
@@ -66,9 +97,10 @@ async function scheduledCatalogRefresh(
     logEvent("scheduled_job_completed", {
       jobId: job.id,
       taskUid: user.taskUid,
+      snapshot,
       durationMs: Date.now() - startedAt,
     });
-    return res.json({ ok: true, jobId: job.id });
+    return res.json({ ok: true, jobId: job.id, snapshot });
   } catch (error) {
     const payload = {
       error: error instanceof Error ? error.message : "unknown",

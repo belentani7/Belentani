@@ -5,7 +5,7 @@
 - [x] Implementar landing page firmada por Pedro Belentani con Belentani Studio como marca principal.
 - [x] Incorporar belentani.eu, noiacore.com, @belentani\_ y belentani7studio@proton.me sin inventar datos adicionales.
 - [x] Definir sistema visual basado en psicología de la percepción, principios Gestalt, jerarquía visual, contraste y branding estratégico.
-- [ ] Definir tokens de color, tipografía, espaciado, radios, sombras, iconografía y motion principles.
+- [x] Definir tokens de color, tipografía, espaciado, radios, sombras, iconografía y motion principles.
 - [x] Crear arquitectura pública de contenidos, navegación y llamadas a la acción.
 
 ## Catálogo y recursos
@@ -59,7 +59,7 @@
 
 - [ ] Cumplir WCAG 2.1 AA en estructura, teclado, foco, contraste, nombres accesibles y formularios.
 - [ ] Implementar diseño mobile-first y responsive en los tamaños relevantes.
-- [ ] Respetar prefers-reduced-motion y mantener animaciones breves, reversibles y no esenciales.
+- [x] Respetar prefers-reduced-motion y mantener animaciones breves, reversibles y no esenciales.
 - [ ] Aplicar validación de entrada/salida, mínimo privilegio, protección CSRF/XSS/SQLi, rate limiting y gestión segura de secretos.
 - [x] Añadir logs estructurados sin datos personales sensibles, health checks y métricas operativas.
 - [ ] Ejecutar typecheck, lint, build, tests unitarios, pruebas de integración y revisión visual.
@@ -77,11 +77,30 @@
 - [x] Implementar logging estructurado, health check y métricas operativas.
 - [ ] Ejecutar y registrar lint y pruebas de integración.
 
+## Brechas de design system pendientes
+
+- [x] Leer directamente cada archivo detectado por el inventario de motion y registrar cada coincidencia exacta.
+- [x] Añadir a la matriz la clase exacta, duración verificable, reversibilidad, esencialidad y comportamiento reduced-motion por coincidencia.
+- [x] Corregir o justificar cada elemento cuya duración o degradación no esté demostrada.
+
+## Brechas de design system pendientes
+
+- [x] Crear matriz de auditoría de motion por archivo/componente detectado con tipo, duración, reversibilidad, función, reducción de movimiento y estado.
+- [x] Revisar individualmente cada coincidencia `animate-*`, `transition-*`, overlay, spinner y skeleton, documentando evidencia.
+- [x] Corregir o justificar formalmente cualquier animación sin duración verificable menor de 300 ms o sin degradación segura.
+
+- [x] Auditar exhaustivamente todas las animaciones y transiciones en páginas y componentes UI reutilizables.
+- [x] Registrar inventario por archivo/componente y estado de cumplimiento en la documentación.
+
+- [x] Documentar tokens verificables de tipografía, sombras e iconografía en `client/src/index.css`.
+- [x] Ampliar `docs/design-system.md` con tablas de tokens vinculadas a archivos reales.
+- [x] Auditar las animaciones de las superficies principales y documentar duración, reversibilidad y reducción de movimiento.
+
 ## Brechas técnicas pendientes de verificación
 
-- [ ] Documentar un design system verificable con tokens de tipografía, espaciado, sombras, iconografía y motion principles.
+- [x] Documentar un design system verificable con tokens de tipografía, espaciado, sombras, iconografía y motion principles.
 - [ ] Separar prompts, configuración y datos sensibles en módulos dedicados y documentar la frontera entre datos públicos, privados y secretos.
-- [ ] Auditar todas las animaciones para asegurar duraciones breves, reversibilidad y carácter no esencial, además de `prefers-reduced-motion`.
+- [x] Auditar todas las animaciones para asegurar duraciones breves, reversibilidad y carácter no esencial, además de `prefers-reduced-motion`.
 - [ ] Implementar métricas operativas reales de latencia, estado de jobs y contadores, y unificar el logging estructurado.
 - [x] Ampliar `docs/architecture.md` con decisiones, supuestos y procedimientos operativos.
 
@@ -115,7 +134,7 @@
 - [ ] Implementar un reproductor multimedia más avanzado o documentar explícitamente el alcance del reproductor nativo.
 - [ ] Completar un modelo de autorización de lectura multimedia, no solo de subida/publicación.
 - [ ] Mostrar explícitamente `reviewStatus` en la cola editorial del catálogo.
-- [ ] Añadir readiness/deploy guard verificable antes de activar automatizaciones productivas.
+- [x] Añadir readiness/deploy guard verificable antes de activar automatizaciones productivas.
 
 ## Brecha de idempotencia pendiente
 

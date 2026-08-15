@@ -4,6 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
 import { invokeLLM } from "./_core/llm";
+import { CATALOG_REFRESH_CALLBACK, getAutomationReadiness } from "./automation";
 import {
   automationJobs,
   catalogItems,
@@ -511,14 +512,16 @@ export const appRouter = router({
         )[0];
         if (!job) return { ready: false, reason: "job-not-found" as const };
         return {
-          ready:
-            input.callbackPath === "/api/scheduled/catalog-refresh" &&
-            Boolean(job.scheduleCronTaskUid),
-          reason:
-            input.callbackPath === "/api/scheduled/catalog-refresh" &&
-            job.scheduleCronTaskUid
-              ? ("callback-and-task-uid-present" as const)
-              : ("callback-or-task-uid-missing" as const),
+          ready: getAutomationReadiness({
+            callbackPath: input.callbackPath,
+            hasTaskUid: Boolean(job.scheduleCronTaskUid),
+            environment: process.env.NODE_ENV,
+          }).ready,
+          reason: getAutomationReadiness({
+            callbackPath: input.callbackPath,
+            hasTaskUid: Boolean(job.scheduleCronTaskUid),
+            environment: process.env.NODE_ENV,
+          }).reason,
         };
       }),
     automationSetStatus: adminProcedure
@@ -550,12 +553,14 @@ export const appRouter = router({
           });
         if (
           input.status === "active" &&
-          (input.callbackPath !== "/api/scheduled/catalog-refresh" ||
-            !job.scheduleCronTaskUid)
+          (input.callbackPath !== CATALOG_REFRESH_CALLBACK ||
+            !job.scheduleCronTaskUid ||
+            process.env.NODE_ENV !== "production")
         )
           throw new TRPCError({
             code: "PRECONDITION_FAILED",
-            message: "Preflight required before activation",
+            message:
+              "Preflight required: deploy the callback to production and verify its task UID before activation",
           });
         await db
           .update(automationJobs)
