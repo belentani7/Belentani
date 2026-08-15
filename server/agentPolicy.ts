@@ -7,3 +7,57 @@ export const AGENT_LIMITS = {
   maxHistoryMessages: 12,
   requireHumanReviewForExternalActions: true,
 } as const;
+
+const SENSITIVE_TERMS = [
+  "legal",
+  "jurídic",
+  "medic",
+  "salud",
+  "financ",
+  "pago",
+  "comprar",
+  "contrato",
+  "contraseña",
+  "credencial",
+  "publicar",
+  "enviar",
+  "correo",
+  "email",
+  "contactar",
+  "extern",
+] as const;
+
+export function requiresHumanReview(message: string, category: string) {
+  const normalized = `${category} ${message}`.toLocaleLowerCase("es-ES");
+  return SENSITIVE_TERMS.some(term => normalized.includes(term));
+}
+
+export type AgentResponse = {
+  category: string;
+  answer: string;
+  needsHumanReview: boolean;
+};
+
+export function parseAgentResponse(content: unknown): AgentResponse {
+  const parsed = JSON.parse(typeof content === "string" ? content : "");
+  if (
+    !parsed ||
+    typeof parsed.category !== "string" ||
+    typeof parsed.answer !== "string" ||
+    parsed.answer.trim().length === 0 ||
+    typeof parsed.needsHumanReview !== "boolean"
+  ) {
+    throw new Error("invalid-agent-response");
+  }
+  return parsed as AgentResponse;
+}
+
+export function enforceAgentReview(
+  message: string,
+  category: string,
+  modelRequestedReview: boolean
+) {
+  return AGENT_LIMITS.requireHumanReviewForExternalActions
+    ? modelRequestedReview || requiresHumanReview(message, category)
+    : modelRequestedReview;
+}

@@ -1,0 +1,14 @@
+# Registro de validación reproducible
+
+La validación del estado actual se ejecutó sobre el proyecto local con los comandos siguientes:
+
+| Capa                         | Comando                                                                                                                        | Resultado                                                                                                                                       |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Formato/lint acotado         | `pnpm lint`                                                                                                                    | Correcto; todos los archivos mantenidos usan el formato configurado.                                                                            |
+| TypeScript                   | `pnpm check`                                                                                                                   | Correcto; sin errores de tipos.                                                                                                                 |
+| Pruebas unitarias y contrato | `pnpm test`                                                                                                                    | Correcto; 10 archivos y 18 pruebas aprobadas.                                                                                                   |
+| Integración HTTP             | `pnpm test:integration`                                                                                                        | Correcto; health, `/api/metrics`, procedimiento tRPC real `/api/trpc/metrics.public` y HTML SEO por ruta respondieron desde el servidor activo. |
+| Build                        | `pnpm build`                                                                                                                   | Correcto; cliente y servidor compilados. Vite mantiene una advertencia no bloqueante sobre el tamaño del chunk principal.                       |
+| Revisión visual              | Capturas de `/`, `/catalogo`, `/agente`, `/recursos`, `/transparencia`, `/changelog`, `/admin`, 404 y diálogo de autenticación | Correcta; se conservaron textos, estructura, controles y flujos, y se verificó la piel oscura fría.                                             |
+
+La prueba de integración es no destructiva: consulta únicamente `/api/health`, `/api/metrics`, el procedimiento tRPC público `/api/trpc/metrics.public` y una ruta pública. No crea registros ni modifica la base de datos.

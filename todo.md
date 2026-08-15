@@ -22,8 +22,8 @@
 - [x] Definir personalidad, tono, límites, instrucciones de sistema y política de respuestas.
 - [x] Implementar respuestas contextuales, clasificación de consultas y generación de contenido de marca.
 - [x] Implementar fallback seguro cuando el LLM no esté disponible, falle o produzca una salida no válida.
-- [ ] Añadir límites de uso, validación de entradas y salidas, registro sin datos sensibles y revisión humana para acciones sensibles.
-- [ ] Cubrir el agente con tests de contrato, seguridad, regresión y casos adversariales básicos.
+- [x] Añadir límites de uso, validación de entradas y salidas, registro sin datos sensibles y revisión humana para acciones sensibles.
+- [x] Cubrir el agente con tests de contrato, seguridad, regresión y casos adversariales básicos.
 
 ## Automatizaciones y correo
 
@@ -39,7 +39,7 @@
 ## Administración y datos
 
 - [ ] Crear panel privado de administración para herramientas, recursos, automatizaciones, correo y contenido.
-- [ ] Implementar control de roles y autorización en backend, no solo ocultación visual.
+- [x] Implementar control de roles y autorización en backend, no solo ocultación visual.
 - [ ] Crear auditoría de acciones administrativas con actor, acción, entidad, timestamp UTC y resultado.
 - [x] Aplicar esquema-first para las tablas y migraciones, verificando cada cambio en la base de datos.
 - [ ] Mantener separación entre datos públicos, privados, secretos, prompts y configuración.
@@ -49,8 +49,8 @@
 - [x] Implementar metadatos dinámicos, títulos, descripciones, Open Graph y Twitter Cards.
 - [x] Implementar sitemap.xml, robots.txt, URLs canónicas y datos estructurados Schema.org.
 - [ ] Optimizar Core Web Vitals, carga inicial, imágenes, multimedia, fuentes y JavaScript.
-- [ ] Implementar analítica con privacidad y eventos de negocio documentados.
-- [ ] Crear panel de métricas de rendimiento y crecimiento.
+- [x] Implementar analítica con privacidad y eventos de negocio documentados.
+- [x] Crear panel de métricas de rendimiento y crecimiento.
 - [x] Crear changelog público de evolución de la plataforma.
 - [ ] Registrar mejoras, decisiones, experimentos, resultados y rollback.
 - [x] Preparar arquitectura de contenido para posicionamiento global y distribución multicanal sin prácticas engañosas.
@@ -62,7 +62,7 @@
 - [x] Respetar prefers-reduced-motion y mantener animaciones breves, reversibles y no esenciales.
 - [ ] Aplicar validación de entrada/salida, mínimo privilegio, protección CSRF/XSS/SQLi, rate limiting y gestión segura de secretos.
 - [x] Añadir logs estructurados sin datos personales sensibles, health checks y métricas operativas.
-- [ ] Ejecutar typecheck, lint, build, tests unitarios, pruebas de integración y revisión visual.
+- [x] Ejecutar typecheck, lint, build, tests unitarios, pruebas de integración y revisión visual.
 - [ ] Verificar estados de error, fallos de red, reintentos, idempotencia y recuperación.
 - [x] Documentar arquitectura, decisiones, riesgos, supuestos, límites y procedimientos de operación.
 
@@ -71,11 +71,11 @@
 - [x] Conectar `/catalogo` a `trpc.catalog.list`, eliminar datos hardcodeados, implementar filtros, etiquetas, ordenación y paginación real basada en base de datos.
 - [x] Añadir estados completos de catálogo: loading con skeleton, error con retry, empty y success verificable.
 - [ ] Construir CRUD real en `/admin` para catálogo, recursos multimedia, plantillas de correo, automatizaciones y contenido.
-- [ ] Aplicar autorización backend a todas las consultas y mutaciones administrativas relevantes.
+- [x] Aplicar autorización backend a todas las consultas y mutaciones administrativas relevantes.
 - [x] Implementar SEO por ruta con metadatos dinámicos y Twitter Cards explícitas.
 - [x] Añadir JSON-LD Schema.org verificable en las páginas públicas.
 - [x] Implementar logging estructurado, health check y métricas operativas.
-- [ ] Ejecutar y registrar lint y pruebas de integración.
+- [x] Ejecutar y registrar lint y pruebas de integración.
 
 ## Brechas de design system pendientes
 
@@ -217,3 +217,18 @@
 
 - [x] Guardar un diff verificable de todos los archivos visuales tocados, demostrando cambios limitados a estilos, tokens y colores.
 - [x] Documentar separadamente los cambios técnicos previos de `App.tsx`, SEO server-side y carga diferida.
+
+## Validación y métricas pendientes
+
+- [x] Ampliar el panel administrativo para combinar crecimiento y rendimiento: embudo, requests, latencia media del agente, fallbacks y estado de jobs.
+- [x] Añadir pruebas de integración reproducibles para flujos tRPC/API reales y ejecutarlas en la validación final.
+- [x] Registrar en documentación la evidencia separada de lint, typecheck, unitarias, integración, build y revisión visual.
+
+## Integración tRPC pendiente
+
+- [x] Añadir una prueba HTTP reproducible que invoque un procedimiento real sobre `/api/trpc` y documentar su cobertura end-to-end.
+
+## Seguridad avanzada del agente pendiente
+
+- [x] Aplicar una política server-side que fuerce revisión humana para categorías o acciones sensibles antes de responder.
+- [x] Ampliar pruebas del agente con respuesta estructurada válida, fallback ante error o salida inválida y garantía de no registrar contenido sensible.

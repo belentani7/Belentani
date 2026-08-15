@@ -15,7 +15,6 @@ Los eventos se envían al proveedor analítico configurado por el proyecto media
 
 El proveedor de analítica, consentimiento, retención y exportación deben documentarse antes de activar medición en producción. Las decisiones de negocio deben utilizar datos agregados; no se debe intentar reconstruir perfiles individuales.
 
-
 ## Flujo backend verificable
 
 Cada superficie pública llama a `trackBusinessEvent`. El helper envía el nombre de evento permitido al procedimiento tRPC `metrics.recordBusinessEvent`, sin transmitir el texto de la interacción ni propiedades sensibles. El backend valida el nombre contra una allowlist, inserta únicamente el nombre y timestamp UTC en `business_events` y actualiza un contador en memoria para observabilidad inmediata. La consulta `metrics.public` agrega los registros persistentes y usa el estado en memoria solo como fallback si la base de datos no está disponible; el resultado se muestra en la tarjeta **Embudo público agregado** de `/admin` para usuarios autenticados y autorizados.

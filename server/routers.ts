@@ -27,7 +27,12 @@ import {
   sql,
 } from "drizzle-orm";
 import { z } from "zod";
-import { AGENT_LIMITS, AGENT_SYSTEM_PROMPT } from "./agentPolicy";
+import {
+  AGENT_LIMITS,
+  AGENT_SYSTEM_PROMPT,
+  enforceAgentReview,
+  parseAgentResponse,
+} from "./agentPolicy";
 import { getMetrics, recordAgent, recordBusinessEvent } from "./observability";
 import {
   fetchAllowedSource,
@@ -640,12 +645,14 @@ export const appRouter = router({
             },
           });
           const content = response.choices?.[0]?.message?.content;
-          const parsed = JSON.parse(
-            typeof content === "string" ? content : ""
-          ) as { category: string; answer: string; needsHumanReview: boolean };
-          if (!parsed.answer) throw new Error("empty-agent-response");
+          const parsed = parseAgentResponse(content);
+          const needsHumanReview = enforceAgentReview(
+            input.message,
+            parsed.category,
+            parsed.needsHumanReview
+          );
           recordAgent(Date.now() - startedAt, false);
-          return { ...parsed, fallback: false };
+          return { ...parsed, needsHumanReview, fallback: false };
         } catch (error) {
           console.warn(
             "[Agent] Safe fallback activated",

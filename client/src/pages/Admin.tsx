@@ -1,10 +1,13 @@
 import { useState } from "react";
 import {
+  Activity,
   Archive,
   ArrowLeft,
   Pause,
   Play,
   Check,
+  CircleAlert,
+  Clock3,
   Database,
   FileText,
   LockKeyhole,
@@ -13,6 +16,7 @@ import {
   Save,
   Settings2,
   Upload,
+  Zap,
   Workflow,
 } from "lucide-react";
 import { Link } from "wouter";
@@ -182,6 +186,38 @@ export default function Admin() {
                 Cargando métricas agregadas...
               </p>
             )}
+          </CardContent>
+        </Card>
+        <Card className="mt-8 border-border/60">
+          <CardHeader>
+            <CardTitle className="text-xl">Rendimiento y operación</CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <Metric
+              icon={Activity}
+              label="Requests"
+              value={businessMetrics.data?.requests ?? "—"}
+            />
+            <Metric
+              icon={Clock3}
+              label="Latencia media agente"
+              value={`${businessMetrics.data?.averageAgentLatencyMs ?? "—"} ms`}
+            />
+            <Metric
+              icon={CircleAlert}
+              label="Fallbacks agente"
+              value={businessMetrics.data?.agentFallbacks ?? "—"}
+            />
+            <Metric
+              icon={Zap}
+              label="Jobs correctos"
+              value={businessMetrics.data?.scheduledSuccess ?? "—"}
+            />
+            <Metric
+              icon={CircleAlert}
+              label="Jobs fallidos"
+              value={businessMetrics.data?.scheduledFailures ?? "—"}
+            />
           </CardContent>
         </Card>
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
