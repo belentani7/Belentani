@@ -64,6 +64,20 @@
       "when": 1786781254980,
       "tag": "0008_serious_bullseye",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1786781472234,
+      "tag": "0009_curvy_warhawk",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1786781850838,
+      "tag": "0010_moaning_machine_man",
+      "breakpoints": true
     }
   ]
 }

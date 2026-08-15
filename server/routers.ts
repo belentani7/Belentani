@@ -4,9 +4,14 @@ import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
 import { invokeLLM } from "./_core/llm";
-import { CATALOG_REFRESH_CALLBACK, getAutomationReadiness } from "./automation";
+import {
+  CATALOG_REFRESH_CALLBACK,
+  GROWTH_REPORT_CALLBACK,
+  getAutomationReadiness,
+} from "./automation";
 import {
   automationJobs,
+  automationRuns,
   businessEvents,
   catalogItems,
   changelogEntries,
@@ -569,7 +574,9 @@ export const appRouter = router({
           });
         if (
           input.status === "active" &&
-          (input.callbackPath !== CATALOG_REFRESH_CALLBACK ||
+          (![CATALOG_REFRESH_CALLBACK, GROWTH_REPORT_CALLBACK].includes(
+            input.callbackPath
+          ) ||
             !job.scheduleCronTaskUid ||
             process.env.NODE_ENV !== "production")
         )
@@ -591,6 +598,15 @@ export const appRouter = router({
         .select()
         .from(automationJobs)
         .orderBy(desc(automationJobs.updatedAt));
+    }),
+    automationRuns: adminProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return [];
+      return db
+        .select()
+        .from(automationRuns)
+        .orderBy(desc(automationRuns.startedAt))
+        .limit(100);
     }),
   }),
   agent: router({

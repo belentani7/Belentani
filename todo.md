@@ -27,9 +27,9 @@
 
 ## Automatizaciones y correo
 
-- [ ] Diseñar automatizaciones recurrentes mediante jobs gestionables y observables.
+- [x] Diseñar automatizaciones recurrentes mediante jobs gestionables y observables.
 - [ ] Implementar actualización del catálogo de herramientas con idempotencia, validación y cuarentena de cambios dudosos.
-- [ ] Implementar informes periódicos de crecimiento y rendimiento.
+- [x] Implementar informes periódicos de crecimiento y rendimiento.
 - [x] Diseñar respuestas automáticas de correo con plantillas editables desde administración.
 - [ ] Implementar clasificación de correo entrante y borradores automáticos.
 - [x] Requerir revisión humana antes de enviar respuestas externas salvo reglas explícitas y reversibles.
@@ -101,7 +101,7 @@
 - [x] Documentar un design system verificable con tokens de tipografía, espaciado, sombras, iconografía y motion principles.
 - [x] Separar prompts, configuración y datos sensibles en módulos dedicados y documentar la frontera entre datos públicos, privados y secretos.
 - [x] Auditar todas las animaciones para asegurar duraciones breves, reversibilidad y carácter no esencial, además de `prefers-reduced-motion`.
-- [ ] Implementar métricas operativas reales de latencia, estado de jobs y contadores, y unificar el logging estructurado.
+- [x] Implementar métricas operativas reales de latencia, estado de jobs y contadores, y unificar el logging estructurado.
 - [x] Ampliar `docs/architecture.md` con decisiones, supuestos y procedimientos operativos.
 
 ## Brechas de la revisión más reciente
@@ -179,7 +179,7 @@
 
 - [x] Implementar analítica con privacidad para eventos de negocio del embudo y documentar sus métricas.
 - [x] Añadir disclosures visibles y campos editoriales para relaciones comerciales por recurso o recomendación.
-- [ ] Implementar una automatización real derivada del estudio, con evidencia, límites, pausa y validación.
+- [x] Implementar una automatización real derivada del estudio, con evidencia, límites, pausa y validación.
 
 ## Nuevo estudio estratégico: recursos, persistencia, adquisición y monetización
 
@@ -253,3 +253,15 @@
 
 - [x] Crear historial persistente de cambios de drafts con actor, acción, estado previo/nuevo, timestamp UTC y cambios de contenido.
 - [x] Mostrar el historial de auditoría de drafts en el panel administrativo junto al archivado visible.
+
+## Observabilidad y automatización estratégica pendientes
+
+- [x] Crear un módulo compartido de logging estructurado y conectarlo explícitamente a router, callbacks y servicios críticos.
+- [x] Documentar la cobertura de métricas, latencia y estados de jobs con sus puntos de instrumentación.
+- [x] Implementar una automatización estratégica completa y verificable, como informe periódico de crecimiento o sync real de catálogo, con ejecución end-to-end observable, pausa, límites y pruebas.
+
+## Growth report end-to-end pendiente
+
+- [x] Conectar un job de automatización real al callback `/api/scheduled/growth-report`, con callbackPath configurable y guard de activación.
+- [x] Añadir pruebas de integración o contrato para el callback growth report y documentar snapshot, límites y operación periódica end-to-end.
+- [x] Actualizar el panel administrativo para distinguir y operar el informe de crecimiento frente al snapshot de catálogo.

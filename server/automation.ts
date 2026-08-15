@@ -1,4 +1,5 @@
 export const CATALOG_REFRESH_CALLBACK = "/api/scheduled/catalog-refresh";
+export const GROWTH_REPORT_CALLBACK = "/api/scheduled/growth-report";
 
 export type AutomationReadinessReason =
   | "deployment-required"
@@ -10,7 +11,10 @@ export function getAutomationReadiness(input: {
   hasTaskUid: boolean;
   environment: string | undefined;
 }) {
-  const callbackReady = input.callbackPath === CATALOG_REFRESH_CALLBACK;
+  const callbackReady = [
+    CATALOG_REFRESH_CALLBACK,
+    GROWTH_REPORT_CALLBACK,
+  ].includes(input.callbackPath);
   const deploymentReady = input.environment === "production";
   const ready = callbackReady && input.hasTaskUid && deploymentReady;
   const reason: AutomationReadinessReason = !deploymentReady

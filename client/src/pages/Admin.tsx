@@ -63,6 +63,9 @@ export default function Admin() {
   const automations = trpc.admin.automations.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
+  const automationRuns = trpc.admin.automationRuns.useQuery(undefined, {
+    enabled: Boolean(isAuthenticated),
+  });
   const setAutomationStatus = trpc.admin.automationSetStatus.useMutation({
     onSuccess: () => void automations.refetch(),
   });
@@ -614,7 +617,8 @@ export default function Admin() {
                 <div>
                   <p className="font-medium">{job.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {job.status} · {job.scheduleCronTaskUid ?? "sin task UID"}
+                    {job.status} · {job.callbackPath} ·{" "}
+                    {job.scheduleCronTaskUid ?? "sin task UID"}
                   </p>
                 </div>
                 <div className="flex gap-2">
@@ -642,7 +646,7 @@ export default function Admin() {
                       const result =
                         await trpcUtils.admin.automationPreflight.fetch({
                           id: job.id,
-                          callbackPath: "/api/scheduled/catalog-refresh",
+                          callbackPath: job.callbackPath,
                         });
                       if (!result.ready) {
                         setPreflightMessage(`No activado: ${result.reason}`);
@@ -661,6 +665,32 @@ export default function Admin() {
                     <Play className="mr-2 size-4" /> Activar
                   </Button>
                 </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+        <Card className="mt-8 border-border/60">
+          <CardHeader>
+            <CardTitle className="text-xl">Historial de ejecuciones</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {!automationRuns.data?.length && (
+              <p className="text-sm leading-7 text-muted-foreground">
+                No hay ejecuciones registradas.
+              </p>
+            )}
+            {automationRuns.data?.map(run => (
+              <div
+                key={run.id}
+                className="flex flex-col justify-between gap-2 rounded-xl border border-border/60 p-4 text-sm md:flex-row"
+              >
+                <span>
+                  {run.status} · {run.taskUid ?? "sin task UID"}
+                </span>
+                <span className="text-muted-foreground">
+                  {run.durationMs ?? 0} ms ·{" "}
+                  {new Date(run.startedAt).toLocaleString()}
+                </span>
               </div>
             ))}
           </CardContent>

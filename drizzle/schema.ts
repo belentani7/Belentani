@@ -165,6 +165,31 @@ export const emailDraftAudit = mysqlTable(
   })
 );
 
+export const automationRuns = mysqlTable(
+  "automation_runs",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    jobId: int("jobId"),
+    taskUid: varchar("taskUid", { length: 65 }),
+    status: mysqlEnum("status", [
+      "running",
+      "succeeded",
+      "failed",
+      "skipped",
+    ]).notNull(),
+    startedAt: timestamp("startedAt").defaultNow().notNull(),
+    finishedAt: timestamp("finishedAt"),
+    durationMs: int("durationMs"),
+    snapshot: text("snapshot"),
+    error: text("error"),
+  },
+  table => ({
+    jobIdx: index("automation_run_job_idx").on(table.jobId),
+    statusIdx: index("automation_run_status_idx").on(table.status),
+    startedIdx: index("automation_run_started_idx").on(table.startedAt),
+  })
+);
+
 export const automationJobs = mysqlTable(
   "automation_jobs",
   {
@@ -172,6 +197,9 @@ export const automationJobs = mysqlTable(
     name: varchar("name", { length: 160 }).notNull().unique(),
     description: text("description").notNull(),
     cronExpression: varchar("cronExpression", { length: 80 }).notNull(),
+    callbackPath: varchar("callbackPath", { length: 120 })
+      .default("/api/scheduled/catalog-refresh")
+      .notNull(),
     scheduleCronTaskUid: varchar("schedule_cron_task_uid", { length: 65 }),
     status: mysqlEnum("status", ["draft", "active", "paused", "failed"])
       .default("draft")
@@ -213,4 +241,5 @@ export type EmailTemplate = typeof emailTemplates.$inferSelect;
 export type EmailDraft = typeof emailDrafts.$inferSelect;
 export type EmailDraftAudit = typeof emailDraftAudit.$inferSelect;
 export type AutomationJob = typeof automationJobs.$inferSelect;
+export type AutomationRun = typeof automationRuns.$inferSelect;
 export type ChangelogEntry = typeof changelogEntries.$inferSelect;

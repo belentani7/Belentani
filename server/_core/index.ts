@@ -12,18 +12,16 @@ import { sdk } from "./sdk";
 import { getDb } from "../db";
 import {
   automationJobs,
+  automationRuns,
+  businessEvents,
   catalogItems,
   mediaResources,
 } from "../../drizzle/schema";
 import { and, count, eq } from "drizzle-orm";
 import { storagePut } from "../storage";
 import { getMetrics, recordScheduled } from "../observability";
-
-function logEvent(event: string, data: Record<string, unknown> = {}) {
-  console.log(
-    JSON.stringify({ timestamp: new Date().toISOString(), event, ...data })
-  );
-}
+import { GROWTH_REPORT_CALLBACK } from "../automation";
+import { logError, logInfo, logWarn } from "../structuredLogger";
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
     const server = net.createServer();
@@ -58,10 +56,19 @@ async function scheduledCatalogRefresh(
         .where(eq(automationJobs.scheduleCronTaskUid, user.taskUid))
         .limit(1)
     )[0];
-    if (!job || job.status === "paused")
+    if (!job || job.status === "paused") {
+      await db.insert(automationRuns).values({
+        jobId: job?.id ?? null,
+        taskUid: user.taskUid,
+        status: "skipped",
+        finishedAt: new Date(),
+        durationMs: Date.now() - startedAt,
+        error: job ? "job-paused" : "orphan-task",
+      });
       return res
         .status(200)
         .json({ ok: true, skipped: job ? "paused" : "orphan" });
+    }
     const [totalRows, publishedRows, pendingRows, quarantinedRows] =
       await Promise.all([
         db.select({ value: count() }).from(catalogItems),
@@ -89,12 +96,22 @@ async function scheduledCatalogRefresh(
       pendingReview: pendingRows[0]?.value ?? 0,
       quarantined: quarantinedRows[0]?.value ?? 0,
     };
+    const finishedAt = new Date();
+    await db.insert(automationRuns).values({
+      jobId: job.id,
+      taskUid: user.taskUid,
+      status: "succeeded",
+      startedAt: new Date(startedAt),
+      finishedAt,
+      durationMs: Date.now() - startedAt,
+      snapshot: JSON.stringify(snapshot),
+    });
     await db
       .update(automationJobs)
-      .set({ lastRunAt: new Date(), status: "active" })
+      .set({ lastRunAt: finishedAt, status: "active" })
       .where(eq(automationJobs.id, job.id));
     recordScheduled(true);
-    logEvent("scheduled_job_completed", {
+    logInfo("scheduled_job_completed", {
       jobId: job.id,
       taskUid: user.taskUid,
       snapshot,
@@ -107,8 +124,110 @@ async function scheduledCatalogRefresh(
       context: { url: req.originalUrl },
       timestamp: new Date().toISOString(),
     };
+    try {
+      const db = await getDb();
+      if (db) {
+        await db.insert(automationRuns).values({
+          status: "failed",
+          startedAt: new Date(startedAt),
+          finishedAt: new Date(),
+          durationMs: Date.now() - startedAt,
+          error: payload.error,
+        });
+      }
+    } catch {
+      // Preserve the original failure response if persistence is unavailable.
+    }
     recordScheduled(false);
-    logEvent("scheduled_job_failed", payload);
+    logError("scheduled_job_failed", payload);
+    return res.status(500).json(payload);
+  }
+}
+
+async function scheduledGrowthReport(
+  req: express.Request,
+  res: express.Response
+) {
+  const startedAt = Date.now();
+  try {
+    const user = await sdk.authenticateRequest(req);
+    if (!user.isCron || !user.taskUid)
+      return res.status(403).json({ error: "cron-only" });
+    const db = await getDb();
+    if (!db) return res.status(503).json({ error: "database-unavailable" });
+    const job = (
+      await db
+        .select()
+        .from(automationJobs)
+        .where(eq(automationJobs.scheduleCronTaskUid, user.taskUid))
+        .limit(1)
+    )[0];
+    if (!job || job.status === "paused") {
+      await db.insert(automationRuns).values({
+        jobId: job?.id ?? null,
+        taskUid: user.taskUid,
+        status: "skipped",
+        finishedAt: new Date(),
+        durationMs: Date.now() - startedAt,
+        error: job ? "job-paused" : "orphan-task",
+      });
+      return res
+        .status(200)
+        .json({ ok: true, skipped: job ? "paused" : "orphan" });
+    }
+    const eventRows = await db
+      .select({ event: businessEvents.event, value: count() })
+      .from(businessEvents)
+      .groupBy(businessEvents.event);
+    const snapshot = {
+      generatedAt: new Date().toISOString(),
+      metrics: getMetrics(),
+      businessEvents: Object.fromEntries(
+        eventRows.map(row => [row.event, Number(row.value)])
+      ),
+    };
+    const finishedAt = new Date();
+    await db.insert(automationRuns).values({
+      jobId: job.id,
+      taskUid: user.taskUid,
+      status: "succeeded",
+      startedAt: new Date(startedAt),
+      finishedAt,
+      durationMs: Date.now() - startedAt,
+      snapshot: JSON.stringify(snapshot),
+    });
+    await db
+      .update(automationJobs)
+      .set({ lastRunAt: finishedAt, status: "active" })
+      .where(eq(automationJobs.id, job.id));
+    recordScheduled(true);
+    logInfo("growth_report_completed", {
+      jobId: job.id,
+      taskUid: user.taskUid,
+      durationMs: Date.now() - startedAt,
+    });
+    return res.json({ ok: true, jobId: job.id, snapshot });
+  } catch (error) {
+    const payload = {
+      error: error instanceof Error ? error.message : "unknown",
+      context: { url: req.originalUrl },
+      timestamp: new Date().toISOString(),
+    };
+    try {
+      const db = await getDb();
+      if (db)
+        await db.insert(automationRuns).values({
+          status: "failed",
+          startedAt: new Date(startedAt),
+          finishedAt: new Date(),
+          durationMs: Date.now() - startedAt,
+          error: payload.error,
+        });
+    } catch {
+      // Preserve the original failure response if persistence is unavailable.
+    }
+    recordScheduled(false);
+    logError("growth_report_failed", payload);
     return res.status(500).json(payload);
   }
 }
@@ -160,7 +279,7 @@ async function uploadMedia(req: express.Request, res: express.Response) {
       status: "draft",
     });
   } catch (error) {
-    logEvent("media_upload_failed", {
+    logError("media_upload_failed", {
       error: error instanceof Error ? error.message : "unknown",
     });
     return res.status(500).json({ error: "media-upload-failed" });
@@ -182,6 +301,7 @@ async function startServer() {
   );
   app.get("/api/metrics", (_req, res) => res.status(200).json(getMetrics()));
   app.post("/api/scheduled/catalog-refresh", scheduledCatalogRefresh);
+  app.post("/api/scheduled/growth-report", scheduledGrowthReport);
   app.post(
     "/api/media/upload",
     express.raw({
@@ -200,10 +320,9 @@ async function startServer() {
   else serveStatic(app);
   const preferredPort = parseInt(process.env.PORT || "3000");
   const port = await findAvailablePort(preferredPort);
-  if (port !== preferredPort)
-    logEvent("port_fallback", { preferredPort, port });
+  if (port !== preferredPort) logWarn("port_fallback", { preferredPort, port });
   server.listen(port, () =>
-    logEvent("server_started", {
+    logInfo("server_started", {
       port,
       environment: process.env.NODE_ENV || "development",
     })
@@ -211,7 +330,7 @@ async function startServer() {
 }
 
 startServer().catch(error => {
-  logEvent("server_start_failed", {
+  logError("server_start_failed", {
     error: error instanceof Error ? error.message : "unknown",
   });
   process.exitCode = 1;
