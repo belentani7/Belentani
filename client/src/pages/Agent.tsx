@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
 import { trackBusinessEvent } from "@/lib/analytics";
+import { notifyCompletion } from "@/lib/completionNotifications";
 
 type Message = { role: "agent" | "user"; text: string };
 
@@ -45,6 +46,7 @@ export default function Agent() {
         ...current,
         { role: "agent", text: result.answer },
       ]);
+      notifyCompletion("Respuesta del agente completada");
     } catch {
       setMessages(current => [
         ...current,

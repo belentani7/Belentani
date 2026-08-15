@@ -289,3 +289,11 @@
 - [ ] Añadir pruebas verificables de resiliencia para LLM, catálogo y automatizaciones que cubran fallos de red, reintentos, timeouts y recuperación esperada.
 - [x] Documentar por flujo UI pública, agente, multimedia y automatizaciones qué estados de error, retry y recovery existen y qué casos dependen del proveedor o navegador.
 - [ ] No declarar completa la verificación de resiliencia hasta cubrir con tests o evidencia reproducible los casos críticos end-to-end.
+
+## Notificaciones de finalización en interfaz
+
+- [x] Añadir preferencias opt-in para notificaciones de escritorio y sonido, con persistencia local y controles accesibles.
+- [x] Solicitar permiso de Notification únicamente tras una interacción explícita del usuario.
+- [x] Emitir notificación y sonido al completar operaciones relevantes sin interrumpir la interfaz ni duplicar eventos.
+- [x] Respetar `prefers-reduced-motion`, bloqueo/autoplay del navegador y fallback silencioso seguro.
+- [x] Añadir pruebas unitarias y validación de build para el sistema de notificaciones.

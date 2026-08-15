@@ -26,6 +26,7 @@ import {
   updatePrivateEmailDraft,
 } from "./privateData";
 import { listAdminActions, recordAdminAction } from "./adminAudit";
+import { notifyOperationalEvent } from "./operationalNotifications";
 import {
   and,
   asc,
@@ -226,6 +227,13 @@ export const appRouter = router({
       )
       .mutation(async ({ input }) => {
         recordBusinessEvent(input.event);
+        if (input.event === "contact_clicked") {
+          void notifyOperationalEvent({
+            event: "contact_event",
+            route: "/api/trpc/metrics.recordBusinessEvent",
+            detail: "El embudo registró un nuevo evento de contacto.",
+          });
+        }
         const db = await getDb();
         if (db) await db.insert(businessEvents).values({ event: input.event });
         return { success: true } as const;

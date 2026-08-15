@@ -3,13 +3,15 @@ import { notifyOwner } from "./_core/notification";
 const recentAlerts = new Map<string, number>();
 const DEDUPE_WINDOW_MS = 15 * 60_000;
 
-export async function notifyOperationalFailure(input: {
+type OperationalAlert = {
   event: string;
   route: string;
   taskUid?: string | null;
-  error: string;
-}) {
-  const key = `${input.event}:${input.route}:${input.error.slice(0, 160)}`;
+  detail: string;
+};
+
+export async function notifyOperationalEvent(input: OperationalAlert) {
+  const key = `${input.event}:${input.route}:${input.detail.slice(0, 160)}`;
   const now = Date.now();
   const previous = recentAlerts.get(key);
   if (previous && now - previous < DEDUPE_WINDOW_MS) return false;
@@ -25,13 +27,27 @@ export async function notifyOperationalFailure(input: {
       content: [
         `Ruta: ${input.route}`,
         input.taskUid ? `Tarea: ${input.taskUid}` : "Tarea: no disponible",
-        `Error: ${input.error.slice(0, 500)}`,
+        `Detalle: ${input.detail.slice(0, 500)}`,
         "No se incluye cuerpo de solicitud, correo, token ni datos personales.",
       ].join("\n"),
     });
   } catch {
     return false;
   }
+}
+
+export function notifyOperationalFailure(input: {
+  event: string;
+  route: string;
+  taskUid?: string | null;
+  error: string;
+}) {
+  return notifyOperationalEvent({
+    event: input.event,
+    route: input.route,
+    taskUid: input.taskUid,
+    detail: input.error,
+  });
 }
 
 export function resetOperationalNotificationDedupeForTests() {

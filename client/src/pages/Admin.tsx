@@ -29,6 +29,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc";
 import { startLogin } from "@/const";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { CompletionNotificationSettings } from "@/components/CompletionNotificationSettings";
+import { notifyCompletion } from "@/lib/completionNotifications";
 
 export default function Admin() {
   const { user, loading, isAuthenticated } = useAuth();
@@ -42,6 +44,7 @@ export default function Admin() {
   });
   const createCatalog = trpc.admin.catalogCreate.useMutation({
     onSuccess: () => {
+      notifyCompletion("Elemento de catálogo guardado");
       void summary.refetch();
       setCatalog({
         name: "",
@@ -52,25 +55,38 @@ export default function Admin() {
       });
     },
   });
-  const saveTemplate = trpc.admin.templateUpsert.useMutation();
-  const ingestSource = trpc.admin.ingestSource.useMutation();
+  const saveTemplate = trpc.admin.templateUpsert.useMutation({
+    onSuccess: () => notifyCompletion("Plantilla de correo guardada"),
+  });
+  const ingestSource = trpc.admin.ingestSource.useMutation({
+    onSuccess: () => notifyCompletion("Ingesta de catálogo completada"),
+  });
   const reviewQueue = trpc.admin.catalogReviewQueue.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
   const reviewCatalog = trpc.admin.catalogReview.useMutation({
-    onSuccess: () => void reviewQueue.refetch(),
+    onSuccess: () => {
+      notifyCompletion("Revisión editorial completada");
+      void reviewQueue.refetch();
+    },
   });
   const mediaAdminList = trpc.admin.mediaAdminList.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
   const setMediaStatus = trpc.admin.mediaSetStatus.useMutation({
-    onSuccess: () => void mediaAdminList.refetch(),
+    onSuccess: () => {
+      notifyCompletion("Estado multimedia actualizado");
+      void mediaAdminList.refetch();
+    },
   });
   const changelogAdmin = trpc.admin.changelogAdmin.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
   const saveChangelog = trpc.admin.changelogUpsert.useMutation({
-    onSuccess: () => void changelogAdmin.refetch(),
+    onSuccess: () => {
+      notifyCompletion("Entrada editorial guardada");
+      void changelogAdmin.refetch();
+    },
   });
   const automations = trpc.admin.automations.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
@@ -79,7 +95,10 @@ export default function Admin() {
     enabled: Boolean(isAuthenticated),
   });
   const setAutomationStatus = trpc.admin.automationSetStatus.useMutation({
-    onSuccess: () => void automations.refetch(),
+    onSuccess: () => {
+      notifyCompletion("Estado de automatización actualizado");
+      void automations.refetch();
+    },
   });
   const drafts = trpc.admin.emailDrafts.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
@@ -95,7 +114,10 @@ export default function Admin() {
     enabled: Boolean(isAuthenticated),
   });
   const reviewDraft = trpc.admin.emailDraftReview.useMutation({
-    onSuccess: () => void drafts.refetch(),
+    onSuccess: () => {
+      notifyCompletion("Borrador de correo revisado");
+      void drafts.refetch();
+    },
   });
   const [catalog, setCatalog] = useState({
     name: "",
@@ -197,6 +219,9 @@ export default function Admin() {
             label="Plantillas de correo"
             value={summary.data?.templates ?? "—"}
           />
+        </div>
+        <div className="mt-8">
+          <CompletionNotificationSettings />
         </div>
         <Card className="mt-8 border-border/60">
           <CardHeader>
