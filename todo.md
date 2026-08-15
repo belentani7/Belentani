@@ -325,3 +325,8 @@
 
 - [x] Implementar una notificación deduplicada para la llegada de un contacto real mediante formulario, email draft ingerido o lead persistido, no solo mediante clic de contacto.
 - [x] Añadir pruebas y documentación que distingan fallos críticos, eventos relevantes y nuevos contactos reales.
+
+## Inbox Gmail dentro del producto
+
+- [ ] Implementar la lectura real del inbox autorizado desde el producto o backend, no solo aceptar mensajes ya leídos externamente, y conectar ese flujo a `emailDrafts` sin carga manual.
+- [x] Añadir una prueba verificable del flujo inbox→clasificación→draft dentro del sistema, incluyendo caso vacío y error del proveedor.

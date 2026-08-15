@@ -117,6 +117,21 @@ async function classifyAndPersist(message: AuthorizedEmailMessage) {
   return { externalMessageId: normalized.externalMessageId, category };
 }
 
+export type AuthorizedInboxProvider = {
+  searchUnread: (
+    query: string,
+    maxResults: number
+  ) => Promise<AuthorizedEmailMessage[]>;
+};
+
+export async function ingestAuthorizedInbox(
+  provider: AuthorizedInboxProvider,
+  query = "label:clientes is:unread"
+) {
+  const messages = await provider.searchUnread(query, MAX_MESSAGES_PER_INGEST);
+  return ingestAuthorizedEmails(messages);
+}
+
 export async function ingestAuthorizedEmails(
   messages: AuthorizedEmailMessage[]
 ) {

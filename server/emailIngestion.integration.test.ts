@@ -10,7 +10,10 @@ vi.mock("./db", () => ({ getDb }));
 vi.mock("./_core/llm", () => ({ invokeLLM }));
 vi.mock("./operationalNotifications", () => ({ notifyOperationalEvent }));
 
-import { ingestAuthorizedEmails } from "./emailIngestion";
+import {
+  ingestAuthorizedEmails,
+  ingestAuthorizedInbox,
+} from "./emailIngestion";
 
 describe("authorized email ingestion persistence contract", () => {
   const onDuplicateKeyUpdate = vi.fn().mockResolvedValue(undefined);
@@ -61,6 +64,33 @@ describe("authorized email ingestion persistence contract", () => {
     expect(notifyOperationalEvent).toHaveBeenCalledWith(
       expect.objectContaining({ event: "new_contact" })
     );
+  });
+
+  it("returns an empty result without invoking classification for an empty inbox", async () => {
+    const provider = {
+      searchUnread: vi.fn().mockResolvedValue([]),
+    };
+
+    await expect(ingestAuthorizedInbox(provider)).resolves.toEqual([]);
+
+    expect(provider.searchUnread).toHaveBeenCalledWith(
+      "label:clientes is:unread",
+      20
+    );
+    expect(invokeLLM).not.toHaveBeenCalled();
+    expect(insert).not.toHaveBeenCalled();
+  });
+
+  it("surfaces inbox provider errors without persistence", async () => {
+    const provider = {
+      searchUnread: vi.fn().mockRejectedValue(new Error("gmail-unavailable")),
+    };
+
+    await expect(ingestAuthorizedInbox(provider)).rejects.toThrow(
+      "gmail-unavailable"
+    );
+    expect(invokeLLM).not.toHaveBeenCalled();
+    expect(insert).not.toHaveBeenCalled();
   });
 
   it("does not persist when the classifier provider fails", async () => {
