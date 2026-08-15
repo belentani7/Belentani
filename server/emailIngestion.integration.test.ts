@@ -1,12 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { getDb, invokeLLM } = vi.hoisted(() => ({
+const { getDb, invokeLLM, notifyOperationalEvent } = vi.hoisted(() => ({
   getDb: vi.fn(),
   invokeLLM: vi.fn(),
+  notifyOperationalEvent: vi.fn().mockResolvedValue(true),
 }));
 
 vi.mock("./db", () => ({ getDb }));
 vi.mock("./_core/llm", () => ({ invokeLLM }));
+vi.mock("./operationalNotifications", () => ({ notifyOperationalEvent }));
 
 import { ingestAuthorizedEmails } from "./emailIngestion";
 
@@ -14,10 +16,14 @@ describe("authorized email ingestion persistence contract", () => {
   const onDuplicateKeyUpdate = vi.fn().mockResolvedValue(undefined);
   const values = vi.fn().mockReturnValue({ onDuplicateKeyUpdate });
   const insert = vi.fn().mockReturnValue({ values });
+  const limit = vi.fn().mockResolvedValue([]);
+  const where = vi.fn().mockReturnValue({ limit });
+  const from = vi.fn().mockReturnValue({ where });
+  const select = vi.fn().mockReturnValue({ from });
 
   beforeEach(() => {
     vi.clearAllMocks();
-    getDb.mockResolvedValue({ insert });
+    getDb.mockResolvedValue({ insert, select });
     invokeLLM.mockResolvedValue({
       choices: [
         {
@@ -52,6 +58,9 @@ describe("authorized email ingestion persistence contract", () => {
       })
     );
     expect(onDuplicateKeyUpdate).toHaveBeenCalledTimes(2);
+    expect(notifyOperationalEvent).toHaveBeenCalledWith(
+      expect.objectContaining({ event: "new_contact" })
+    );
   });
 
   it("does not persist when the classifier provider fails", async () => {

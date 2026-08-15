@@ -1,6 +1,8 @@
 import { invokeLLM } from "./_core/llm";
 import { AGENT_SYSTEM_PROMPT } from "./agentPolicy";
 import { getDb } from "./db";
+import { notifyOperationalEvent } from "./operationalNotifications";
+import { eq } from "drizzle-orm";
 import { emailDrafts } from "../drizzle/schema";
 
 export type AuthorizedEmailMessage = {
@@ -76,6 +78,11 @@ async function classifyAndPersist(message: AuthorizedEmailMessage) {
   };
   const db = await getDb();
   if (!db) throw new Error("database-unavailable");
+  const existing = await db
+    .select({ id: emailDrafts.id })
+    .from(emailDrafts)
+    .where(eq(emailDrafts.externalMessageId, normalized.externalMessageId))
+    .limit(1);
   const category = parsed.category.trim().slice(0, 120) || "other";
   const draftBody = parsed.draftBody.trim().slice(0, 20_000);
   if (!draftBody) throw new Error("empty-draft-body");
@@ -99,6 +106,14 @@ async function classifyAndPersist(message: AuthorizedEmailMessage) {
         updatedAt: new Date(),
       },
     });
+  if (existing.length === 0) {
+    void notifyOperationalEvent({
+      event: "new_contact",
+      route: "admin.emailDraftIngest",
+      detail:
+        "Se recibió un mensaje autorizado y se creó un borrador interno para revisión humana.",
+    });
+  }
   return { externalMessageId: normalized.externalMessageId, category };
 }
 

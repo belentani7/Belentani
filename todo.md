@@ -33,7 +33,7 @@
 - [x] Diseñar respuestas automáticas de correo con plantillas editables desde administración.
 - [ ] Implementar clasificación de correo entrante y borradores automáticos.
 - [x] Requerir revisión humana antes de enviar respuestas externas salvo reglas explícitas y reversibles.
-- [ ] Implementar notificaciones de nuevos contactos, eventos relevantes y fallos críticos.
+- [x] Implementar notificaciones de nuevos contactos, eventos relevantes y fallos críticos.
 - [ ] Añadir historial de ejecuciones, reintentos, timeouts, dead-letter/quarantine y controles de permisos.
 
 ## Administración y datos
@@ -311,7 +311,7 @@
 - [x] Definir un contrato de ingestión de solo lectura con límite de mensajes, extracción segura y deduplicación por messageId/threadId.
 - [x] Implementar creación idempotente de emailDrafts desde mensajes autorizados, conservando revisión humana y sin envío automático.
 - [x] Registrar auditoría sin guardar más contenido sensible del necesario y documentar el alcance de Gmail.
-- [ ] Añadir tests de privacidad, deduplicación, errores del proveedor y regresión del panel de borradores.
+- [x] Añadir tests de privacidad, deduplicación, errores del proveedor y regresión del panel de borradores.
 
 ## Guía visual maestra NOIACORE LAB
 
@@ -320,3 +320,8 @@
 - [x] Aplicar los tokens y efectos a la interfaz existente sin cambiar textos, estructura, rutas, contenido ni funcionalidades.
 - [x] Mantener las animaciones dentro de la política efectiva de motion y respetar `prefers-reduced-motion`, aunque la guía visual proponga transiciones lentas.
 - [x] Verificar mediante diff, typecheck, tests, lint y build que el rediseño no altera la semántica ni los flujos existentes.
+
+## Distinción entre evento y nuevo contacto
+
+- [x] Implementar una notificación deduplicada para la llegada de un contacto real mediante formulario, email draft ingerido o lead persistido, no solo mediante clic de contacto.
+- [x] Añadir pruebas y documentación que distingan fallos críticos, eventos relevantes y nuevos contactos reales.
