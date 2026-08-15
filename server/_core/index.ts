@@ -10,6 +10,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { sdk } from "./sdk";
 import { getDb } from "../db";
+import { recordAdminAction } from "../adminAudit";
 import {
   automationJobs,
   automationRuns,
@@ -22,6 +23,12 @@ import { storagePut } from "../storage";
 import { getMetrics, recordScheduled } from "../observability";
 import { GROWTH_REPORT_CALLBACK } from "../automation";
 import { logError, logInfo, logWarn } from "../structuredLogger";
+import { notifyOperationalFailure } from "../operationalNotifications";
+import {
+  browserMutationGuard,
+  csrfCookieMiddleware,
+  uploadGuard,
+} from "../securityMiddleware";
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
     const server = net.createServer();
@@ -140,6 +147,12 @@ async function scheduledCatalogRefresh(
     }
     recordScheduled(false);
     logError("scheduled_job_failed", payload);
+    void notifyOperationalFailure({
+      event: "scheduled_job_failed",
+      route: req.originalUrl,
+      taskUid: undefined,
+      error: payload.error,
+    });
     return res.status(500).json(payload);
   }
 }
@@ -228,6 +241,12 @@ async function scheduledGrowthReport(
     }
     recordScheduled(false);
     logError("growth_report_failed", payload);
+    void notifyOperationalFailure({
+      event: "growth_report_failed",
+      route: req.originalUrl,
+      taskUid: undefined,
+      error: payload.error,
+    });
     return res.status(500).json(payload);
   }
 }
@@ -272,6 +291,12 @@ async function uploadMedia(req: express.Request, res: express.Response) {
       publicUrl: uploaded.url,
       status: "draft",
     });
+    await recordAdminAction({
+      actorUserId: user.id,
+      action: "media_upload",
+      entityType: "media_resource",
+      outcome: "success",
+    });
     return res.status(201).json({
       success: true,
       key: uploaded.key,
@@ -291,6 +316,7 @@ async function startServer() {
   const server = createServer(app);
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  app.use("/api", csrfCookieMiddleware);
   app.get("/api/health", (_req, res) =>
     res.status(200).json({
       ok: true,
@@ -304,6 +330,7 @@ async function startServer() {
   app.post("/api/scheduled/growth-report", scheduledGrowthReport);
   app.post(
     "/api/media/upload",
+    uploadGuard,
     express.raw({
       type: ["video/*", "audio/*", "application/pdf"],
       limit: "50mb",
@@ -312,6 +339,7 @@ async function startServer() {
   );
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  app.use("/api/trpc", browserMutationGuard);
   app.use(
     "/api/trpc",
     createExpressMiddleware({ router: appRouter, createContext })

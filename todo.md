@@ -28,7 +28,7 @@
 ## Automatizaciones y correo
 
 - [x] Diseñar automatizaciones recurrentes mediante jobs gestionables y observables.
-- [ ] Implementar actualización del catálogo de herramientas con idempotencia, validación y cuarentena de cambios dudosos.
+- [x] Implementar actualización del catálogo de herramientas con idempotencia, validación y cuarentena de cambios dudosos.
 - [x] Implementar informes periódicos de crecimiento y rendimiento.
 - [x] Diseñar respuestas automáticas de correo con plantillas editables desde administración.
 - [ ] Implementar clasificación de correo entrante y borradores automáticos.
@@ -38,9 +38,9 @@
 
 ## Administración y datos
 
-- [ ] Crear panel privado de administración para herramientas, recursos, automatizaciones, correo y contenido.
+- [x] Crear panel privado de administración para herramientas, recursos, automatizaciones, correo y contenido.
 - [x] Implementar control de roles y autorización en backend, no solo ocultación visual.
-- [ ] Crear auditoría de acciones administrativas con actor, acción, entidad, timestamp UTC y resultado.
+- [x] Crear auditoría de acciones administrativas con actor, acción, entidad, timestamp UTC y resultado.
 - [x] Aplicar esquema-first para las tablas y migraciones, verificando cada cambio en la base de datos.
 - [x] Mantener separación entre datos públicos, privados, secretos, prompts y configuración.
 
@@ -142,10 +142,10 @@
 
 ## Entrega
 
-- [ ] Ejecutar validación final reproducible y guardar evidencias.
+- [x] Ejecutar validación final reproducible y guardar evidencias.
 - [ ] Crear checkpoint solamente cuando la primera entrega esté completa y verificada.
 - [ ] Entregar la plataforma en su preview y adjuntar la versión del checkpoint.
-- [ ] Documentar secretos o conexiones externas pendientes sin incluir valores sensibles.
+- [x] Documentar secretos o conexiones externas pendientes sin incluir valores sensibles.
 
 ## Decisión confirmada: Opción A + borradores con revisión humana
 
@@ -191,7 +191,7 @@
 - [x] Evaluar afiliación, patrocinios, anuncios éticos, donaciones, leads B2B, servicios y productos digitales según margen, dependencia y esfuerzo.
 - [x] Definir embudo gratuito a monetización sin degradar la misión pública ni ocultar publicidad o afiliación.
 - [x] Crear modelo financiero por escenarios sin prometer ingresos garantizados.
-- [ ] Convertir las prioridades aprobadas en cambios verificables de producto, analítica y automatización.
+- [x] Convertir las prioridades aprobadas en cambios verificables de producto, analítica y automatización.
 
 ## Rediseño visual NOIACORE LAB — solo identidad
 
@@ -265,3 +265,27 @@
 - [x] Conectar un job de automatización real al callback `/api/scheduled/growth-report`, con callbackPath configurable y guard de activación.
 - [x] Añadir pruebas de integración o contrato para el callback growth report y documentar snapshot, límites y operación periódica end-to-end.
 - [x] Actualizar el panel administrativo para distinguir y operar el informe de crecimiento frente al snapshot de catálogo.
+
+## Administración completa y auditoría transversal pendiente
+
+- [x] Completar gestión verificable de recursos multimedia y contenido editorial dentro de `/admin`, sin dejar acciones visuales sin backend.
+- [x] Extender `admin_action_audit` a revisión editorial, ingesta, media upload/publicación y contenido editorial.
+- [x] Añadir una vista administrativa de auditoría transversal y pruebas de contrato que verifiquen actor, acción, entidad, occurredAt y outcome.
+
+## Trazabilidad estratégica pendiente
+
+- [x] Documentar el mapeo prioridad→cambio→archivo/evidencia para producto, analítica y automatización.
+- [x] Justificar formalmente las prioridades estratégicas restantes que no se han convertido en cambios de producto verificables.
+
+## Brechas de evidencia de la auditoría final
+
+- [ ] Ejecutar una auditoría WCAG verificable por ruta con checklist de teclado, foco visible, nombres accesibles, contraste medido y resultados por formulario/estado crítico.
+- [ ] Corregir cualquier hallazgo WCAG real y adjuntar evidencia verificable antes de declarar conformidad AA completa.
+- [x] Completar el hardening con validación de salida donde aplique, estrategia CSRF más robusta para mutaciones autenticadas y requisito externo explícito para rate limiting distribuido en producción.
+- [x] Añadir una matriz verificable que mapee input/output, privilegios, CSRF, XSS, SQLi, rate limiting y secretos a implementación y prueba concreta.
+
+## Brechas de resiliencia end-to-end
+
+- [ ] Añadir pruebas verificables de resiliencia para LLM, catálogo y automatizaciones que cubran fallos de red, reintentos, timeouts y recuperación esperada.
+- [x] Documentar por flujo UI pública, agente, multimedia y automatizaciones qué estados de error, retry y recovery existen y qué casos dependen del proveedor o navegador.
+- [ ] No declarar completa la verificación de resiliencia hasta cubrir con tests o evidencia reproducible los casos críticos end-to-end.

@@ -1,5 +1,5 @@
 import { trpc } from "@/lib/trpc";
-import { COOKIE_NAME, UNAUTHED_ERR_MSG } from '@shared/const';
+import { COOKIE_NAME, UNAUTHED_ERR_MSG } from "@shared/const";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, TRPCClientError } from "@trpc/client";
 import { createRoot } from "react-dom/client";
@@ -47,20 +47,28 @@ const trpcClient = trpc.createClient({
         // (Safari ITP / private browsing / WebView), the runtime mirrors the
         // session into sessionStorage so we can forward it as a Bearer token.
         // The regular OAuth cookie flow keeps working and takes priority server-side.
+        let csrfToken: string | undefined;
         try {
+          const csrfPair = document.cookie
+            .split(";")
+            .find(s => s.trim().startsWith("noiacore_csrf="));
+          csrfToken = csrfPair?.trim().slice("noiacore_csrf=".length);
           const raw = sessionStorage.getItem("manus-cookie");
           if (raw) {
             const prefix = `${COOKIE_NAME}=`;
             const pair = raw.split(";").find(s => s.trim().startsWith(prefix));
             const token = pair?.trim().slice(prefix.length);
             if (token) {
-              return { Authorization: `Bearer ${token}` };
+              return {
+                Authorization: `Bearer ${token}`,
+                ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+              };
             }
           }
         } catch {
           // sessionStorage unavailable
         }
-        return {};
+        return csrfToken ? { "X-CSRF-Token": csrfToken } : {};
       },
       fetch(input, init) {
         return globalThis.fetch(input, {

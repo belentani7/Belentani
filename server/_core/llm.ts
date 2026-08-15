@@ -299,7 +299,7 @@ const computeBackoffDelay = (
 
 // Retries non-2xx responses and network errors with exponential backoff, then
 // returns the final Response so callers keep their existing error handling.
-const fetchWithBackoff = async (
+export const fetchWithBackoff = async (
   url: string,
   init: FetchInit
 ): Promise<Response> => {

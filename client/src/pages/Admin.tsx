@@ -60,6 +60,18 @@ export default function Admin() {
   const reviewCatalog = trpc.admin.catalogReview.useMutation({
     onSuccess: () => void reviewQueue.refetch(),
   });
+  const mediaAdminList = trpc.admin.mediaAdminList.useQuery(undefined, {
+    enabled: Boolean(isAuthenticated),
+  });
+  const setMediaStatus = trpc.admin.mediaSetStatus.useMutation({
+    onSuccess: () => void mediaAdminList.refetch(),
+  });
+  const changelogAdmin = trpc.admin.changelogAdmin.useQuery(undefined, {
+    enabled: Boolean(isAuthenticated),
+  });
+  const saveChangelog = trpc.admin.changelogUpsert.useMutation({
+    onSuccess: () => void changelogAdmin.refetch(),
+  });
   const automations = trpc.admin.automations.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
@@ -77,6 +89,9 @@ export default function Admin() {
     { enabled: Boolean(isAuthenticated && selectedAuditDraftId) }
   );
   const businessMetrics = trpc.metrics.public.useQuery(undefined, {
+    enabled: Boolean(isAuthenticated),
+  });
+  const auditLog = trpc.admin.auditLog.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
   const reviewDraft = trpc.admin.emailDraftReview.useMutation({
@@ -101,6 +116,12 @@ export default function Admin() {
     subject: "Gracias por escribir a Belentani Studio",
     body: "Hola {{name}},\n\nHemos recibido tu mensaje. Lo revisaremos con atención humana.",
     status: "draft" as const,
+  });
+  const [changelog, setChangelog] = useState({
+    slug: "",
+    title: "",
+    summary: "",
+    body: "",
   });
   if (loading)
     return (
@@ -700,6 +721,140 @@ export default function Admin() {
             {preflightMessage}
           </p>
         )}
+        <Card className="mt-8 border-border/60">
+          <CardHeader>
+            <CardTitle className="text-xl">Recursos multimedia</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {!mediaAdminList.data?.length && (
+              <p className="text-sm text-muted-foreground">
+                No hay recursos multimedia registrados.
+              </p>
+            )}
+            {mediaAdminList.data?.map(resource => (
+              <div
+                key={resource.id}
+                className="flex flex-col justify-between gap-3 rounded-xl border border-border/60 p-4 md:flex-row md:items-center"
+              >
+                <span className="text-sm">
+                  {resource.title} · {resource.status}
+                </span>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="rounded-full"
+                    onClick={() =>
+                      setMediaStatus.mutate({
+                        id: resource.id,
+                        status: "published",
+                      })
+                    }
+                  >
+                    Publicar
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="rounded-full"
+                    onClick={() =>
+                      setMediaStatus.mutate({
+                        id: resource.id,
+                        status: "archived",
+                      })
+                    }
+                  >
+                    Archivar
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+        <Card className="mt-8 border-border/60">
+          <CardHeader>
+            <CardTitle className="text-xl">Contenido editorial</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <Input
+              placeholder="Slug"
+              value={changelog.slug}
+              onChange={event =>
+                setChangelog(current => ({
+                  ...current,
+                  slug: event.target.value,
+                }))
+              }
+            />
+            <Input
+              placeholder="Título"
+              value={changelog.title}
+              onChange={event =>
+                setChangelog(current => ({
+                  ...current,
+                  title: event.target.value,
+                }))
+              }
+            />
+            <Input
+              placeholder="Resumen"
+              value={changelog.summary}
+              onChange={event =>
+                setChangelog(current => ({
+                  ...current,
+                  summary: event.target.value,
+                }))
+              }
+            />
+            <Textarea
+              placeholder="Contenido"
+              value={changelog.body}
+              onChange={event =>
+                setChangelog(current => ({
+                  ...current,
+                  body: event.target.value,
+                }))
+              }
+            />
+            <Button
+              className="rounded-full"
+              disabled={saveChangelog.isPending}
+              onClick={() => saveChangelog.mutate(changelog)}
+            >
+              <Save className="mr-2 size-4" /> Guardar contenido
+            </Button>
+            {changelogAdmin.data?.map(entry => (
+              <p key={entry.id} className="text-sm text-muted-foreground">
+                {entry.title} · {entry.publishedAt ? "publicado" : "borrador"}
+              </p>
+            ))}
+          </CardContent>
+        </Card>
+        <Card className="mt-8 border-border/60">
+          <CardHeader>
+            <CardTitle className="text-xl">Auditoría administrativa</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {!auditLog.data?.length && (
+              <p className="text-sm text-muted-foreground">
+                No hay acciones auditadas.
+              </p>
+            )}
+            {auditLog.data?.slice(0, 20).map(entry => (
+              <div
+                key={entry.id}
+                className="flex flex-col justify-between gap-1 rounded-xl border border-border/60 p-4 text-sm md:flex-row"
+              >
+                <span>
+                  {entry.action} · {entry.entityType} · {entry.outcome}
+                </span>
+                <time className="text-muted-foreground">
+                  {new Date(entry.occurredAt).toLocaleString()}
+                </time>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
         <Card className="mt-8 border-border/60">
           <CardHeader>
             <CardTitle className="text-xl">Gobernanza operativa</CardTitle>

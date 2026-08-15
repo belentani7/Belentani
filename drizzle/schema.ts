@@ -165,6 +165,27 @@ export const emailDraftAudit = mysqlTable(
   })
 );
 
+export const adminActionAudit = mysqlTable(
+  "admin_action_audit",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    actorUserId: int("actorUserId").notNull(),
+    action: varchar("action", { length: 100 }).notNull(),
+    entityType: varchar("entityType", { length: 80 }).notNull(),
+    entityId: int("entityId"),
+    outcome: mysqlEnum("outcome", ["success", "failure"]).notNull(),
+    occurredAt: timestamp("occurredAt").defaultNow().notNull(),
+  },
+  table => ({
+    actorIdx: index("admin_audit_actor_idx").on(table.actorUserId),
+    entityIdx: index("admin_audit_entity_idx").on(
+      table.entityType,
+      table.entityId
+    ),
+    occurredIdx: index("admin_audit_occurred_idx").on(table.occurredAt),
+  })
+);
+
 export const automationRuns = mysqlTable(
   "automation_runs",
   {
@@ -242,4 +263,5 @@ export type EmailDraft = typeof emailDrafts.$inferSelect;
 export type EmailDraftAudit = typeof emailDraftAudit.$inferSelect;
 export type AutomationJob = typeof automationJobs.$inferSelect;
 export type AutomationRun = typeof automationRuns.$inferSelect;
+export type AdminActionAudit = typeof adminActionAudit.$inferSelect;
 export type ChangelogEntry = typeof changelogEntries.$inferSelect;

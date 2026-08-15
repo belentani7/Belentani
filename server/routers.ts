@@ -25,6 +25,7 @@ import {
   listPrivateEmailDrafts,
   updatePrivateEmailDraft,
 } from "./privateData";
+import { listAdminActions, recordAdminAction } from "./adminAudit";
 import {
   and,
   asc,
@@ -262,7 +263,7 @@ export const appRouter = router({
           limit: z.number().int().min(1).max(500).default(500),
         })
       )
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
         const db = await getDb();
         if (!db)
           throw new TRPCError({
@@ -289,6 +290,12 @@ export const appRouter = router({
                 updatedAt: new Date(),
               },
             });
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "catalog_ingest",
+          entityType: "catalog_source",
+          outcome: "success",
+        });
         return {
           discovered: candidates.length,
           quarantined: candidates.filter(
@@ -333,7 +340,7 @@ export const appRouter = router({
           status: z.enum(["draft", "published", "archived"]).optional(),
         })
       )
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
         const db = await getDb();
         if (!db)
           throw new TRPCError({
@@ -351,6 +358,13 @@ export const appRouter = router({
             ...(input.status ? { status: input.status } : {}),
           })
           .where(eq(catalogItems.id, input.id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "catalog_review",
+          entityType: "catalog_item",
+          entityId: input.id,
+          outcome: "success",
+        });
         return { success: true };
       }),
     catalogCreate: adminProcedure
@@ -364,7 +378,7 @@ export const appRouter = router({
           status: z.enum(["draft", "published"]).default("draft"),
         })
       )
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
         const db = await getDb();
         if (!db)
           throw new TRPCError({
@@ -378,8 +392,94 @@ export const appRouter = router({
           url: input.url ?? null,
           tags: input.tags ?? null,
         });
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "catalog_create",
+          entityType: "catalog_item",
+          outcome: "success",
+        });
         return { success: true, slug };
       }),
+    mediaAdminList: adminProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return [];
+      return db
+        .select()
+        .from(mediaResources)
+        .orderBy(desc(mediaResources.updatedAt));
+    }),
+    mediaSetStatus: adminProcedure
+      .input(
+        z.object({
+          id: z.number().int().positive(),
+          status: z.enum(["draft", "published", "archived"]),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        await db
+          .update(mediaResources)
+          .set({ status: input.status })
+          .where(eq(mediaResources.id, input.id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "media_status_change",
+          entityType: "media_resource",
+          entityId: input.id,
+        });
+        return { success: true, status: input.status };
+      }),
+    changelogAdmin: adminProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return [];
+      return db
+        .select()
+        .from(changelogEntries)
+        .orderBy(desc(changelogEntries.updatedAt));
+    }),
+    changelogUpsert: adminProcedure
+      .input(
+        z.object({
+          slug: z.string().trim().min(2).max(180),
+          title: z.string().trim().min(2).max(220),
+          summary: z.string().trim().min(2).max(1000),
+          body: z.string().trim().min(2).max(20000),
+          publishedAt: z.coerce.date().nullable().optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        await db
+          .insert(changelogEntries)
+          .values(input)
+          .onDuplicateKeyUpdate({
+            set: {
+              title: input.title,
+              summary: input.summary,
+              body: input.body,
+              publishedAt: input.publishedAt ?? null,
+              updatedAt: new Date(),
+            },
+          });
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "changelog_upsert",
+          entityType: "changelog_entry",
+          outcome: "success",
+        });
+        return { success: true };
+      }),
+    auditLog: adminProcedure.query(() => listAdminActions()),
     emailDrafts: adminProcedure.query(() => listPrivateEmailDrafts()),
     emailDraftAudit: adminProcedure
       .input(z.object({ draftId: z.number().int().positive() }))
@@ -474,6 +574,12 @@ export const appRouter = router({
             code: "PRECONDITION_FAILED",
             message: "Database unavailable",
           });
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "email_draft_review",
+          entityType: "email_draft",
+          entityId: input.id,
+        });
         return { success: true, status: input.status };
       }),
     templates: adminProcedure.query(async () => {
@@ -511,6 +617,12 @@ export const appRouter = router({
               updatedByUserId: ctx.user.id,
             },
           });
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "template_upsert",
+          entityType: "email_template",
+          outcome: "success",
+        });
         return { success: true };
       }),
     automationPreflight: adminProcedure
@@ -553,7 +665,7 @@ export const appRouter = router({
           callbackPath: z.string().regex(/^\/api\/scheduled\/[a-z0-9-]+$/),
         })
       )
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
         const db = await getDb();
         if (!db)
           throw new TRPCError({
@@ -589,6 +701,12 @@ export const appRouter = router({
           .update(automationJobs)
           .set({ status: input.status })
           .where(eq(automationJobs.id, input.id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "automation_status_change",
+          entityType: "automation_job",
+          entityId: input.id,
+        });
         return { success: true, status: input.status };
       }),
     automations: adminProcedure.query(async () => {
