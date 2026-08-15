@@ -1,0 +1,2 @@
+ALTER TABLE `catalog_items` DROP INDEX `catalog_items_canonicalUrl_unique`;--> statement-breakpoint
+ALTER TABLE `catalog_items` ADD CONSTRAINT `catalog_source_canonical_idx` UNIQUE(`sourceName`,`canonicalUrl`);

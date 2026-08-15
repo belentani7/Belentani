@@ -1,5 +1,48 @@
 {
   "version": "7",
   "dialect": "mysql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1786773790979,
+      "tag": "0000_third_rocket_racer",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1786773970689,
+      "tag": "0001_unique_mystique",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786775179814,
+      "tag": "0002_small_speed",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1786775489535,
+      "tag": "0003_tough_retro_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1786776059657,
+      "tag": "0004_boring_aaron_stack",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1786776293349,
+      "tag": "0005_mighty_maverick",
+      "breakpoints": true
+    }
+  ]
 }

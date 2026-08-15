@@ -1,0 +1,25 @@
+import { describe, expect, it } from "vitest";
+import { appRouter } from "./routers";
+import type { TrpcContext } from "./_core/context";
+
+const context = {
+  user: null,
+  req: {} as TrpcContext["req"],
+  res: {} as TrpcContext["res"],
+} as TrpcContext;
+
+describe("platform contracts", () => {
+  it("rejects an empty agent message before invoking the model", async () => {
+    const caller = appRouter.createCaller(context);
+    await expect(
+      caller.agent.respond({ message: "   " })
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+  });
+
+  it("rejects oversized catalog page sizes", async () => {
+    const caller = appRouter.createCaller(context);
+    await expect(
+      caller.catalog.list({ query: "", page: 1, pageSize: 1000 })
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+  });
+});
