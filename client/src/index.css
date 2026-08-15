@@ -243,7 +243,21 @@
   --brand-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --brand-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --brand-motion-fast: 140ms;
-  --brand-motion-standard: 220ms;
+  --brand-motion-standard: 180ms;
+
+  /* NOIACORE LAB visual contract: absolute black, deep desaturated blues, spectral whites. */
+  --noiacore-bg: #000000;
+  --noiacore-surface-100: #0a1628;
+  --noiacore-surface-200: #0f1c2e;
+  --noiacore-surface-300: #15233a;
+  --noiacore-surface-400: #1a2a40;
+  --noiacore-spectral-100: #e8f0ff;
+  --noiacore-spectral-200: #f5f8ff;
+  --noiacore-spectral-300: #f0f4ff;
+  --noiacore-hairline: rgba(232, 240, 255, 0.1);
+  --noiacore-glass: rgba(10, 22, 40, 0.4);
+  --noiacore-glass-blur: 12px;
+  --noiacore-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer components {
@@ -306,6 +320,25 @@
   .brand-card {
     border-radius: var(--brand-radius-card);
     box-shadow: var(--brand-shadow-card);
+  }
+
+  .noiacore-glass {
+    background: var(--noiacore-glass);
+    border: 1px solid var(--noiacore-hairline);
+    backdrop-filter: blur(var(--noiacore-glass-blur));
+    -webkit-backdrop-filter: blur(var(--noiacore-glass-blur));
+  }
+
+  .noiacore-hairline {
+    border-color: var(--noiacore-hairline);
+  }
+
+  .noiacore-spectral-gradient {
+    background-image: linear-gradient(
+      180deg,
+      rgba(245, 248, 255, 0.1),
+      rgba(245, 248, 255, 0)
+    );
   }
 
   .brand-icon {

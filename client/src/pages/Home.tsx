@@ -135,7 +135,7 @@ export default function Home() {
           <div className="relative flex min-h-[360px] items-end justify-end">
             <div className="absolute right-6 top-0 size-56 rounded-full border border-foreground/15" />
             <div className="absolute right-20 top-14 size-40 rounded-full border border-primary/30" />
-            <div className="relative max-w-sm rounded-[2rem] border border-border/70 bg-card/75 p-7 shadow-2xl shadow-primary/10 backdrop-blur">
+            <div className="noiacore-glass relative max-w-sm rounded-[2rem] border border-border/70 bg-card/75 p-7 shadow-2xl shadow-primary/10 backdrop-blur">
               <div className="mb-14 flex items-center justify-between">
                 <span className="text-xs font-semibold uppercase tracking-[.24em] text-muted-foreground">
                   Principio 01

@@ -28,6 +28,10 @@ import {
 import { listAdminActions, recordAdminAction } from "./adminAudit";
 import { notifyOperationalEvent } from "./operationalNotifications";
 import {
+  ingestAuthorizedEmails,
+  MAX_MESSAGES_PER_INGEST,
+} from "./emailIngestion";
+import {
   and,
   asc,
   count,
@@ -562,6 +566,33 @@ export const appRouter = router({
           category: parsed.category,
           status: "draft" as const,
         };
+      }),
+    emailDraftIngest: adminProcedure
+      .input(
+        z.object({
+          messages: z
+            .array(
+              z.object({
+                externalMessageId: z.string().trim().min(1).max(240),
+                fromAddress: z.string().trim().min(1).max(500),
+                subject: z.string().trim().min(1).max(500),
+                originalBody: z.string().min(1).max(20000),
+                receivedAt: z.coerce.date(),
+              })
+            )
+            .min(1)
+            .max(MAX_MESSAGES_PER_INGEST),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const results = await ingestAuthorizedEmails(input.messages);
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "email_ingest",
+          entityType: "email_draft_batch",
+          outcome: "success",
+        });
+        return { success: true as const, count: results.length, results };
       }),
     emailDraftReview: adminProcedure
       .input(

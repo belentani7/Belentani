@@ -304,3 +304,19 @@
 - [ ] Implementar y documentar un flujo verificable de dead-letter al agotar reintentos o al detectar fallos terminales de callbacks.
 - [ ] Añadir pruebas reproducibles de automatizaciones que cubran fallo, retry esperado, timeout documentado y transición a cuarentena/dead-letter.
 - [x] Separar explícitamente en la documentación los metadatos persistidos por la aplicación de los reintentos y timeout que dependen del scheduler externo.
+
+## Ingestión Gmail autorizada
+
+- [x] Verificar las herramientas y permisos efectivos del conector Gmail sin enviar ni modificar mensajes.
+- [x] Definir un contrato de ingestión de solo lectura con límite de mensajes, extracción segura y deduplicación por messageId/threadId.
+- [x] Implementar creación idempotente de emailDrafts desde mensajes autorizados, conservando revisión humana y sin envío automático.
+- [x] Registrar auditoría sin guardar más contenido sensible del necesario y documentar el alcance de Gmail.
+- [ ] Añadir tests de privacidad, deduplicación, errores del proveedor y regresión del panel de borradores.
+
+## Guía visual maestra NOIACORE LAB
+
+- [x] Crear un prompt maestro reutilizable con vocabulario descriptivo y variantes semánticas del universo NOIACORE LAB.
+- [x] Consolidar tokens explícitos de negro absoluto, superficies azul profundo, blancos espectrales, bordes, gradientes y cristal oscuro.
+- [x] Aplicar los tokens y efectos a la interfaz existente sin cambiar textos, estructura, rutas, contenido ni funcionalidades.
+- [x] Mantener las animaciones dentro de la política efectiva de motion y respetar `prefers-reduced-motion`, aunque la guía visual proponga transiciones lentas.
+- [x] Verificar mediante diff, typecheck, tests, lint y build que el rediseño no altera la semántica ni los flujos existentes.
