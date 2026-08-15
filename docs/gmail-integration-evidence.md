@@ -14,3 +14,7 @@ La búsqueda de verificación devolvió mensajes reales del inbox, incluyendo ID
 Se añadieron pruebas deterministas de normalización de remitentes, límites de lote, rechazo de contenido inválido, upsert por `externalMessageId`, estado `draft`, fallo del clasificador sin persistencia y del adaptador `ingestAuthorizedInbox` con inbox vacío o proveedor no disponible. El adaptador conecta un proveedor autorizado inyectado con la clasificación y persistencia existentes, pero no expone credenciales Gmail al runtime web. La consulta `label:clientes is:unread` devolvió cero hilos, por lo que no se crearon drafts reales ni se modificó ningún mensaje.
 
 No se realizaron envíos, cambios de etiquetas, archivados ni modificaciones en Gmail. La generación de respuesta conserva revisión humana; cualquier activación recurrente debe usar un callback o agente programado después de desplegar y verificar el sitio, nunca un timer dentro del proceso web.
+
+## Verificación posterior del filtro operativo
+
+El 15 de agosto de 2026 se ejecutó nuevamente `gmail_search_messages` con la consulta exacta `label:clientes is:unread` y máximo 20 resultados sobre la cuenta autorizada `belentani7pedro@gmail.com`. El conector respondió correctamente con `threads: []`. No se leyeron cuerpos, no se crearon borradores, no se cambiaron etiquetas y no se enviaron mensajes. La conexión del conector Gmail al runtime web sigue pendiente de despliegue y de un mecanismo autorizado de ejecución periódica.

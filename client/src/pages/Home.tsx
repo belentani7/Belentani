@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { authorizedProfile } from "@/content/profile";
 
 const pillars = [
   {
@@ -166,6 +167,82 @@ export default function Home() {
             </CardContent>
           </Card>
         ))}
+      </section>
+
+      <section
+        id="perfil"
+        className="border-y border-border/60 bg-muted/20 px-6 py-20 lg:px-10"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+            <div>
+              <p className="mb-3 text-sm font-medium text-primary">
+                Perfil profesional
+              </p>
+              <h2 className="text-4xl font-semibold tracking-[-.05em] md:text-6xl">
+                Pedro Belentani.
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-muted-foreground">
+                {authorizedProfile.bio}
+              </p>
+              <p className="mt-5 text-sm leading-7 text-muted-foreground">
+                {authorizedProfile.approach}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-2">
+                {authorizedProfile.specialties.map(specialty => (
+                  <Badge
+                    key={specialty}
+                    variant="outline"
+                    className="rounded-full"
+                  >
+                    {specialty}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              <Card className="border-border/60 bg-card/60">
+                <CardHeader>
+                  <CardTitle className="text-xl">Formación</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm leading-7 text-muted-foreground">
+                  {authorizedProfile.education.map(item => (
+                    <p key={item}>{item}</p>
+                  ))}
+                </CardContent>
+              </Card>
+              <Card className="border-border/60 bg-card/60">
+                <CardHeader>
+                  <CardTitle className="text-xl">Idiomas</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2 text-sm leading-7 text-muted-foreground">
+                  {authorizedProfile.languages.map(item => (
+                    <p key={item}>{item}</p>
+                  ))}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+          <div className="mt-12 grid gap-5 md:grid-cols-2">
+            {authorizedProfile.projects.map(project => (
+              <Card key={project.name} className="border-border/60 bg-card/60">
+                <CardHeader>
+                  <div className="flex items-center justify-between text-xs uppercase tracking-[.2em] text-muted-foreground">
+                    <span>{project.year}</span>
+                    <span>{project.role}</span>
+                  </div>
+                  <CardTitle className="mt-5 text-2xl tracking-[-.04em]">
+                    {project.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm leading-7 text-muted-foreground">
+                  <p>{project.description}</p>
+                  <p className="text-foreground/75">{project.technologies}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section

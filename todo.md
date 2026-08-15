@@ -370,3 +370,10 @@
 
 - [x] Implementar CRUD administrativo de automatizaciones: alta, edición, baja lógica/archivo, validación de callbacks, permisos y auditoría.
 - [x] Añadir pruebas de contrato para las operaciones CRUD de automatizaciones y revisar el lenguaje del backlog para distinguir archivado lógico de eliminación física.
+
+- [x] Incorporar el nombre profesional autorizado Pedro Belentani y la biografía proporcionada sin añadir afirmaciones externas.
+- [x] Añadir estudios, idiomas y especialidades declarados por el usuario con separación clara entre hechos y posicionamiento narrativo.
+- [x] Añadir los cuatro proyectos autorizados y mantener anonimizada la actividad vinculada a Meta e Inditex según las instrucciones recibidas.
+- [x] Mantener prohibidos ingresos, métricas confidenciales, testimonios no verificables y títulos no declarados; validar copy y SEO tras el enriquecimiento.
+- [x] Documentar el inventario de materiales autorizados y la ausencia de fotografías proporcionadas.
+- [x] Corregir la repetición del rol profesional en la presentación pública del perfil autorizado sin alterar los hechos declarados.
