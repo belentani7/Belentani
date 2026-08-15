@@ -30,3 +30,31 @@ export function getAutomationReadiness(input: {
       : "callback-or-task-uid-missing";
   return { ready, reason };
 }
+
+export function getSchedulerAttempt(input: {
+  headers?: Record<string, string | string[] | undefined>;
+  body?: unknown;
+}): number {
+  const headers = input.headers ?? {};
+  const rawHeader = headers["x-manus-attempt"] ?? headers["x-attempt"];
+  const rawBody =
+    input.body && typeof input.body === "object" && "attempt" in input.body
+      ? (input.body as { attempt?: unknown }).attempt
+      : undefined;
+  const raw = Array.isArray(rawHeader) ? rawHeader[0] : (rawHeader ?? rawBody);
+  const parsed = Number(raw);
+  return Number.isInteger(parsed) && parsed > 0 && parsed <= 100 ? parsed : 1;
+}
+
+export function getFailureRunMetadata(
+  attempt: number,
+  maxAttempts = AUTOMATION_RUN_POLICY.maxAttempts
+) {
+  const deadLettered = attempt >= maxAttempts;
+  return {
+    quarantineReason: deadLettered
+      ? "retry-exhausted-dead-letter"
+      : "callback-failure-awaiting-platform-retry",
+    ...(deadLettered ? { deadLetteredAt: new Date() } : {}),
+  } as const;
+}

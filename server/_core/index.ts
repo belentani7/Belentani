@@ -21,7 +21,12 @@ import {
 import { and, count, eq } from "drizzle-orm";
 import { storagePut } from "../storage";
 import { getMetrics, recordScheduled } from "../observability";
-import { AUTOMATION_RUN_POLICY, GROWTH_REPORT_CALLBACK } from "../automation";
+import {
+  AUTOMATION_RUN_POLICY,
+  GROWTH_REPORT_CALLBACK,
+  getFailureRunMetadata,
+  getSchedulerAttempt,
+} from "../automation";
 import { logError, logInfo, logWarn } from "../structuredLogger";
 import { notifyOperationalFailure } from "../operationalNotifications";
 import { ingestAuthorizedEmails } from "../emailIngestion";
@@ -51,6 +56,7 @@ async function scheduledCatalogRefresh(
   res: express.Response
 ) {
   const startedAt = Date.now();
+  const schedulerAttempt = getSchedulerAttempt(req);
   try {
     const user = await sdk.authenticateRequest(req);
     if (!user.isCron || !user.taskUid)
@@ -69,7 +75,7 @@ async function scheduledCatalogRefresh(
         jobId: job?.id ?? null,
         taskUid: user.taskUid,
         status: "skipped",
-        attempt: 1,
+        attempt: schedulerAttempt,
         maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
         timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
         quarantineReason: job ? "job-paused" : "orphan-task",
@@ -114,7 +120,7 @@ async function scheduledCatalogRefresh(
       jobId: job.id,
       taskUid: user.taskUid,
       status: "succeeded",
-      attempt: 1,
+      attempt: schedulerAttempt,
       maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
       timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
       startedAt: new Date(startedAt),
@@ -145,10 +151,10 @@ async function scheduledCatalogRefresh(
       if (db) {
         await db.insert(automationRuns).values({
           status: "failed",
-          attempt: 1,
+          attempt: schedulerAttempt,
           maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
           timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
-          quarantineReason: "callback-failure-awaiting-platform-retry",
+          ...getFailureRunMetadata(schedulerAttempt),
           startedAt: new Date(startedAt),
           finishedAt: new Date(),
           durationMs: Date.now() - startedAt,
@@ -175,6 +181,7 @@ async function scheduledGrowthReport(
   res: express.Response
 ) {
   const startedAt = Date.now();
+  const schedulerAttempt = getSchedulerAttempt(req);
   try {
     const user = await sdk.authenticateRequest(req);
     if (!user.isCron || !user.taskUid)
@@ -193,7 +200,7 @@ async function scheduledGrowthReport(
         jobId: job?.id ?? null,
         taskUid: user.taskUid,
         status: "skipped",
-        attempt: 1,
+        attempt: schedulerAttempt,
         maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
         timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
         quarantineReason: job ? "job-paused" : "orphan-task",
@@ -222,7 +229,7 @@ async function scheduledGrowthReport(
       jobId: job.id,
       taskUid: user.taskUid,
       status: "succeeded",
-      attempt: 1,
+      attempt: schedulerAttempt,
       maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
       timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
       startedAt: new Date(startedAt),
@@ -252,10 +259,10 @@ async function scheduledGrowthReport(
       if (db)
         await db.insert(automationRuns).values({
           status: "failed",
-          attempt: 1,
+          attempt: schedulerAttempt,
           maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
           timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
-          quarantineReason: "callback-failure-awaiting-platform-retry",
+          ...getFailureRunMetadata(schedulerAttempt),
           startedAt: new Date(startedAt),
           finishedAt: new Date(),
           durationMs: Date.now() - startedAt,
@@ -281,6 +288,7 @@ async function scheduledGmailIngest(
   res: express.Response
 ) {
   const startedAt = Date.now();
+  const schedulerAttempt = getSchedulerAttempt(req);
   let taskUid: string | undefined;
   try {
     const user = await sdk.authenticateRequest(req);
@@ -301,7 +309,7 @@ async function scheduledGmailIngest(
         jobId: job?.id ?? null,
         taskUid: taskUid,
         status: "skipped",
-        attempt: 1,
+        attempt: schedulerAttempt,
         maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
         timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
         quarantineReason: job ? "job-paused" : "orphan-task",
@@ -338,7 +346,7 @@ async function scheduledGmailIngest(
       jobId: job.id,
       taskUid: taskUid,
       status: "succeeded",
-      attempt: 1,
+      attempt: schedulerAttempt,
       maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
       timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
       startedAt: new Date(startedAt),
@@ -368,10 +376,10 @@ async function scheduledGmailIngest(
       if (db)
         await db.insert(automationRuns).values({
           status: "failed",
-          attempt: 1,
+          attempt: schedulerAttempt,
           maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
           timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
-          quarantineReason: "callback-failure-awaiting-platform-retry",
+          ...getFailureRunMetadata(schedulerAttempt),
           startedAt: new Date(startedAt),
           finishedAt: new Date(),
           durationMs: Date.now() - startedAt,

@@ -31,10 +31,10 @@
 - [x] Implementar actualización del catálogo de herramientas con idempotencia, validación y cuarentena de cambios dudosos.
 - [x] Implementar informes periódicos de crecimiento y rendimiento.
 - [x] Diseñar respuestas automáticas de correo con plantillas editables desde administración.
-- [ ] Implementar clasificación de correo entrante y borradores automáticos.
+- [x] Implementar clasificación de correo entrante y borradores automáticos.
 - [x] Requerir revisión humana antes de enviar respuestas externas salvo reglas explícitas y reversibles.
 - [x] Implementar notificaciones de nuevos contactos, eventos relevantes y fallos críticos.
-- [ ] Añadir historial de ejecuciones, reintentos, timeouts, dead-letter/quarantine y controles de permisos.
+- [x] Añadir historial de ejecuciones, reintentos, timeouts, dead-letter/quarantine y controles de permisos.
 
 ## Administración y datos
 
@@ -60,7 +60,7 @@
 - [ ] Cumplir WCAG 2.1 AA en estructura, teclado, foco, contraste, nombres accesibles y formularios.
 - [x] Implementar diseño mobile-first y responsive en los tamaños relevantes.
 - [x] Respetar prefers-reduced-motion y mantener animaciones breves, reversibles y no esenciales.
-- [ ] Aplicar validación de entrada/salida, mínimo privilegio, protección CSRF/XSS/SQLi, rate limiting y gestión segura de secretos.
+- [x] Aplicar validación de entrada/salida, mínimo privilegio, protección CSRF/XSS/SQLi, rate limiting y gestión segura de secretos.
 - [x] Añadir logs estructurados sin datos personales sensibles, health checks y métricas operativas.
 - [x] Ejecutar typecheck, lint, build, tests unitarios, pruebas de integración y revisión visual.
 - [ ] Verificar estados de error, fallos de red, reintentos, idempotencia y recuperación.
@@ -300,9 +300,9 @@
 
 ## Precisión del ciclo de reintentos de automatizaciones
 
-- [ ] Registrar y actualizar el número real de intento por ejecución cuando el proveedor lo comunique; no asumir que `attempt=1` representa todos los reintentos.
-- [ ] Implementar y documentar un flujo verificable de dead-letter al agotar reintentos o al detectar fallos terminales de callbacks.
-- [ ] Añadir pruebas reproducibles de automatizaciones que cubran fallo, retry esperado, timeout documentado y transición a cuarentena/dead-letter.
+- [x] Registrar y actualizar el número real de intento por ejecución cuando el proveedor lo comunique; no asumir que `attempt=1` representa todos los reintentos.
+- [x] Implementar y documentar un flujo verificable de dead-letter al agotar reintentos o al detectar fallos terminales de callbacks.
+- [x] Añadir pruebas reproducibles de automatizaciones que cubran fallo, retry esperado, timeout documentado y transición a cuarentena/dead-letter.
 - [x] Separar explícitamente en la documentación los metadatos persistidos por la aplicación de los reintentos y timeout que dependen del scheduler externo.
 
 ## Ingestión Gmail autorizada

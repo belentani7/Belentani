@@ -5,6 +5,8 @@ import {
   GROWTH_REPORT_CALLBACK,
   AUTOMATION_RUN_POLICY,
   getAutomationReadiness,
+  getFailureRunMetadata,
+  getSchedulerAttempt,
 } from "./automation";
 
 describe("automation readiness", () => {
@@ -52,5 +54,18 @@ describe("automation readiness", () => {
         environment: "production",
       })
     ).toEqual({ ready: true, reason: "callback-task-and-deployment-ready" });
+  });
+
+  it("normalizes the scheduler attempt and dead-letters only after exhaustion", () => {
+    expect(getSchedulerAttempt({ headers: { "x-manus-attempt": "2" } })).toBe(
+      2
+    );
+    expect(getSchedulerAttempt({ body: { attempt: 0 }, headers: {} })).toBe(1);
+    expect(getFailureRunMetadata(2)).toEqual({
+      quarantineReason: "callback-failure-awaiting-platform-retry",
+    });
+    const terminal = getFailureRunMetadata(3);
+    expect(terminal.quarantineReason).toBe("retry-exhausted-dead-letter");
+    expect(terminal.deadLetteredAt).toBeInstanceOf(Date);
   });
 });
