@@ -85,6 +85,13 @@
       "when": 1786781972550,
       "tag": "0011_complex_orphan",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1786784045801,
+      "tag": "0012_complex_baron_strucker",
+      "breakpoints": true
     }
   ]
 }

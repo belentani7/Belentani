@@ -1,5 +1,9 @@
 export const CATALOG_REFRESH_CALLBACK = "/api/scheduled/catalog-refresh";
 export const GROWTH_REPORT_CALLBACK = "/api/scheduled/growth-report";
+export const AUTOMATION_RUN_POLICY = {
+  maxAttempts: 3,
+  timeoutMs: 120_000,
+} as const;
 
 export type AutomationReadinessReason =
   | "deployment-required"

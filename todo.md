@@ -297,3 +297,10 @@
 - [x] Emitir notificación y sonido al completar operaciones relevantes sin interrumpir la interfaz ni duplicar eventos.
 - [x] Respetar `prefers-reduced-motion`, bloqueo/autoplay del navegador y fallback silencioso seguro.
 - [x] Añadir pruebas unitarias y validación de build para el sistema de notificaciones.
+
+## Precisión del ciclo de reintentos de automatizaciones
+
+- [ ] Registrar y actualizar el número real de intento por ejecución cuando el proveedor lo comunique; no asumir que `attempt=1` representa todos los reintentos.
+- [ ] Implementar y documentar un flujo verificable de dead-letter al agotar reintentos o al detectar fallos terminales de callbacks.
+- [ ] Añadir pruebas reproducibles de automatizaciones que cubran fallo, retry esperado, timeout documentado y transición a cuarentena/dead-letter.
+- [x] Separar explícitamente en la documentación los metadatos persistidos por la aplicación de los reintentos y timeout que dependen del scheduler externo.

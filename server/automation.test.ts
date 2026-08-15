@@ -2,10 +2,17 @@ import { describe, expect, it } from "vitest";
 import {
   CATALOG_REFRESH_CALLBACK,
   GROWTH_REPORT_CALLBACK,
+  AUTOMATION_RUN_POLICY,
   getAutomationReadiness,
 } from "./automation";
 
 describe("automation readiness", () => {
+  it("keeps the retry and timeout policy bounded", () => {
+    expect(AUTOMATION_RUN_POLICY).toEqual({
+      maxAttempts: 3,
+      timeoutMs: 120_000,
+    });
+  });
   it("requires production, the allowlisted callback and a task UID", () => {
     expect(
       getAutomationReadiness({

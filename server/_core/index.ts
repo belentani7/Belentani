@@ -21,7 +21,7 @@ import {
 import { and, count, eq } from "drizzle-orm";
 import { storagePut } from "../storage";
 import { getMetrics, recordScheduled } from "../observability";
-import { GROWTH_REPORT_CALLBACK } from "../automation";
+import { AUTOMATION_RUN_POLICY, GROWTH_REPORT_CALLBACK } from "../automation";
 import { logError, logInfo, logWarn } from "../structuredLogger";
 import { notifyOperationalFailure } from "../operationalNotifications";
 import {
@@ -68,6 +68,11 @@ async function scheduledCatalogRefresh(
         jobId: job?.id ?? null,
         taskUid: user.taskUid,
         status: "skipped",
+        attempt: 1,
+        maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
+        timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
+        quarantineReason: job ? "job-paused" : "orphan-task",
+        deadLetteredAt: job ? undefined : new Date(),
         finishedAt: new Date(),
         durationMs: Date.now() - startedAt,
         error: job ? "job-paused" : "orphan-task",
@@ -108,6 +113,9 @@ async function scheduledCatalogRefresh(
       jobId: job.id,
       taskUid: user.taskUid,
       status: "succeeded",
+      attempt: 1,
+      maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
+      timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
       startedAt: new Date(startedAt),
       finishedAt,
       durationMs: Date.now() - startedAt,
@@ -136,6 +144,10 @@ async function scheduledCatalogRefresh(
       if (db) {
         await db.insert(automationRuns).values({
           status: "failed",
+          attempt: 1,
+          maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
+          timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
+          quarantineReason: "callback-failure-awaiting-platform-retry",
           startedAt: new Date(startedAt),
           finishedAt: new Date(),
           durationMs: Date.now() - startedAt,
@@ -180,6 +192,11 @@ async function scheduledGrowthReport(
         jobId: job?.id ?? null,
         taskUid: user.taskUid,
         status: "skipped",
+        attempt: 1,
+        maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
+        timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
+        quarantineReason: job ? "job-paused" : "orphan-task",
+        deadLetteredAt: job ? undefined : new Date(),
         finishedAt: new Date(),
         durationMs: Date.now() - startedAt,
         error: job ? "job-paused" : "orphan-task",
@@ -204,6 +221,9 @@ async function scheduledGrowthReport(
       jobId: job.id,
       taskUid: user.taskUid,
       status: "succeeded",
+      attempt: 1,
+      maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
+      timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
       startedAt: new Date(startedAt),
       finishedAt,
       durationMs: Date.now() - startedAt,
@@ -231,6 +251,10 @@ async function scheduledGrowthReport(
       if (db)
         await db.insert(automationRuns).values({
           status: "failed",
+          attempt: 1,
+          maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
+          timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
+          quarantineReason: "callback-failure-awaiting-platform-retry",
           startedAt: new Date(startedAt),
           finishedAt: new Date(),
           durationMs: Date.now() - startedAt,
