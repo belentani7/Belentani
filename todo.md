@@ -335,3 +335,11 @@
 
 - [x] Elegir entre una ejecución periódica autorizada de baja frecuencia y un proceso web persistente, documentando coste, latencia, seguridad y mantenimiento.
 - [x] No activar ningún job ni crear una conexión automática hasta que la arquitectura sea aprobada y el endpoint esté desplegado/verificado.
+
+## Variante negro y gris piedra con atmósfera lenta
+
+- [x] Sustituir los acentos azules visibles sobre fondos oscuros por una escala de negro, grafito y gris piedra de bajo impacto cromático.
+- [x] Ajustar superficies, bordes y luces para conservar legibilidad sin reflejos azules intensos ni halos agresivos.
+- [x] Añadir una atmósfera de fondo de movimiento lento, discreto y no distractor, sin desplazar contenido ni afectar la interacción.
+- [x] Aplicar fallback estático y `prefers-reduced-motion` para evitar movimiento a usuarios que lo soliciten.
+- [x] Validar contraste, typecheck, lint, tests, build y revisión visual antes del checkpoint.

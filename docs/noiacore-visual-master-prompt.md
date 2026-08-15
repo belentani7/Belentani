@@ -10,7 +10,7 @@ Actúa exclusivamente como director de arte senior, diseñador de sistemas visua
 
 Usa de forma coherente, no ornamental, este campo semántico: **laboratorio digital, núcleo de inteligencia, arquitectura invisible, infraestructura cognitiva, materia oscura tecnológica, campo de percepción, interfaz espectral, sistema orbital, centro de operaciones, observatorio de señales, red de conocimiento, cámara de datos, plano de precisión, geometría sagrada, silencio operativo, vacío cósmico, agua negra, espejo profundo, horizonte nocturno, atmósfera cinematográfica, monumentalidad serena, minimalismo ceremonial, lujo silencioso, tecnología contenida, precisión editorial, inteligencia latente, energía fría, luz espectral, presencia invisible, profundidad abisal, inmersión controlada, continuidad, trazabilidad, evolución, densidad informativa ordenada, claridad fría, calma estructural, concentración, foco, gravedad visual y expansión contenida**.
 
-Las variantes descriptivas permitidas para los fondos son: **negro absoluto, vacío negro, oscuridad nítida, espacio sin ruido, campo nocturno, superficie abisal, fondo cósmico sobrio, plano profundo, cámara oscura digital, horizonte sin horizonte**. Para las superficies: **azul noche desaturado, vidrio oscuro, cristal ahumado frío, agua negra reflectante, placa de obsidiana digital, panel de laboratorio, membrana translúcida, plano azul profundo, superficie de datos contenida**. Para la luz: **blanco espectral, resplandor glacial, iluminación lunar fría, línea vertical de señal, brillo de baja intensidad, halo controlado, reflejo azul-blanco, luminiscencia mínima, señal tenue, luz de precisión**. Para la interacción: **respuesta serena, transición flotante, confirmación silenciosa, foco visible, elevación mínima, pulso de señal, aparición de anillo, revelación progresiva, continuidad suave, navegación ceremonial**.
+Las variantes descriptivas permitidas para los fondos son: **negro absoluto, vacío negro, oscuridad nítida, espacio sin ruido, campo nocturno, superficie abisal, fondo cósmico sobrio, plano profundo, cámara oscura digital, horizonte sin horizonte**. Para las superficies: **grafito profundo, gris piedra, vidrio oscuro neutro, cristal ahumado mineral, agua negra reflectante, placa de obsidiana digital, panel de laboratorio, membrana translúcida, pizarra mate, superficie de datos contenida**. Para la luz: **blanco espectral, resplandor mineral, iluminación lunar neutra, línea vertical de señal, brillo de baja intensidad, halo controlado, reflejo blanco-gris, luminiscencia mínima, señal tenue, luz de precisión**. Para la interacción: **respuesta serena, transición flotante, confirmación silenciosa, foco visible, elevación mínima, pulso de señal, aparición de anillo, revelación progresiva, continuidad suave, navegación ceremonial**.
 
 No uses estos conceptos para añadir copy, títulos, slogans o contenido nuevo. Son únicamente referencias internas para tomar decisiones visuales.
 
@@ -21,25 +21,25 @@ Implementa o conserva estos tokens como fuente de verdad. No adivines colores, f
 ```css
 :root {
   --noiacore-bg: #000000;
-  --noiacore-surface-100: #0a1628;
-  --noiacore-surface-200: #0f1c2e;
-  --noiacore-surface-300: #15233a;
-  --noiacore-surface-400: #1a2a40;
-  --noiacore-spectral-100: #e8f0ff;
-  --noiacore-spectral-200: #f5f8ff;
-  --noiacore-spectral-300: #f0f4ff;
-  --noiacore-hairline: rgba(232, 240, 255, 0.1);
-  --noiacore-glass: rgba(10, 22, 40, 0.4);
+  --noiacore-surface-100: #121211;
+  --noiacore-surface-200: #1b1b19;
+  --noiacore-surface-300: #282724;
+  --noiacore-surface-400: #35332e;
+  --noiacore-spectral-100: #efeee8;
+  --noiacore-spectral-200: #f7f5ef;
+  --noiacore-spectral-300: #e3e0d8;
+  --noiacore-hairline: rgba(239, 238, 232, 0.1);
+  --noiacore-glass: rgba(18, 18, 17, 0.52);
   --noiacore-glass-blur: 12px;
   --noiacore-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 ```
 
-En Tailwind, mapea estos valores a tokens semánticos equivalentes: `bg-black`, superficies `#0A1628`, `#0F1C2E`, `#15233A`, `#1A2A40`, blancos `#E8F0FF`, `#F5F8FF`, `#F0F4FF`, bordes `border-white/10` o su equivalente tokenizado, y superficies translúcidas como `bg-[#0A1628]/40`. No sustituyas estos valores por colores aproximados, cálidos, saturados o neón.
+En Tailwind, mapea estos valores a tokens semánticos equivalentes: `bg-black`, superficies `#121211`, `#1B1B19`, `#282724`, `#35332E`, grises claros `#EFEEE8`, `#F7F5EF`, `#E3E0D8`, bordes `border-white/10` o su equivalente tokenizado, y superficies translúcidas como `bg-[#121211]/52`. No sustituyas estos valores por azules, colores saturados, neón o contrastes blancos agresivos.
 
 ## Paleta y contraste
 
-El fondo principal debe ser **negro absoluto**. Las superficies deben avanzar en profundidad desde azul noche desaturado hasta azul pizarra profundo. Los blancos deben ser fríos, espectrales y legibles. Los acentos se limitan a una iluminación blanco-azulada tenue. Quedan prohibidos el rojo, naranja, amarillo, verde, magenta, violeta saturado, cian neón, gradientes vibrantes y cualquier tratamiento cálido.
+El fondo principal debe ser **negro absoluto**. Las superficies deben avanzar en profundidad desde grafito casi negro hasta gris piedra mineral. Los blancos deben ser espectrales, ligeramente pétreos y legibles, nunca deslumbrantes. Los acentos se limitan a una iluminación blanca-gris de baja intensidad. Quedan prohibidos los azules visibles, el rojo, naranja, amarillo, verde, magenta, violeta saturado, cian neón, gradientes vibrantes y cualquier tratamiento cálido.
 
 Usa la luz para jerarquía, no para decoración. Los estados hover, focus, active, success, error y disabled deben conservar significado accesible mediante contraste, texto, iconografía o estado estructural; nunca dependas únicamente del resplandor o del color.
 
@@ -51,7 +51,7 @@ Utiliza contenedores con **max-width contenido**, `px-8` cuando el viewport lo p
 
 ## Superficies, bordes y profundidad
 
-Las cards y contenedores deben sentirse como **placas oscuras suspendidas**, paneles de observación o superficies de agua negra. Usa bordes de baja intensidad, por ejemplo `border border-white/10`, o gradientes verticales mínimos como `bg-gradient-to-b from-white/10 to-transparent`. Usa `backdrop-blur-md` solo sobre superficies semitransparentes y con contraste suficiente: `bg-[#0A1628]/40 backdrop-blur-md`.
+Las cards y contenedores deben sentirse como **placas oscuras suspendidas**, paneles de observación o superficies de agua negra. Usa bordes de baja intensidad, por ejemplo `border border-white/10`, o gradientes verticales mínimos como `bg-gradient-to-b from-white/10 to-transparent`. Usa `backdrop-blur-md` solo sobre superficies semitransparentes y con contraste suficiente: `bg-[#121211]/52 backdrop-blur-md`.
 
 Los bordes deben ser finos, casi imperceptibles y útiles para separar grupos. El resplandor debe ser difuso, pequeño y frío. Evita sombras pesadas, neomorfismo, efectos 3D, biseles brillantes, texturas ruidosas y exceso de glassmorphism.
 
@@ -73,6 +73,10 @@ Estados permitidos: aumento mínimo de luminosidad, aparición de un hairline, p
 
 Cuando ya existan imágenes, conserva su función y tratamiento editorial. Si se requiere dirección cromática, prioriza desaturación controlada, contraste preciso, iluminación vertical fría, figuras contemplativas, agua negra, niebla etérea y vacío cósmico sobrio. Evita lifestyle comercial, sonrisas posadas, colores cálidos, recortes agresivos, exceso de grano, neón y composiciones estridentes. No inventes testimonios, reseñas, ratings, personas, resultados ni contenido editorial.
 
+## Atmósfera de fondo lenta
+
+Puede existir una única capa ambiental no interactiva, de baja opacidad, con gradientes radiales mineralizados y deriva lenta mediante `transform`, por ejemplo entre 28 y 36 segundos. No debe desplazar contenido, competir con la lectura ni producir destellos. Debe desaparecer o quedar estática cuando `prefers-reduced-motion: reduce` esté activo. Nunca uses este movimiento para comunicar estados, sustituir feedback o dirigir decisiones.
+
 ## Accesibilidad e integridad
 
 Conserva nombres accesibles, labels, landmarks, foco visible, orden de teclado, contraste, estados de error, textos alternativos y semántica HTML. No ocultes información importante detrás de hover. No sustituyas texto por iconos ambiguos. No cambies ningún copy, claim, label o estructura existente para hacer que la estética parezca más coherente.
@@ -81,7 +85,7 @@ Conserva nombres accesibles, labels, landmarks, foco visible, orden de teclado, 
 
 La aplicación final debe parecer nacida dentro del universo **NOIACORE LAB**: oscura, fría, espectral, precisa, silenciosa, monumental, cinematográfica, tecnológica, contenida, contemplativa, profunda y evolutiva. Debe sentirse como entrar en un campo de inteligencia invisible que ya existía antes de la llegada del usuario.
 
-La implementación solo se acepta si conserva literalmente los textos y el orden de los bloques, mantiene las funcionalidades y contratos, usa los tokens definidos, no incorpora tonos prohibidos, mantiene las animaciones dentro de 200 ms, respeta `prefers-reduced-motion`, conserva el foco accesible y supera typecheck, lint, tests y build.
+La implementación solo se acepta si conserva literalmente los textos y el orden de los bloques, mantiene las funcionalidades y contratos, usa los tokens definidos, no incorpora tonos prohibidos, conserva las animaciones interactivas dentro de 200 ms, limita el movimiento atmosférico no interactivo a una deriva lenta y sutil, respeta `prefers-reduced-motion`, conserva el foco accesible y supera typecheck, lint, tests y build.
 
 ## Instrucción para herramientas de rediseño
 
