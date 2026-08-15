@@ -18,3 +18,5 @@ No se realizaron envíos, cambios de etiquetas, archivados ni modificaciones en 
 ## Verificación posterior del filtro operativo
 
 El 15 de agosto de 2026 se ejecutó nuevamente `gmail_search_messages` con la consulta exacta `label:clientes is:unread` y máximo 20 resultados sobre la cuenta autorizada `belentani7pedro@gmail.com`. El conector respondió correctamente con `threads: []`. No se leyeron cuerpos, no se crearon borradores, no se cambiaron etiquetas y no se enviaron mensajes. La conexión del conector Gmail al runtime web sigue pendiente de despliegue y de un mecanismo autorizado de ejecución periódica.
+
+La consulta de estado de programación del 15 de agosto de 2026 no devolvió jobs existentes (`{}`). No se creó ni activó ningún job porque las reglas de Heartbeat exigen desplegar primero el sitio, verificar el callback productivo y conservar el filtro limitado. La activación futura deberá crear o actualizar el job únicamente después de ese despliegue y persistir su `taskUid`.

@@ -29,3 +29,7 @@ La ruta presenta navegación de retorno, encabezado principal `Lo que cambia, qu
 ## Error 404
 
 La ruta inexistente muestra el código `404`, el encabezado `Page Not Found`, una explicación breve y la acción `Go Home` como botón claramente identificado. El estado se presenta sobre una superficie grafito con texto claro y el foco del botón es visible en la captura. Pendiente: verificar navegación por teclado desde el primer foco y comportamiento de retorno en navegadores con historial complejo.
+
+## Administración `/admin`
+
+La ruta administrativa renderizada en la sesión autorizada muestra `Centro de gestión`, enlace `Sitio público`, estado `Sesión autorizada`, cuenta y rol admin. Los controles principales exponen nombres o placeholders legibles: preferencias de notificaciones, campos de nueva herramienta, plantilla editable, importación, job, changelog y contenido editorial. El panel muestra contadores agregados y ceros para catálogo, automatizaciones, plantillas, borradores, ejecuciones, multimedia y auditoría; no se observan datos ficticios. La gobernanza visible recuerda que las respuestas externas requieren revisión humana y que los jobs deben ser idempotentes y trazables. Pendiente: completar teclado exhaustivo de cada control y prueba con lector de pantalla; la sesión administrativa no se considera evidencia de conformidad AA completa.
