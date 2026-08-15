@@ -10,3 +10,9 @@
 | Recursos multimedia      | La lista y el reproductor nativo dependen de la red del navegador                   | Reintento de consulta disponible                                                                      | Bytes fuera de DB; metadata separada                                                                             | Error y vacío visibles                                                   | Implementado                                     |
 
 Quedan fuera de esta conclusión la disponibilidad de proveedores externos, la persistencia de rate limiting entre instancias Autoscale y la activación de jobs productivos antes de desplegar. Esas dependencias se mantienen explícitas en `docs/secrets.md` y `todo.md`.
+
+## Cobertura determinista añadida
+
+`server/catalogIngestion.test.ts` ahora simula un timeout de red en la validación HEAD de una URL, verifica que el candidato queda rechazado con la razón de aborto y ejecuta un segundo intento exitoso 204 para demostrar recuperación sin cambiar la clave canónica ni duplicar el candidato. `server/automation.test.ts` conserva la comprobación del contrato de timeout persistido de 120 segundos, el máximo de tres intentos y la transición de fallo intermedio a dead-letter terminal en el tercer intento.
+
+Esta cobertura demuestra los contratos locales de timeout, retry y recuperación. No demuestra todavía la ejecución real del scheduler externo, el timeout de una instancia Autoscale ni la recuperación end-to-end de callbacks en producción; esas dependencias permanecen abiertas.

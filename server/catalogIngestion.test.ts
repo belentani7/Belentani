@@ -1,8 +1,8 @@
-import { describe, expect, it } from "vitest";
-import { vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   assertAllowedSource,
   parseMarkdownSource,
+  validateCandidateUrl,
   validateCandidates,
 } from "./catalogIngestion";
 
@@ -52,6 +52,29 @@ describe("catalog ingestion", () => {
       reviewStatus: "quarantined",
       quarantineReason: "network-down",
     });
+    vi.unstubAllGlobals();
+  });
+
+  it("quarantines a timed-out URL and recovers on a later successful retry", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockRejectedValueOnce(new Error("The operation was aborted"))
+      .mockResolvedValueOnce(new Response(null, { status: 204 }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const timedOut = await validateCandidateUrl(
+      "https://github.com/example/tool"
+    );
+    expect(timedOut).toEqual({
+      ok: false,
+      reason: "The operation was aborted",
+    });
+
+    const recovered = await validateCandidateUrl(
+      "https://github.com/example/tool"
+    );
+    expect(recovered).toEqual({ ok: true, reason: null });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
     vi.unstubAllGlobals();
   });
 

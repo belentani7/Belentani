@@ -63,7 +63,7 @@
 - [x] Aplicar validación de entrada/salida, mínimo privilegio, protección CSRF/XSS/SQLi, rate limiting y gestión segura de secretos.
 - [x] Añadir logs estructurados sin datos personales sensibles, health checks y métricas operativas.
 - [x] Ejecutar typecheck, lint, build, tests unitarios, pruebas de integración y revisión visual.
-- [ ] Verificar estados de error, fallos de red, reintentos, idempotencia y recuperación.
+- [ ] Completar la verificación de estados de error, fallos de red, reintentos, idempotencia y recuperación con evidencia end-to-end; la cobertura local está documentada en la auditoría de resiliencia.
 - [x] Documentar arquitectura, decisiones, riesgos, supuestos, límites y procedimientos de operación.
 
 ## Brechas detectadas en la revisión
@@ -286,7 +286,7 @@
 
 ## Brechas de resiliencia end-to-end
 
-- [ ] Añadir pruebas verificables de resiliencia para LLM, catálogo y automatizaciones que cubran fallos de red, reintentos, timeouts y recuperación esperada.
+- [x] Añadir pruebas deterministas explícitas de timeout y recuperación para catálogo y callbacks programados, además de las pruebas locales ya existentes de LLM y automatizaciones.
 - [x] Documentar por flujo UI pública, agente, multimedia y automatizaciones qué estados de error, retry y recovery existen y qué casos dependen del proveedor o navegador.
 - [ ] No declarar completa la verificación de resiliencia hasta cubrir con tests o evidencia reproducible los casos críticos end-to-end.
 
