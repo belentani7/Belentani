@@ -11,10 +11,10 @@
 ## Catálogo y recursos
 
 - [x] Crear modelo de datos para más de 3000 herramientas y recursos sin datos falsos de reseñas, ratings o testimonios.
-- [ ] Implementar catálogo con categorías, etiquetas, búsqueda, filtros, ordenación y paginación eficiente.
+- [x] Implementar catálogo con categorías, etiquetas, búsqueda, filtros, ordenación y paginación eficiente.
 - [x] Añadir estados loading, skeleton, empty, error, success y retry al catálogo.
-- [ ] Implementar sección multimedia para vídeos y voces con reproductor optimizado, lazy loading y metadatos.
-- [ ] Usar almacenamiento de objetos para bytes multimedia y base de datos únicamente para metadatos y autorización.
+- [x] Implementar sección multimedia para vídeos y voces con reproductor optimizado, lazy loading y metadatos.
+- [x] Usar almacenamiento de objetos para bytes multimedia y base de datos únicamente para metadatos y autorización.
 
 ## Inteligencia artificial
 
@@ -46,7 +46,7 @@
 
 ## SEO, crecimiento y evolución
 
-- [ ] Implementar metadatos dinámicos, títulos, descripciones, Open Graph y Twitter Cards.
+- [x] Implementar metadatos dinámicos, títulos, descripciones, Open Graph y Twitter Cards.
 - [x] Implementar sitemap.xml, robots.txt, URLs canónicas y datos estructurados Schema.org.
 - [ ] Optimizar Core Web Vitals, carga inicial, imágenes, multimedia, fuentes y JavaScript.
 - [ ] Implementar analítica con privacidad y eventos de negocio documentados.
@@ -68,12 +68,12 @@
 
 ## Brechas detectadas en la revisión
 
-- [ ] Conectar `/catalogo` a `trpc.catalog.list`, eliminar datos hardcodeados, implementar filtros, etiquetas, ordenación y paginación real basada en base de datos.
+- [x] Conectar `/catalogo` a `trpc.catalog.list`, eliminar datos hardcodeados, implementar filtros, etiquetas, ordenación y paginación real basada en base de datos.
 - [x] Añadir estados completos de catálogo: loading con skeleton, error con retry, empty y success verificable.
 - [ ] Construir CRUD real en `/admin` para catálogo, recursos multimedia, plantillas de correo, automatizaciones y contenido.
 - [ ] Aplicar autorización backend a todas las consultas y mutaciones administrativas relevantes.
-- [ ] Implementar SEO por ruta con metadatos dinámicos y Twitter Cards explícitas.
-- [ ] Añadir JSON-LD Schema.org verificable en las páginas públicas.
+- [x] Implementar SEO por ruta con metadatos dinámicos y Twitter Cards explícitas.
+- [x] Añadir JSON-LD Schema.org verificable en las páginas públicas.
 - [x] Implementar logging estructurado, health check y métricas operativas.
 - [ ] Ejecutar y registrar lint y pruebas de integración.
 
@@ -106,8 +106,8 @@
 
 ## Brechas de la revisión más reciente
 
-- [ ] Añadir lazy loading real para multimedia y mejorar el reproductor y su UX.
-- [ ] Conectar storage de objetos para multimedia con flujo de subida y lectura autorizado.
+- [x] Añadir lazy loading real para multimedia y mejorar el reproductor y su UX.
+- [x] Conectar storage de objetos para multimedia con flujo de subida y lectura autorizado.
 - [x] Añadir `quarantineReason` al catálogo y usarlo en la revisión editorial.
 - [x] Validar la accesibilidad de cada URL importada antes de guardar o publicar.
 - [ ] Implementar ingestión real de inbox autorizado hacia `emailDrafts` sin carga manual.
@@ -116,11 +116,11 @@
 
 ## Brechas de la revisión más reciente
 
-- [ ] Implementar un reproductor multimedia optimizado o documentar explícitamente el alcance del reproductor nativo.
-- [ ] Completar autorización de lectura multimedia y su modelo de acceso, no solo proteger la subida.
-- [ ] Conectar `automationPreflight` y `automationSetStatus` a controles visibles del panel.
-- [ ] Poblar `ingestedAt` durante la ingesta y mostrarlo en revisión editorial.
-- [ ] Añadir una clave única estable por origen y URL canónica para garantizar idempotencia real.
+- [x] Implementar un reproductor multimedia optimizado o documentar explícitamente el alcance del reproductor nativo.
+- [x] Completar autorización de lectura multimedia y su modelo de acceso, no solo proteger la subida.
+- [x] Conectar `automationPreflight` y `automationSetStatus` a controles visibles del panel.
+- [x] Poblar `ingestedAt` durante la ingesta y mostrarlo en revisión editorial.
+- [x] Añadir una clave única estable por origen y URL canónica para garantizar idempotencia real.
 
 ## Brechas confirmadas antes del próximo checkpoint
 
@@ -131,9 +131,9 @@
 ## Brechas confirmadas antes del próximo checkpoint
 
 - [x] Añadir filtro y visualización por etiquetas en el catálogo público y en `trpc.catalog.list`.
-- [ ] Implementar un reproductor multimedia más avanzado o documentar explícitamente el alcance del reproductor nativo.
-- [ ] Completar un modelo de autorización de lectura multimedia, no solo de subida/publicación.
-- [ ] Mostrar explícitamente `reviewStatus` en la cola editorial del catálogo.
+- [x] Implementar un reproductor multimedia más avanzado o documentar explícitamente el alcance del reproductor nativo.
+- [x] Completar un modelo de autorización de lectura multimedia, no solo de subida/publicación.
+- [x] Mostrar explícitamente `reviewStatus` en la cola editorial del catálogo.
 - [x] Añadir readiness/deploy guard verificable antes de activar automatizaciones productivas.
 
 ## Brecha de idempotencia pendiente
@@ -192,3 +192,28 @@
 - [x] Definir embudo gratuito a monetización sin degradar la misión pública ni ocultar publicidad o afiliación.
 - [x] Crear modelo financiero por escenarios sin prometer ingresos garantizados.
 - [ ] Convertir las prioridades aprobadas en cambios verificables de producto, analítica y automatización.
+
+## Rediseño visual NOIACORE LAB — solo identidad
+
+- [x] Mantener literalmente todos los textos, la fuente actual del título, la estructura, el orden de bloques y las funcionalidades.
+- [x] Sustituir únicamente la paleta por negro absoluto, azules profundos desaturados y blancos fríos, sin tonos cálidos ni saturados.
+- [x] Aplicar atmósfera oscura, silenciosa, tecnológica y monumental mediante fondos, bordes, superficies y geometría sutil.
+- [x] Mantener botones, formularios, enlaces y flujos existentes, ajustando solo su tratamiento cromático y visual.
+- [x] Verificar que no se modificaron textos ni arquitectura de información mediante typecheck, pruebas y revisión visual.
+
+## Verificación visual integral NOIACORE pendiente
+
+- [x] Revisar visualmente todas las rutas públicas, administrativas, 404 y diálogos relevantes para confirmar la atmósfera fría y oscura.
+- [x] Añadir geometría sutil y consistente únicamente donde ya existan superficies visuales, sin alterar contenido ni estructura.
+- [x] Verificar mediante diff dirigido que textos, rutas, orden de bloques y flujos no cambiaron durante el rediseño.
+
+## Verificación visual final antes del checkpoint
+
+- [x] Abrir y revisar visualmente un diálogo real de autenticación con la nueva paleta fría.
+- [x] Añadir una geometría sutil explícita y reutilizable en superficies existentes, sin añadir contenido ni cambiar estructura.
+- [x] Ampliar el diff de integridad a todos los archivos visuales modificados y separar los cambios técnicos previos de SEO/carga diferida.
+
+## Trazabilidad final del rediseño
+
+- [x] Guardar un diff verificable de todos los archivos visuales tocados, demostrando cambios limitados a estilos, tokens y colores.
+- [x] Documentar separadamente los cambios técnicos previos de `App.tsx`, SEO server-side y carga diferida.

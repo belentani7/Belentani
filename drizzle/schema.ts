@@ -23,6 +23,19 @@ export const users = mysqlTable("users", {
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
 });
 
+export const businessEvents = mysqlTable(
+  "business_events",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    event: varchar("event", { length: 48 }).notNull(),
+    occurredAt: timestamp("occurredAt").defaultNow().notNull(),
+  },
+  table => ({
+    eventIdx: index("business_event_name_idx").on(table.event),
+    occurredAtIdx: index("business_event_time_idx").on(table.occurredAt),
+  })
+);
+
 export const catalogItems = mysqlTable(
   "catalog_items",
   {
@@ -171,6 +184,7 @@ export const changelogEntries = mysqlTable(
 );
 
 export type User = typeof users.$inferSelect;
+export type BusinessEvent = typeof businessEvents.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type CatalogItem = typeof catalogItems.$inferSelect;
 export type MediaResource = typeof mediaResources.$inferSelect;

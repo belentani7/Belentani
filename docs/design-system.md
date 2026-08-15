@@ -1,6 +1,18 @@
 # Design system de Belentani Studio
 
-El sistema visual utiliza una base editorial clara con tinta cálida, papel, señal azul y líneas finas. La intención perceptiva es crear **figura y fondo** inequívocos, agrupar por **proximidad y semejanza**, y reservar el color de señal para acciones, foco y estados relevantes. La marca evita el ruido visual: el espacio en blanco actúa como pausa cognitiva y las tarjetas se usan como unidades de relación, no como decoración repetida.
+El sistema visual utiliza una atmósfera oscura, cinematográfica y silenciosa, con negro absoluto, azules profundos desaturados, blancos fríos espectrales y líneas de luz muy sutiles. La intención perceptiva mantiene **figura y fondo** inequívocos, agrupa por **proximidad y semejanza**, y reserva el acento frío para acciones, foco y estados relevantes. La tipografía, los textos, la estructura y el propósito de la plataforma permanecen sin cambios; solo se transforma la piel cromática y atmosférica.
+
+## Paleta visual aplicada
+
+| Rol              | Valor     | Uso                                           |
+| ---------------- | --------- | --------------------------------------------- |
+| Fondo principal  | `#000000` | Superficie global y espacio negativo          |
+| Azul profundo 1  | `#0A1628` | Sidebar, superficies secundarias y navegación |
+| Azul profundo 2  | `#0F1C2E` | Cards, popovers y diálogos                    |
+| Azul profundo 3  | `#15233A` | Muted, acentos de superficie y geometría      |
+| Blanco frío      | `#E8F0FF` | Texto principal y acciones primarias          |
+| Blanco espectral | `#F5F8FF` | Texto destacado y superficies de control      |
+| Señal fría       | `#B9CBED` | Foco, bordes luminosos y estados              |
 
 ## Tokens verificables
 

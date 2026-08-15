@@ -7,6 +7,7 @@ import { invokeLLM } from "./_core/llm";
 import { CATALOG_REFRESH_CALLBACK, getAutomationReadiness } from "./automation";
 import {
   automationJobs,
+  businessEvents,
   catalogItems,
   changelogEntries,
   emailDrafts,
@@ -180,7 +181,20 @@ export const appRouter = router({
     }),
   }),
   metrics: router({
-    public: publicProcedure.query(() => getMetrics()),
+    public: publicProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return getMetrics();
+      const rows = await db
+        .select({ event: businessEvents.event, total: count() })
+        .from(businessEvents)
+        .groupBy(businessEvents.event);
+      return {
+        ...getMetrics(),
+        businessEvents: Object.fromEntries(
+          rows.map(row => [row.event, row.total])
+        ),
+      };
+    }),
     recordBusinessEvent: publicProcedure
       .input(
         z.object({
@@ -194,8 +208,10 @@ export const appRouter = router({
           ]),
         })
       )
-      .mutation(({ input }) => {
+      .mutation(async ({ input }) => {
         recordBusinessEvent(input.event);
+        const db = await getDb();
+        if (db) await db.insert(businessEvents).values({ event: input.event });
         return { success: true } as const;
       }),
   }),
