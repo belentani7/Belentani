@@ -330,3 +330,8 @@
 
 - [ ] Implementar la lectura real del inbox autorizado desde el producto o backend, no solo aceptar mensajes ya leídos externamente, y conectar ese flujo a `emailDrafts` sin carga manual.
 - [x] Añadir una prueba verificable del flujo inbox→clasificación→draft dentro del sistema, incluyendo caso vacío y error del proveedor.
+
+## Arquitectura de lectura automática Gmail
+
+- [x] Elegir entre una ejecución periódica autorizada de baja frecuencia y un proceso web persistente, documentando coste, latencia, seguridad y mantenimiento.
+- [x] No activar ningún job ni crear una conexión automática hasta que la arquitectura sea aprobada y el endpoint esté desplegado/verificado.

@@ -1,5 +1,6 @@
 export const CATALOG_REFRESH_CALLBACK = "/api/scheduled/catalog-refresh";
 export const GROWTH_REPORT_CALLBACK = "/api/scheduled/growth-report";
+export const GMAIL_INGEST_CALLBACK = "/api/scheduled/gmail-ingest";
 export const AUTOMATION_RUN_POLICY = {
   maxAttempts: 3,
   timeoutMs: 120_000,
@@ -18,6 +19,7 @@ export function getAutomationReadiness(input: {
   const callbackReady = [
     CATALOG_REFRESH_CALLBACK,
     GROWTH_REPORT_CALLBACK,
+    GMAIL_INGEST_CALLBACK,
   ].includes(input.callbackPath);
   const deploymentReady = input.environment === "production";
   const ready = callbackReady && input.hasTaskUid && deploymentReady;

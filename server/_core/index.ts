@@ -24,6 +24,7 @@ import { getMetrics, recordScheduled } from "../observability";
 import { AUTOMATION_RUN_POLICY, GROWTH_REPORT_CALLBACK } from "../automation";
 import { logError, logInfo, logWarn } from "../structuredLogger";
 import { notifyOperationalFailure } from "../operationalNotifications";
+import { ingestAuthorizedEmails } from "../emailIngestion";
 import {
   browserMutationGuard,
   csrfCookieMiddleware,
@@ -275,6 +276,121 @@ async function scheduledGrowthReport(
   }
 }
 
+async function scheduledGmailIngest(
+  req: express.Request,
+  res: express.Response
+) {
+  const startedAt = Date.now();
+  let taskUid: string | undefined;
+  try {
+    const user = await sdk.authenticateRequest(req);
+    if (!user.isCron || !user.taskUid)
+      return res.status(403).json({ error: "cron-only" });
+    taskUid = user.taskUid;
+    const db = await getDb();
+    if (!db) return res.status(503).json({ error: "database-unavailable" });
+    const job = (
+      await db
+        .select()
+        .from(automationJobs)
+        .where(eq(automationJobs.scheduleCronTaskUid, taskUid))
+        .limit(1)
+    )[0];
+    if (!job || job.status === "paused") {
+      await db.insert(automationRuns).values({
+        jobId: job?.id ?? null,
+        taskUid: taskUid,
+        status: "skipped",
+        attempt: 1,
+        maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
+        timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
+        quarantineReason: job ? "job-paused" : "orphan-task",
+        deadLetteredAt: job ? undefined : new Date(),
+        finishedAt: new Date(),
+        durationMs: Date.now() - startedAt,
+        error: job ? "job-paused" : "orphan-task",
+      });
+      return res
+        .status(200)
+        .json({ ok: true, skipped: job ? "paused" : "orphan" });
+    }
+    const rawMessages = req.body?.messages;
+    if (!Array.isArray(rawMessages) || rawMessages.length > 20)
+      return res.status(400).json({ error: "invalid-message-batch" });
+    const messages = rawMessages.map(message => {
+      if (!message || typeof message !== "object")
+        throw new Error("invalid-message");
+      const value = message as Record<string, unknown>;
+      const receivedAt = new Date(String(value.receivedAt ?? ""));
+      if (Number.isNaN(receivedAt.getTime())) throw new Error("invalid-date");
+      return {
+        externalMessageId: String(value.externalMessageId ?? ""),
+        fromAddress: String(value.fromAddress ?? ""),
+        subject: String(value.subject ?? ""),
+        originalBody: String(value.originalBody ?? ""),
+        receivedAt,
+      };
+    });
+    const results = await ingestAuthorizedEmails(messages);
+    const finishedAt = new Date();
+    const snapshot = { received: messages.length, drafts: results.length };
+    await db.insert(automationRuns).values({
+      jobId: job.id,
+      taskUid: taskUid,
+      status: "succeeded",
+      attempt: 1,
+      maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
+      timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
+      startedAt: new Date(startedAt),
+      finishedAt,
+      durationMs: Date.now() - startedAt,
+      snapshot: JSON.stringify(snapshot),
+    });
+    await db
+      .update(automationJobs)
+      .set({ lastRunAt: finishedAt, status: "active" })
+      .where(eq(automationJobs.id, job.id));
+    logInfo("gmail_ingest_completed", {
+      jobId: job.id,
+      taskUid: taskUid,
+      snapshot,
+      durationMs: Date.now() - startedAt,
+    });
+    return res.json({ ok: true, ...snapshot });
+  } catch (error) {
+    const payload = {
+      error: error instanceof Error ? error.message : "unknown",
+      context: { url: req.originalUrl },
+      timestamp: new Date().toISOString(),
+    };
+    try {
+      const db = await getDb();
+      if (db)
+        await db.insert(automationRuns).values({
+          status: "failed",
+          attempt: 1,
+          maxAttempts: AUTOMATION_RUN_POLICY.maxAttempts,
+          timeoutMs: AUTOMATION_RUN_POLICY.timeoutMs,
+          quarantineReason: "callback-failure-awaiting-platform-retry",
+          startedAt: new Date(startedAt),
+          finishedAt: new Date(),
+          durationMs: Date.now() - startedAt,
+          error: payload.error,
+        });
+    } catch {
+      // Preserve the original failure response if persistence is unavailable.
+    }
+    logError("gmail_ingest_failed", payload);
+    void notifyOperationalFailure({
+      event: "gmail_ingest_failed",
+      route: req.originalUrl,
+      taskUid: taskUid,
+      error: payload.error,
+    });
+    return res.status(500).json(payload);
+  }
+}
+
 async function uploadMedia(req: express.Request, res: express.Response) {
   try {
     const user = await sdk.authenticateRequest(req);
@@ -352,6 +468,7 @@ async function startServer() {
   app.get("/api/metrics", (_req, res) => res.status(200).json(getMetrics()));
   app.post("/api/scheduled/catalog-refresh", scheduledCatalogRefresh);
   app.post("/api/scheduled/growth-report", scheduledGrowthReport);
+  app.post("/api/scheduled/gmail-ingest", scheduledGmailIngest);
   app.post(
     "/api/media/upload",
     uploadGuard,

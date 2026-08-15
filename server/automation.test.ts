@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   CATALOG_REFRESH_CALLBACK,
+  GMAIL_INGEST_CALLBACK,
   GROWTH_REPORT_CALLBACK,
   AUTOMATION_RUN_POLICY,
   getAutomationReadiness,
@@ -40,6 +41,13 @@ describe("automation readiness", () => {
     expect(
       getAutomationReadiness({
         callbackPath: GROWTH_REPORT_CALLBACK,
+        hasTaskUid: true,
+        environment: "production",
+      })
+    ).toEqual({ ready: true, reason: "callback-task-and-deployment-ready" });
+    expect(
+      getAutomationReadiness({
+        callbackPath: GMAIL_INGEST_CALLBACK,
         hasTaskUid: true,
         environment: "production",
       })

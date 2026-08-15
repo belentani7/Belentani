@@ -6,6 +6,7 @@ import { TRPCError } from "@trpc/server";
 import { invokeLLM } from "./_core/llm";
 import {
   CATALOG_REFRESH_CALLBACK,
+  GMAIL_INGEST_CALLBACK,
   GROWTH_REPORT_CALLBACK,
   getAutomationReadiness,
 } from "./automation";
@@ -725,9 +726,11 @@ export const appRouter = router({
           });
         if (
           input.status === "active" &&
-          (![CATALOG_REFRESH_CALLBACK, GROWTH_REPORT_CALLBACK].includes(
-            input.callbackPath
-          ) ||
+          (![
+            CATALOG_REFRESH_CALLBACK,
+            GROWTH_REPORT_CALLBACK,
+            GMAIL_INGEST_CALLBACK,
+          ].includes(input.callbackPath) ||
             !job.scheduleCronTaskUid ||
             process.env.NODE_ENV !== "production")
         )
