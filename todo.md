@@ -346,20 +346,20 @@
 
 ## Enriquecimiento autorizado de NOIACORE LAB
 
-- [ ] Recibir o localizar únicamente los currículums, proyectos, emails y fotos que el usuario autorice de forma concreta.
-- [ ] Crear un inventario privado de materiales con origen, permiso de uso, sensibilidad y decisión de publicación.
+- [x] Recibir o localizar únicamente los currículums, proyectos, emails y fotos que el usuario autorice de forma concreta; se recibió una respuesta textual y no se recibieron fotografías ni exportaciones.
+- [x] Crear un inventario privado de materiales con origen, permiso de uso, sensibilidad y decisión de publicación.
 - [x] Investigar fuentes fiables sobre frontend, bases de datos, Gestalt, teoría de la mente, metacognición, armonía perceptiva y escaparatismo.
 - [x] Convertir la investigación en principios de narrativa, arquitectura de información, jerarquía visual y recorridos de usuario.
-- [ ] Aplicar mejoras a la web sin inventar biografía, logros, proyectos, testimonios, reseñas ni datos personales.
-- [ ] Validar privacidad, accesibilidad, rendimiento, SEO, motion y regresiones antes de un checkpoint.
+- [x] Aplicar mejoras a la web sin inventar biografía, logros, proyectos, testimonios, reseñas ni datos personales.
+- [x] Validar privacidad, accesibilidad, rendimiento, SEO, motion y regresiones antes de un checkpoint.
 
 ## Inventario de repositorios GitHub para enriquecimiento
 
 - [x] Definir categorías prioritarias y criterios de selección: actividad, licencia, documentación, seguridad, compatibilidad y mantenimiento.
 - [x] Buscar repositorios públicos relevantes para frontend, bases de datos, accesibilidad, percepción, visualización y automatización.
 - [x] Guardar URLs, licencia, señales de salud, encaje técnico y riesgos de cada candidato.
-- [ ] Seleccionar integraciones que no alteren textos, privacidad, contratos ni mantenimiento sin aprobación.
-- [ ] Aplicar únicamente mejoras compatibles y validar la suite completa antes del checkpoint.
+- [x] Seleccionar integraciones que no alteren textos, privacidad, contratos ni mantenimiento sin aprobación; se decidió no incorporar código externo en esta iteración.
+- [x] Aplicar únicamente mejoras compatibles y validar la suite completa antes del checkpoint; el producto conserva el stack existente y la suite pasa completa.
 
 - [x] Inventario GitHub ampliado a más de 80 repositorios únicos con criterios de licencia y mantenimiento
 
