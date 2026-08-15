@@ -15,7 +15,11 @@ import {
   mediaResources,
 } from "../drizzle/schema";
 import { getDb } from "./db";
-import { listPrivateEmailDrafts, updatePrivateEmailDraft } from "./privateData";
+import {
+  listPrivateEmailDraftAudit,
+  listPrivateEmailDrafts,
+  updatePrivateEmailDraft,
+} from "./privateData";
 import {
   and,
   asc,
@@ -372,6 +376,9 @@ export const appRouter = router({
         return { success: true, slug };
       }),
     emailDrafts: adminProcedure.query(() => listPrivateEmailDrafts()),
+    emailDraftAudit: adminProcedure
+      .input(z.object({ draftId: z.number().int().positive() }))
+      .query(({ input }) => listPrivateEmailDraftAudit(input.draftId)),
     emailDraftGenerate: adminProcedure
       .input(
         z.object({

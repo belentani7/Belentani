@@ -144,6 +144,27 @@ export const emailDrafts = mysqlTable(
   })
 );
 
+export const emailDraftAudit = mysqlTable(
+  "email_draft_audit",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    draftId: int("draftId").notNull(),
+    actorUserId: int("actorUserId").notNull(),
+    action: varchar("action", { length: 80 }).notNull(),
+    previousStatus: varchar("previousStatus", { length: 32 }),
+    nextStatus: varchar("nextStatus", { length: 32 }).notNull(),
+    contentHashBefore: varchar("contentHashBefore", { length: 128 }),
+    contentHashAfter: varchar("contentHashAfter", { length: 128 }),
+    contentChanged: int("contentChanged").default(0).notNull(),
+    occurredAt: timestamp("occurredAt").defaultNow().notNull(),
+  },
+  table => ({
+    draftIdx: index("email_draft_audit_draft_idx").on(table.draftId),
+    actorIdx: index("email_draft_audit_actor_idx").on(table.actorUserId),
+    occurredIdx: index("email_draft_audit_occurred_idx").on(table.occurredAt),
+  })
+);
+
 export const automationJobs = mysqlTable(
   "automation_jobs",
   {
@@ -190,5 +211,6 @@ export type CatalogItem = typeof catalogItems.$inferSelect;
 export type MediaResource = typeof mediaResources.$inferSelect;
 export type EmailTemplate = typeof emailTemplates.$inferSelect;
 export type EmailDraft = typeof emailDrafts.$inferSelect;
+export type EmailDraftAudit = typeof emailDraftAudit.$inferSelect;
 export type AutomationJob = typeof automationJobs.$inferSelect;
 export type ChangelogEntry = typeof changelogEntries.$inferSelect;

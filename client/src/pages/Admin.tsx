@@ -10,6 +10,7 @@ import {
   Clock3,
   Database,
   FileText,
+  History,
   LockKeyhole,
   Plus,
   X,
@@ -33,6 +34,9 @@ export default function Admin() {
   const { user, loading, isAuthenticated } = useAuth();
   const trpcUtils = trpc.useUtils();
   const [preflightMessage, setPreflightMessage] = useState<string | null>(null);
+  const [selectedAuditDraftId, setSelectedAuditDraftId] = useState<
+    number | null
+  >(null);
   const summary = trpc.admin.summary.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
@@ -65,6 +69,10 @@ export default function Admin() {
   const drafts = trpc.admin.emailDrafts.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
+  const draftAudit = trpc.admin.emailDraftAudit.useQuery(
+    { draftId: selectedAuditDraftId ?? 0 },
+    { enabled: Boolean(isAuthenticated && selectedAuditDraftId) }
+  );
   const businessMetrics = trpc.metrics.public.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
@@ -512,6 +520,15 @@ export default function Admin() {
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Button
                     size="sm"
+                    variant="ghost"
+                    className="rounded-full"
+                    aria-label={`Ver historial de ${draft.subject}`}
+                    onClick={() => setSelectedAuditDraftId(draft.id)}
+                  >
+                    <History className="mr-2 size-4" /> Historial
+                  </Button>
+                  <Button
+                    size="sm"
                     className="rounded-full"
                     disabled={reviewDraft.isPending}
                     onClick={() =>
@@ -544,6 +561,34 @@ export default function Admin() {
                     <Archive className="mr-2 size-4" /> Archivar
                   </Button>
                 </div>
+                {selectedAuditDraftId === draft.id && (
+                  <div className="mt-4 rounded-xl bg-muted/40 p-4">
+                    <p className="text-xs uppercase tracking-[.12em] text-muted-foreground">
+                      Historial de cambios
+                    </p>
+                    <div className="mt-3 space-y-2 text-sm">
+                      {!draftAudit.data?.length && (
+                        <p className="text-muted-foreground">
+                          Sin cambios registrados.
+                        </p>
+                      )}
+                      {draftAudit.data?.map(entry => (
+                        <div
+                          key={entry.id}
+                          className="flex flex-col justify-between gap-1 md:flex-row"
+                        >
+                          <span>
+                            {entry.action} · {entry.previousStatus ?? "nuevo"} →{" "}
+                            {entry.nextStatus}
+                          </span>
+                          <time className="text-muted-foreground">
+                            {new Date(entry.occurredAt).toLocaleString()}
+                          </time>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </CardContent>

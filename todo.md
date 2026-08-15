@@ -30,9 +30,9 @@
 - [ ] Diseñar automatizaciones recurrentes mediante jobs gestionables y observables.
 - [ ] Implementar actualización del catálogo de herramientas con idempotencia, validación y cuarentena de cambios dudosos.
 - [ ] Implementar informes periódicos de crecimiento y rendimiento.
-- [ ] Diseñar respuestas automáticas de correo con plantillas editables desde administración.
+- [x] Diseñar respuestas automáticas de correo con plantillas editables desde administración.
 - [ ] Implementar clasificación de correo entrante y borradores automáticos.
-- [ ] Requerir revisión humana antes de enviar respuestas externas salvo reglas explícitas y reversibles.
+- [x] Requerir revisión humana antes de enviar respuestas externas salvo reglas explícitas y reversibles.
 - [ ] Implementar notificaciones de nuevos contactos, eventos relevantes y fallos críticos.
 - [ ] Añadir historial de ejecuciones, reintentos, timeouts, dead-letter/quarantine y controles de permisos.
 
@@ -111,7 +111,7 @@
 - [x] Añadir `quarantineReason` al catálogo y usarlo en la revisión editorial.
 - [x] Validar la accesibilidad de cada URL importada antes de guardar o publicar.
 - [ ] Implementar ingestión real de inbox autorizado hacia `emailDrafts` sin carga manual.
-- [ ] Añadir archivado visible en UI y auditoría completa de cambios de borradores.
+- [x] Añadir archivado visible en UI y auditoría completa de cambios de borradores.
 - [x] Construir controles funcionales de pausa/activación y preflight de callbacks de automatizaciones.
 
 ## Brechas de la revisión más reciente
@@ -153,9 +153,9 @@
 - [x] Añadir a cada entrada de catálogo URL de origen, fuente, fecha de ingesta, licencia, estado y motivo de cuarentena cuando corresponda.
 - [x] Implementar pipeline idempotente de ingesta con validación, deduplicación, comprobación de URL y estado pendiente de revisión.
 - [x] Evitar publicar entradas importadas hasta aprobación editorial humana.
-- [ ] Implementar clasificación de correo entrante y generación de borradores sin envío automático externo.
-- [ ] Permitir revisión, edición, aprobación, rechazo y archivado de borradores con auditoría.
-- [ ] Mantener pausables las automatizaciones y no activar jobs productivos antes de desplegar y verificar sus callbacks.
+- [x] Implementar clasificación de correo entrante y generación de borradores sin envío automático externo.
+- [x] Permitir revisión, edición, aprobación, rechazo y archivado de borradores con auditoría.
+- [x] Mantener pausables las automatizaciones y no activar jobs productivos antes de desplegar y verificar sus callbacks.
 
 ## Brechas de implementación analítica
 
@@ -248,3 +248,8 @@
 - [x] Reducir el chunk `framework` restante por debajo del umbral advertido mediante separación adicional segura.
 - [x] Auditar y documentar optimizaciones de imágenes, multimedia y fuentes, justificando los casos no aplicables.
 - [x] Añadir evidencia reproducible de rendimiento/CWV y carga inicial antes de cerrar la optimización.
+
+## Auditoría persistente de drafts pendiente
+
+- [x] Crear historial persistente de cambios de drafts con actor, acción, estado previo/nuevo, timestamp UTC y cambios de contenido.
+- [x] Mostrar el historial de auditoría de drafts en el panel administrativo junto al archivado visible.
