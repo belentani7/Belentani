@@ -14,11 +14,11 @@ La frontera se aplica en el router: las consultas públicas filtran por estado p
 
 ## Mapa módulo → dato → acceso
 
-| Módulo | Datos que puede tocar | Nivel de acceso |
-| --- | --- | --- |
-| `server/privateData.ts` | `email_drafts` | Lectura y revisión administrativa; nunca se expone a procedimientos públicos. |
-| `server/db.ts` | `users` y conexión Drizzle | Infraestructura server-side; no se importa desde el cliente. |
-| `server/agentPolicy.ts` | Prompt, límites, categorías y decisión de revisión | Server-side puro; no recibe secretos ni persiste texto de usuario. |
-| `server/_core/env.ts` | Variables de entorno y claves de proveedores | Server-only; los valores no se serializan en respuestas. |
-| `server/storage.ts` | Bytes y URLs de objetos multimedia | Server-side; publica únicamente recursos cuya metadata ya está autorizada. |
-| `server/routers.ts` | Orquestación de procedimientos | Aplica `publicProcedure`, `protectedProcedure` y `adminProcedure`; delega acceso privado a módulos dedicados. |
+| Módulo                  | Datos que puede tocar                              | Nivel de acceso                                                                                               |
+| ----------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `server/privateData.ts` | `email_drafts`                                     | Lectura y revisión administrativa; nunca se expone a procedimientos públicos.                                 |
+| `server/db.ts`          | `users` y conexión Drizzle                         | Infraestructura server-side; no se importa desde el cliente.                                                  |
+| `server/agentPolicy.ts` | Prompt, límites, categorías y decisión de revisión | Server-side puro; no recibe secretos ni persiste texto de usuario.                                            |
+| `server/_core/env.ts`   | Variables de entorno y claves de proveedores       | Server-only; los valores no se serializan en respuestas.                                                      |
+| `server/storage.ts`     | Bytes y URLs de objetos multimedia                 | Server-side; publica únicamente recursos cuya metadata ya está autorizada.                                    |
+| `server/routers.ts`     | Orquestación de procedimientos                     | Aplica `publicProcedure`, `protectedProcedure` y `adminProcedure`; delega acceso privado a módulos dedicados. |

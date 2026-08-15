@@ -48,17 +48,17 @@
 
 - [x] Implementar metadatos dinámicos, títulos, descripciones, Open Graph y Twitter Cards.
 - [x] Implementar sitemap.xml, robots.txt, URLs canónicas y datos estructurados Schema.org.
-- [ ] Optimizar Core Web Vitals, carga inicial, imágenes, multimedia, fuentes y JavaScript.
+- [x] Optimizar Core Web Vitals, carga inicial, imágenes, multimedia, fuentes y JavaScript.
 - [x] Implementar analítica con privacidad y eventos de negocio documentados.
 - [x] Crear panel de métricas de rendimiento y crecimiento.
 - [x] Crear changelog público de evolución de la plataforma.
-- [ ] Registrar mejoras, decisiones, experimentos, resultados y rollback.
+- [x] Registrar mejoras, decisiones, experimentos, resultados y rollback.
 - [x] Preparar arquitectura de contenido para posicionamiento global y distribución multicanal sin prácticas engañosas.
 
 ## Accesibilidad, seguridad y calidad
 
 - [ ] Cumplir WCAG 2.1 AA en estructura, teclado, foco, contraste, nombres accesibles y formularios.
-- [ ] Implementar diseño mobile-first y responsive en los tamaños relevantes.
+- [x] Implementar diseño mobile-first y responsive en los tamaños relevantes.
 - [x] Respetar prefers-reduced-motion y mantener animaciones breves, reversibles y no esenciales.
 - [ ] Aplicar validación de entrada/salida, mínimo privilegio, protección CSRF/XSS/SQLi, rate limiting y gestión segura de secretos.
 - [x] Añadir logs estructurados sin datos personales sensibles, health checks y métricas operativas.
@@ -237,3 +237,14 @@
 
 - [x] Crear un módulo de acceso privado para drafts/usuarios y conectar el router administrativo a sus funciones.
 - [x] Ampliar `docs/data-boundaries.md` con el mapeo verificable de módulo, tipo de dato y nivel de acceso.
+
+## Auditoría responsive integral pendiente
+
+- [x] Verificar responsive en todas las rutas y estados relevantes, incluyendo transparencia, changelog, 404, diálogos y estados de catálogo.
+- [x] Revisar breakpoints, desbordes y adaptación de navegación, filtros, cards, formularios y métricas administrativas; corregir hallazgos.
+
+## Rendimiento verificable pendiente
+
+- [x] Reducir el chunk `framework` restante por debajo del umbral advertido mediante separación adicional segura.
+- [x] Auditar y documentar optimizaciones de imágenes, multimedia y fuentes, justificando los casos no aplicables.
+- [x] Añadir evidencia reproducible de rendimiento/CWV y carga inicial antes de cerrar la optimización.
