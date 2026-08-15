@@ -53,7 +53,7 @@
 - [ ] Crear panel de métricas de rendimiento y crecimiento.
 - [x] Crear changelog público de evolución de la plataforma.
 - [ ] Registrar mejoras, decisiones, experimentos, resultados y rollback.
-- [ ] Preparar arquitectura de contenido para posicionamiento global y distribución multicanal sin prácticas engañosas.
+- [x] Preparar arquitectura de contenido para posicionamiento global y distribución multicanal sin prácticas engañosas.
 
 ## Accesibilidad, seguridad y calidad
 
@@ -138,14 +138,38 @@
 - [ ] Permitir revisión, edición, aprobación, rechazo y archivado de borradores con auditoría.
 - [ ] Mantener pausables las automatizaciones y no activar jobs productivos antes de desplegar y verificar sus callbacks.
 
+## Brechas de implementación analítica
+
+- [x] Crear una vista o sección administrativa conectada a `trpc.metrics.public` para mostrar contadores del embudo.
+- [x] Actualizar `docs/analytics.md` con el flujo frontend → `metrics.recordBusinessEvent` → `metrics.public`, consulta y límites.
+
+- [x] Conectar `trackBusinessEvent()` con el procedimiento tRPC backend de eventos agregados.
+- [x] Añadir una vista o página administrativa de métricas de negocio.
+- [x] Ampliar tests para cubrir los cuatro eventos de superficie y la consulta de métricas.
+- [x] Documentar el receptor backend y la consulta de métricas en producción.
+
+- [x] Instrumentar explícitamente `transparency_opened` al cargar `/transparencia` y validarlo con typecheck/tests.
+- [x] Persistir o exponer los eventos de analítica de negocio mediante un endpoint/vista verificable.
+- [x] Añadir prueba de contrato o evidencia técnica de instrumentación y consulta del embudo completo.
+
+- [x] Instrumentar eventos reales del embudo en `/catalogo`, `/agente`, `/recursos` y `/transparencia`.
+- [x] Documentar eventos, propiedades permitidas, métricas derivadas y garantías de privacidad.
+- [x] Añadir una vista o endpoint verificable para consultar métricas capturadas o demostrar el proveedor analítico configurado.
+
+## Brechas de implementación estratégica
+
+- [x] Implementar analítica con privacidad para eventos de negocio del embudo y documentar sus métricas.
+- [x] Añadir disclosures visibles y campos editoriales para relaciones comerciales por recurso o recomendación.
+- [ ] Implementar una automatización real derivada del estudio, con evidencia, límites, pausa y validación.
+
 ## Nuevo estudio estratégico: recursos, persistencia, adquisición y monetización
 
-- [ ] Auditar coste real de hosting, base de datos, almacenamiento, correo, IA, dominios, analítica y automatizaciones; separar gratis, cuota gratuita y coste variable.
-- [ ] Verificar persistencia automática, límites de cuotas, caducidad, backups, recuperación y dependencia de proveedores.
-- [ ] Investigar fuentes públicas y APIs con licencia compatible, trazabilidad y condiciones de reutilización.
-- [ ] Diseñar estrategia de búsqueda, curación, deduplicación y actualización de recursos sin scraping abusivo ni contenido inventado.
-- [ ] Diseñar estrategia SEO, contenidos, distribución multicanal y adquisición orgánica medible.
-- [ ] Evaluar afiliación, patrocinios, anuncios éticos, donaciones, leads B2B, servicios y productos digitales según margen, dependencia y esfuerzo.
-- [ ] Definir embudo gratuito a monetización sin degradar la misión pública ni ocultar publicidad o afiliación.
-- [ ] Crear modelo financiero por escenarios sin prometer ingresos garantizados.
+- [x] Auditar coste real de hosting, base de datos, almacenamiento, correo, IA, dominios, analítica y automatizaciones; separar gratis, cuota gratuita y coste variable.
+- [x] Verificar persistencia automática, límites de cuotas, caducidad, backups, recuperación y dependencia de proveedores.
+- [x] Investigar fuentes públicas y APIs con licencia compatible, trazabilidad y condiciones de reutilización.
+- [x] Diseñar estrategia de búsqueda, curación, deduplicación y actualización de recursos sin scraping abusivo ni contenido inventado.
+- [x] Diseñar estrategia SEO, contenidos, distribución multicanal y adquisición orgánica medible.
+- [x] Evaluar afiliación, patrocinios, anuncios éticos, donaciones, leads B2B, servicios y productos digitales según margen, dependencia y esfuerzo.
+- [x] Definir embudo gratuito a monetización sin degradar la misión pública ni ocultar publicidad o afiliación.
+- [x] Crear modelo financiero por escenarios sin prometer ingresos garantizados.
 - [ ] Convertir las prioridades aprobadas en cambios verificables de producto, analítica y automatización.

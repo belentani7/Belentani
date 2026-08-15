@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, Bot, Send, ShieldCheck, User } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
+import { trackBusinessEvent } from "@/lib/analytics";
 
 type Message = { role: "agent" | "user"; text: string };
 
@@ -17,9 +18,20 @@ export default function Agent() {
     },
   ]);
   const respond = trpc.agent.respond.useMutation();
+  const recordEvent = trpc.metrics.recordBusinessEvent.useMutation();
+  useEffect(() => {
+    trackBusinessEvent("agent_opened", {}, event =>
+      recordEvent.mutate({ event })
+    );
+  }, []);
   const send = async () => {
     const text = input.trim();
     if (!text || respond.isPending) return;
+    trackBusinessEvent(
+      "agent_query_submitted",
+      { messageLength: text.length },
+      event => recordEvent.mutate({ event })
+    );
     const history = messages.slice(-10).map(message => ({
       role:
         message.role === "user" ? ("user" as const) : ("assistant" as const),

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
+import { trackBusinessEvent } from "@/lib/analytics";
 
 export default function Catalog() {
   const [query, setQuery] = useState("");
@@ -27,6 +28,12 @@ export default function Catalog() {
   const catalog = trpc.catalog.list.useQuery(input, {
     placeholderData: previous => previous,
   });
+  const recordEvent = trpc.metrics.recordBusinessEvent.useMutation();
+  useEffect(() => {
+    trackBusinessEvent("catalog_opened", {}, event =>
+      recordEvent.mutate({ event })
+    );
+  }, []);
   const items = catalog.data?.items ?? [];
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -170,6 +177,12 @@ export default function Catalog() {
                 </CardHeader>
                 <CardContent className="text-sm leading-7 text-muted-foreground">
                   <p>{item.description}</p>
+                  {item.commercialRelation && item.affiliateDisclosure && (
+                    <p className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs leading-5 text-foreground">
+                      <strong>Transparencia comercial:</strong>{" "}
+                      {item.affiliateDisclosure}
+                    </p>
+                  )}
                   {item.tags && (
                     <div className="mt-4 flex flex-wrap gap-2">
                       {item.tags.split(",").map(label => (

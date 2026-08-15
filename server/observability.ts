@@ -1,5 +1,6 @@
 type MetricState = {
   requests: number;
+  businessEvents: Record<string, number>;
   agentResponses: number;
   agentFallbacks: number;
   scheduledSuccess: number;
@@ -9,12 +10,18 @@ type MetricState = {
 
 const state: MetricState = {
   requests: 0,
+  businessEvents: {},
   agentResponses: 0,
   agentFallbacks: 0,
   scheduledSuccess: 0,
   scheduledFailures: 0,
   totalAgentLatencyMs: 0,
 };
+
+export function recordBusinessEvent(event: string) {
+  if (!/^[a-z_]{3,48}$/.test(event)) return;
+  state.businessEvents[event] = (state.businessEvents[event] ?? 0) + 1;
+}
 
 export function incrementRequest() {
   state.requests += 1;

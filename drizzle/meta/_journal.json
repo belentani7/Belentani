@@ -43,6 +43,13 @@
       "when": 1786776293349,
       "tag": "0005_mighty_maverick",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1786777404017,
+      "tag": "0006_wide_mimic",
+      "breakpoints": true
     }
   ]
 }

@@ -61,6 +61,9 @@ export default function Admin() {
   const drafts = trpc.admin.emailDrafts.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
+  const businessMetrics = trpc.metrics.public.useQuery(undefined, {
+    enabled: Boolean(isAuthenticated),
+  });
   const reviewDraft = trpc.admin.emailDraftReview.useMutation({
     onSuccess: () => void drafts.refetch(),
   });
@@ -159,6 +162,28 @@ export default function Admin() {
             value={summary.data?.templates ?? "—"}
           />
         </div>
+        <Card className="mt-8 border-border/60">
+          <CardHeader>
+            <CardTitle className="text-xl">Embudo público agregado</CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {Object.entries(businessMetrics.data?.businessEvents ?? {}).map(
+              ([event, value]) => (
+                <div key={event} className="rounded-xl bg-muted/50 p-4">
+                  <p className="text-xs uppercase tracking-[.12em] text-muted-foreground">
+                    {event.replaceAll("_", " ")}
+                  </p>
+                  <p className="mt-2 text-2xl font-semibold">{value}</p>
+                </div>
+              )
+            )}
+            {!businessMetrics.data && (
+              <p className="text-sm text-muted-foreground">
+                Cargando métricas agregadas...
+              </p>
+            )}
+          </CardContent>
+        </Card>
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           <Card className="border-border/60">
             <CardHeader>

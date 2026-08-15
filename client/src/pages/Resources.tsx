@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
+import { trackBusinessEvent } from "@/lib/analytics";
 
 const iconFor = {
   video: Video,
@@ -60,6 +61,12 @@ function LazyMedia({
 
 export default function Resources() {
   const { data, isLoading, isError, refetch } = trpc.media.list.useQuery();
+  const recordEvent = trpc.metrics.recordBusinessEvent.useMutation();
+  useEffect(() => {
+    trackBusinessEvent("resource_opened", { surface: "library" }, event =>
+      recordEvent.mutate({ event })
+    );
+  }, []);
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border/60">
@@ -127,6 +134,13 @@ export default function Resources() {
               return (
                 <Card
                   key={resource.id}
+                  onClick={() =>
+                    trackBusinessEvent(
+                      "resource_opened",
+                      { kind: resource.kind },
+                      event => recordEvent.mutate({ event })
+                    )
+                  }
                   className="overflow-hidden border-border/60"
                 >
                   <CardHeader>

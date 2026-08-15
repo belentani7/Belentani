@@ -37,6 +37,8 @@ export const catalogItems = mysqlTable(
     sourceName: varchar("sourceName", { length: 180 }),
     sourceUrl: varchar("sourceUrl", { length: 700 }),
     license: varchar("license", { length: 180 }),
+    commercialRelation: varchar("commercialRelation", { length: 80 }),
+    affiliateDisclosure: text("affiliateDisclosure"),
     contentHash: varchar("contentHash", { length: 128 }),
     ingestedAt: timestamp("ingestedAt"),
     reviewStatus: mysqlEnum("reviewStatus", [

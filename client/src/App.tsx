@@ -1,7 +1,8 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import Home from "@/pages/Home";
+import Home from "./pages/Home";
+import Transparency from "./pages/Transparency";
 import Catalog from "@/pages/Catalog";
 import Agent from "@/pages/Agent";
 import Changelog from "@/pages/Changelog";
@@ -20,7 +21,8 @@ function Router() {
       <Route path="/changelog" component={Changelog} />
       <Route path="/admin" component={Admin} />
       <Route path="/recursos" component={Resources} />
-      <Route path="/404" component={NotFound} />
+      <Route path={"/transparencia"} component={Transparency} />
+      <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>
   );

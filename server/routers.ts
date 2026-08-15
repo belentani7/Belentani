@@ -26,7 +26,7 @@ import {
 } from "drizzle-orm";
 import { z } from "zod";
 import { AGENT_LIMITS, AGENT_SYSTEM_PROMPT } from "./agentPolicy";
-import { getMetrics, recordAgent } from "./observability";
+import { getMetrics, recordAgent, recordBusinessEvent } from "./observability";
 import {
   fetchAllowedSource,
   parseMarkdownSource,
@@ -178,7 +178,26 @@ export const appRouter = router({
         .limit(30);
     }),
   }),
-  metrics: router({ public: publicProcedure.query(() => getMetrics()) }),
+  metrics: router({
+    public: publicProcedure.query(() => getMetrics()),
+    recordBusinessEvent: publicProcedure
+      .input(
+        z.object({
+          event: z.enum([
+            "catalog_opened",
+            "agent_opened",
+            "agent_query_submitted",
+            "resource_opened",
+            "transparency_opened",
+            "contact_clicked",
+          ]),
+        })
+      )
+      .mutation(({ input }) => {
+        recordBusinessEvent(input.event);
+        return { success: true } as const;
+      }),
+  }),
   admin: router({
     summary: adminProcedure.query(async () => {
       const db = await getDb();
