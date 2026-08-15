@@ -377,3 +377,8 @@
 - [x] Mantener prohibidos ingresos, métricas confidenciales, testimonios no verificables y títulos no declarados; validar copy y SEO tras el enriquecimiento.
 - [x] Documentar el inventario de materiales autorizados y la ausencia de fotografías proporcionadas.
 - [x] Corregir la repetición del rol profesional en la presentación pública del perfil autorizado sin alterar los hechos declarados.
+
+- [ ] Revisar estado final, pendientes reales y secretos antes de publicar el repositorio.
+- [ ] Estudiar una referencia frontend pública y documentar qué patrones son compatibles con NOIACORE LAB.
+- [ ] Localizar o crear un repositorio GitHub privado vacío para NOIACORE LAB y publicar el código validado.
+- [ ] Verificar el repositorio publicado, su visibilidad, historial y enlace final.
