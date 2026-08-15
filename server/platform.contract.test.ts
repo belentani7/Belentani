@@ -37,5 +37,25 @@ describe("platform contracts", () => {
     await expect(
       caller.admin.changelogArchive({ id: 1 })
     ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    await expect(
+      caller.admin.automationCreate({
+        name: "Job",
+        description: "Descripción del job",
+        cronExpression: "0 * * * *",
+        callbackPath: "/api/scheduled/growth-report",
+      })
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    await expect(
+      caller.admin.automationUpdate({
+        id: 1,
+        name: "Job",
+        description: "Descripción del job",
+        cronExpression: "0 * * * *",
+        callbackPath: "/api/scheduled/growth-report",
+      })
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    await expect(
+      caller.admin.automationArchive({ id: 1 })
+    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
   });
 });

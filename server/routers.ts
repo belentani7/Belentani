@@ -317,6 +317,24 @@ export const appRouter = router({
           status: "pending_review" as const,
         };
       }),
+    catalogAdminList: adminProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return [];
+      return db
+        .select({
+          id: catalogItems.id,
+          name: catalogItems.name,
+          category: catalogItems.category,
+          description: catalogItems.description,
+          url: catalogItems.url,
+          tags: catalogItems.tags,
+          status: catalogItems.status,
+          reviewStatus: catalogItems.reviewStatus,
+        })
+        .from(catalogItems)
+        .orderBy(desc(catalogItems.updatedAt))
+        .limit(100);
+    }),
     catalogReviewQueue: adminProcedure.query(async () => {
       const db = await getDb();
       if (!db) return [];
@@ -801,6 +819,108 @@ export const appRouter = router({
           actorUserId: ctx.user.id,
           action: "template_upsert",
           entityType: "email_template",
+          outcome: "success",
+        });
+        return { success: true };
+      }),
+    automationCreate: adminProcedure
+      .input(
+        z.object({
+          name: z.string().trim().min(2).max(160),
+          description: z.string().trim().min(2).max(10000),
+          cronExpression: z.string().trim().min(5).max(80),
+          callbackPath: z.string().regex(/^\/api\/scheduled\/[a-z0-9-]+$/),
+          status: z.enum(["draft", "paused"]).default("draft"),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        if (
+          ![
+            CATALOG_REFRESH_CALLBACK,
+            GROWTH_REPORT_CALLBACK,
+            GMAIL_INGEST_CALLBACK,
+          ].includes(input.callbackPath)
+        )
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Callback no permitido",
+          });
+        await db.insert(automationJobs).values(input);
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "automation_create",
+          entityType: "automation_job",
+          outcome: "success",
+        });
+        return { success: true };
+      }),
+    automationUpdate: adminProcedure
+      .input(
+        z.object({
+          id: z.number().int().positive(),
+          name: z.string().trim().min(2).max(160),
+          description: z.string().trim().min(2).max(10000),
+          cronExpression: z.string().trim().min(5).max(80),
+          callbackPath: z.string().regex(/^\/api\/scheduled\/[a-z0-9-]+$/),
+          status: z.enum(["draft", "paused"]).optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        if (
+          ![
+            CATALOG_REFRESH_CALLBACK,
+            GROWTH_REPORT_CALLBACK,
+            GMAIL_INGEST_CALLBACK,
+          ].includes(input.callbackPath)
+        )
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Callback no permitido",
+          });
+        const { id, ...changes } = input;
+        await db
+          .update(automationJobs)
+          .set(changes)
+          .where(eq(automationJobs.id, id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "automation_update",
+          entityType: "automation_job",
+          entityId: id,
+          outcome: "success",
+        });
+        return { success: true };
+      }),
+    automationArchive: adminProcedure
+      .input(z.object({ id: z.number().int().positive() }))
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db)
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "Database unavailable",
+          });
+        await db
+          .update(automationJobs)
+          .set({ status: "paused" })
+          .where(eq(automationJobs.id, input.id));
+        await recordAdminAction({
+          actorUserId: ctx.user.id,
+          action: "automation_archive",
+          entityType: "automation_job",
+          entityId: input.id,
           outcome: "success",
         });
         return { success: true };

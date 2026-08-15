@@ -70,7 +70,7 @@
 
 - [x] Conectar `/catalogo` a `trpc.catalog.list`, eliminar datos hardcodeados, implementar filtros, etiquetas, ordenación y paginación real basada en base de datos.
 - [x] Añadir estados completos de catálogo: loading con skeleton, error con retry, empty y success verificable.
-- [ ] Construir CRUD real en `/admin` para catálogo, recursos multimedia, plantillas de correo, automatizaciones y contenido.
+- [x] Construir CRUD administrativo en `/admin` para catálogo, recursos multimedia, plantillas de correo, automatizaciones y contenido, usando archivado lógico donde corresponde.
 - [x] Aplicar autorización backend a todas las consultas y mutaciones administrativas relevantes.
 - [x] Implementar SEO por ruta con metadatos dinámicos y Twitter Cards explícitas.
 - [x] Añadir JSON-LD Schema.org verificable en las páginas públicas.
@@ -366,4 +366,7 @@
 - [x] Eliminar el token azul residual de NotFound y actualizar la auditoría WCAG para reflejar la paleta negro/gris piedra/blanco espectral.
 - [x] Ejecutar una comprobación estática final de paleta, motion, secretos, build y pruebas tras la corrección visual.
 
-- [ ] Completar mutaciones CRUD administrativas no destructivas para catálogo, multimedia, plantillas y changelog, con auditoría y pruebas de autorización.
+- [x] Completar mutaciones CRUD administrativas no destructivas para catálogo, multimedia, plantillas y changelog, con auditoría y pruebas de autorización.
+
+- [x] Implementar CRUD administrativo de automatizaciones: alta, edición, baja lógica/archivo, validación de callbacks, permisos y auditoría.
+- [x] Añadir pruebas de contrato para las operaciones CRUD de automatizaciones y revisar el lenguaje del backlog para distinguir archivado lógico de eliminación física.

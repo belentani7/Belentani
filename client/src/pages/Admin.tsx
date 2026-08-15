@@ -46,6 +46,7 @@ export default function Admin() {
     onSuccess: () => {
       notifyCompletion("Elemento de catálogo guardado");
       void summary.refetch();
+      setEditingCatalogId(null);
       setCatalog({
         name: "",
         category: "",
@@ -53,6 +54,7 @@ export default function Admin() {
         url: "",
         tags: "",
       });
+      void catalogAdminList.refetch();
     },
   });
   const templates = trpc.admin.templates.useQuery(undefined, {
@@ -73,6 +75,22 @@ export default function Admin() {
   const ingestSource = trpc.admin.ingestSource.useMutation({
     onSuccess: () => notifyCompletion("Ingesta de catálogo completada"),
   });
+  const catalogAdminList = trpc.admin.catalogAdminList.useQuery(undefined, {
+    enabled: Boolean(isAuthenticated),
+  });
+  const updateCatalog = trpc.admin.catalogUpdate.useMutation({
+    onSuccess: () => {
+      notifyCompletion("Elemento de catálogo actualizado");
+      setEditingCatalogId(null);
+      void catalogAdminList.refetch();
+    },
+  });
+  const archiveCatalog = trpc.admin.catalogArchive.useMutation({
+    onSuccess: () => {
+      notifyCompletion("Elemento de catálogo archivado");
+      void catalogAdminList.refetch();
+    },
+  });
   const reviewQueue = trpc.admin.catalogReviewQueue.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
@@ -88,6 +106,12 @@ export default function Admin() {
   const setMediaStatus = trpc.admin.mediaSetStatus.useMutation({
     onSuccess: () => {
       notifyCompletion("Estado multimedia actualizado");
+      void mediaAdminList.refetch();
+    },
+  });
+  const updateMedia = trpc.admin.mediaUpdate.useMutation({
+    onSuccess: () => {
+      notifyCompletion("Recurso multimedia actualizado");
       void mediaAdminList.refetch();
     },
   });
@@ -118,6 +142,26 @@ export default function Admin() {
       void automations.refetch();
     },
   });
+  const createAutomation = trpc.admin.automationCreate.useMutation({
+    onSuccess: () => {
+      notifyCompletion("Automatización guardada");
+      setEditingAutomationId(null);
+      void automations.refetch();
+    },
+  });
+  const updateAutomation = trpc.admin.automationUpdate.useMutation({
+    onSuccess: () => {
+      notifyCompletion("Automatización actualizada");
+      setEditingAutomationId(null);
+      void automations.refetch();
+    },
+  });
+  const archiveAutomation = trpc.admin.automationArchive.useMutation({
+    onSuccess: () => {
+      notifyCompletion("Automatización archivada");
+      void automations.refetch();
+    },
+  });
   const drafts = trpc.admin.emailDrafts.useQuery(undefined, {
     enabled: Boolean(isAuthenticated),
   });
@@ -136,6 +180,17 @@ export default function Admin() {
       notifyCompletion("Borrador de correo revisado");
       void drafts.refetch();
     },
+  });
+  const [editingCatalogId, setEditingCatalogId] = useState<number | null>(null);
+  const [mediaTitles, setMediaTitles] = useState<Record<number, string>>({});
+  const [editingAutomationId, setEditingAutomationId] = useState<number | null>(
+    null
+  );
+  const [automationForm, setAutomationForm] = useState({
+    name: "",
+    description: "",
+    cronExpression: "0 * * * *",
+    callbackPath: "/api/scheduled/growth-report",
   });
   const [catalog, setCatalog] = useState({
     name: "",
@@ -340,15 +395,26 @@ export default function Admin() {
                   !catalog.category ||
                   !catalog.description
                 }
-                onClick={() =>
-                  createCatalog.mutate({
+                onClick={() => {
+                  const payload = {
                     ...catalog,
                     url: catalog.url || undefined,
-                    status: "draft",
-                  })
-                }
+                    tags: catalog.tags || undefined,
+                  };
+                  if (editingCatalogId) {
+                    updateCatalog.mutate({
+                      id: editingCatalogId,
+                      ...payload,
+                    });
+                  } else {
+                    createCatalog.mutate({ ...payload, status: "draft" });
+                  }
+                }}
               >
-                <Plus className="mr-2 size-4" /> Guardar como borrador
+                <Plus className="mr-2 size-4" />
+                {editingCatalogId
+                  ? "Actualizar elemento"
+                  : "Guardar como borrador"}
               </Button>
               {createCatalog.isSuccess && (
                 <p className="text-sm text-primary">
@@ -432,6 +498,57 @@ export default function Admin() {
             </CardContent>
           </Card>
         </div>
+        <Card className="mt-8 border-border/60">
+          <CardHeader>
+            <CardTitle className="text-xl">Catálogo administrable</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {!catalogAdminList.data?.length && (
+              <p className="text-sm text-muted-foreground">
+                No hay elementos registrados.
+              </p>
+            )}
+            {catalogAdminList.data?.map(item => (
+              <div
+                key={item.id}
+                className="flex flex-col justify-between gap-3 rounded-xl border border-border/60 p-4 md:flex-row md:items-center"
+              >
+                <span className="text-sm">
+                  {item.name} · {item.category} · {item.status}
+                </span>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="rounded-full"
+                    onClick={() => {
+                      setEditingCatalogId(item.id);
+                      setCatalog({
+                        name: item.name,
+                        category: item.category,
+                        description: item.description,
+                        url: item.url ?? "",
+                        tags: item.tags ?? "",
+                      });
+                    }}
+                  >
+                    Editar
+                  </Button>
+                  {item.status !== "archived" && (
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="rounded-full"
+                      onClick={() => archiveCatalog.mutate({ id: item.id })}
+                    >
+                      Archivar
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
         <Card className="mt-8 border-border/60">
           <CardHeader>
             <CardTitle className="flex items-center justify-between text-xl">
@@ -687,6 +804,79 @@ export default function Admin() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="grid gap-3 rounded-2xl border border-border/60 p-4 md:grid-cols-2">
+              <Input
+                placeholder="Nombre del job"
+                value={automationForm.name}
+                onChange={event =>
+                  setAutomationForm(current => ({
+                    ...current,
+                    name: event.target.value,
+                  }))
+                }
+              />
+              <Input
+                placeholder="Cron"
+                value={automationForm.cronExpression}
+                onChange={event =>
+                  setAutomationForm(current => ({
+                    ...current,
+                    cronExpression: event.target.value,
+                  }))
+                }
+              />
+              <Input
+                className="md:col-span-2"
+                placeholder="Descripción"
+                value={automationForm.description}
+                onChange={event =>
+                  setAutomationForm(current => ({
+                    ...current,
+                    description: event.target.value,
+                  }))
+                }
+              />
+              <select
+                className="h-10 rounded-md border border-border bg-background px-3 text-sm"
+                value={automationForm.callbackPath}
+                onChange={event =>
+                  setAutomationForm(current => ({
+                    ...current,
+                    callbackPath: event.target.value,
+                  }))
+                }
+                aria-label="Callback de automatización"
+              >
+                <option value="/api/scheduled/growth-report">
+                  Growth report
+                </option>
+                <option value="/api/scheduled/catalog-refresh">
+                  Catalog refresh
+                </option>
+                <option value="/api/scheduled/gmail-ingest">
+                  Gmail ingest
+                </option>
+              </select>
+              <Button
+                className="rounded-full"
+                disabled={
+                  !automationForm.name ||
+                  !automationForm.description ||
+                  createAutomation.isPending ||
+                  updateAutomation.isPending
+                }
+                onClick={() => {
+                  if (editingAutomationId)
+                    updateAutomation.mutate({
+                      id: editingAutomationId,
+                      ...automationForm,
+                    });
+                  else createAutomation.mutate(automationForm);
+                }}
+              >
+                {editingAutomationId ? "Actualizar job" : "Crear job"}
+              </Button>
+            </div>
             {!automations.data?.length && (
               <p className="text-sm leading-7 text-muted-foreground">
                 No hay jobs configurados. La activación exige callback válido y
@@ -706,6 +896,30 @@ export default function Admin() {
                   </p>
                 </div>
                 <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="rounded-full"
+                    onClick={() => {
+                      setEditingAutomationId(job.id);
+                      setAutomationForm({
+                        name: job.name,
+                        description: job.description,
+                        cronExpression: job.cronExpression,
+                        callbackPath: job.callbackPath,
+                      });
+                    }}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="rounded-full"
+                    onClick={() => archiveAutomation.mutate({ id: job.id })}
+                  >
+                    Archivar
+                  </Button>
                   <Button
                     size="sm"
                     variant="outline"
@@ -799,10 +1013,35 @@ export default function Admin() {
                 key={resource.id}
                 className="flex flex-col justify-between gap-3 rounded-xl border border-border/60 p-4 md:flex-row md:items-center"
               >
-                <span className="text-sm">
-                  {resource.title} · {resource.status}
-                </span>
+                <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <Input
+                    aria-label={`Título de ${resource.title}`}
+                    value={mediaTitles[resource.id] ?? resource.title}
+                    onChange={event =>
+                      setMediaTitles(current => ({
+                        ...current,
+                        [resource.id]: event.target.value,
+                      }))
+                    }
+                  />
+                  <span className="whitespace-nowrap text-xs text-muted-foreground">
+                    {resource.status}
+                  </span>
+                </div>
                 <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="rounded-full"
+                    onClick={() =>
+                      updateMedia.mutate({
+                        id: resource.id,
+                        title: mediaTitles[resource.id] ?? resource.title,
+                      })
+                    }
+                  >
+                    Guardar
+                  </Button>
                   <Button
                     size="sm"
                     variant="outline"
