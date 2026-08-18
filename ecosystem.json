@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "ecosystem": "BELENTANI",
+  "universe": "BELENTANI",
+  "layer": "identity",
+  "role": "canonical-public-surface",
+  "status": "active",
+  "related_repositories": [
+    "belentani7/judas-experience",
+    "belentani7/belentani-Omega",
+    "belentani7/belentani-omega-template",
+    "belentani7/belentani-omega-master",
+    "belentani7/belentani_Omega",
+    "belentani7/belentani-studio",
+    "belentani7/belentani-web",
+    "belentani7/belentaniexperience"
+  ],
+  "contract": {
+    "inputs": ["identity", "content", "media", "AI-generated artifacts"],
+    "outputs": ["experience", "interface", "creative product", "public presence"],
+    "integration": "documentation-and-interface-first",
+    "destructive_merges": false
+  }
+}
