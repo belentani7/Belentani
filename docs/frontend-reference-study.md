@@ -4,11 +4,11 @@
 
 La referencia principal seleccionada es **shadcn/ui** junto con sus primitivas Radix y el sistema de tokens de Tailwind CSS. La plataforma ya utiliza esta familia de componentes y, por tanto, el mayor beneficio consiste en reforzar la consistencia y accesibilidad sin introducir una biblioteca paralela.
 
-| Fuente | Hallazgo verificable | Aplicación compatible |
-| --- | --- | --- |
-| [shadcn/ui](https://ui.shadcn.com/) | Componentes abiertos, personalizables y con código que el proyecto puede poseer y adaptar. | Mantener componentes locales bajo `client/src/components/ui` y conservar la identidad negra/gris piedra propia. |
-| [Radix Primitives](https://www.radix-ui.com/primitives/docs/overview/introduction) | Primitivas orientadas a accesibilidad, gestión de foco, navegación por teclado y adopción incremental. | Reutilizar los componentes ya presentes para diálogos, menús, selectores y controles; no duplicar patrones accesibles manualmente. |
-| [Tailwind theme variables](https://tailwindcss.com/docs/theme) | Los tokens de diseño se expresan mediante variables de tema que generan utilidades y reducen deriva visual. | Mantener tokens semánticos CSS y `@theme inline`; validar contraste, motion y estados desde la suite. |
+| Fuente                                                                             | Hallazgo verificable                                                                                        | Aplicación compatible                                                                                                              |
+| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| [shadcn/ui](https://ui.shadcn.com/)                                                | Componentes abiertos, personalizables y con código que el proyecto puede poseer y adaptar.                  | Mantener componentes locales bajo `client/src/components/ui` y conservar la identidad negra/gris piedra propia.                    |
+| [Radix Primitives](https://www.radix-ui.com/primitives/docs/overview/introduction) | Primitivas orientadas a accesibilidad, gestión de foco, navegación por teclado y adopción incremental.      | Reutilizar los componentes ya presentes para diálogos, menús, selectores y controles; no duplicar patrones accesibles manualmente. |
+| [Tailwind theme variables](https://tailwindcss.com/docs/theme)                     | Los tokens de diseño se expresan mediante variables de tema que generan utilidades y reducen deriva visual. | Mantener tokens semánticos CSS y `@theme inline`; validar contraste, motion y estados desde la suite.                              |
 
 ## Traducción al producto
 
