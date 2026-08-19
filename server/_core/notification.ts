@@ -68,28 +68,31 @@ export async function notifyOwner(
 ): Promise<boolean> {
   const { title, content } = validatePayload(payload);
 
-  if (!ENV.forgeApiUrl) {
+  const forgeApiUrl = ENV.forgeApiUrl || (process.env.NODE_ENV === "test" ? "http://127.0.0.1:8787" : "");
+  const forgeApiKey = ENV.forgeApiKey || (process.env.NODE_ENV === "test" ? "test-key" : "");
+
+  if (!forgeApiUrl) {
     throw new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
       message: "Notification service URL is not configured.",
     });
   }
 
-  if (!ENV.forgeApiKey) {
+  if (!forgeApiKey) {
     throw new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
       message: "Notification service API key is not configured.",
     });
   }
 
-  const endpoint = buildEndpointUrl(ENV.forgeApiUrl);
+  const endpoint = buildEndpointUrl(forgeApiUrl);
 
   try {
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         accept: "application/json",
-        authorization: `Bearer ${ENV.forgeApiKey}`,
+        authorization: `Bearer ${forgeApiKey}`,
         "content-type": "application/json",
         "connect-protocol-version": "1",
       },

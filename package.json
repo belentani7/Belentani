@@ -10,8 +10,8 @@
     "check": "tsc --noEmit",
     "lint": "prettier --check package.json client/index.html client/src/App.tsx client/src/index.css client/src/components/ManusDialog.tsx client/src/components/ui/slider.tsx client/src/pages/NotFound.tsx server/seo.ts server/seo.test.ts server/accessibility.audit.test.ts server/accessibility.contrast.test.ts server/_core/vite.ts server/routers.ts drizzle/schema.ts docs/*.md --ignore-path .prettierignore",
     "format": "prettier --write .",
-    "test": "vitest run",
-    "test:integration": "vitest run server/integration.test.ts",
+    "test": "vitest run --exclude server/integration.test.ts",
+    "test:integration": "node scripts/test-integration.mjs",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },
   "dependencies": {
