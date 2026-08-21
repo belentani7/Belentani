@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import {
   ArrowUpRight,
@@ -32,6 +33,30 @@ const pillars = [
   },
 ];
 
+const experienceModes = [
+  {
+    id: "clarity",
+    label: "Claridad",
+    title: "Ordena lo esencial",
+    text: "Un mapa breve para convertir una idea dispersa en una siguiente acción visible.",
+    accent: "bg-primary text-primary-foreground",
+  },
+  {
+    id: "system",
+    label: "Sistema",
+    title: "Diseña el mecanismo",
+    text: "Una estructura ligera para conectar personas, herramientas y decisiones sin perder el hilo.",
+    accent: "bg-foreground text-background",
+  },
+  {
+    id: "evolution",
+    label: "Evolución",
+    title: "Hazlo crecer con criterio",
+    text: "Un ciclo de revisión para que cada mejora deje evidencia y abra el siguiente paso.",
+    accent: "bg-muted text-foreground",
+  },
+] as const;
+
 const featured = [
   {
     category: "Dirección",
@@ -49,6 +74,75 @@ const featured = [
     text: "Vídeos, voces y materiales preparados para explorar sin fricción.",
   },
 ];
+
+function PremiumExperience() {
+  const [activeId, setActiveId] =
+    useState<(typeof experienceModes)[number]["id"]>("clarity");
+  const active =
+    experienceModes.find(mode => mode.id === activeId) ?? experienceModes[0];
+
+  return (
+    <div className="mx-auto max-w-7xl">
+      <div className="grid gap-12 lg:grid-cols-[.75fr_1.25fr] lg:items-end">
+        <div>
+          <p className="mb-3 text-sm font-medium text-primary">00 / Umbral</p>
+          <h2 className="text-4xl font-semibold tracking-[-.05em] md:text-6xl">
+            Elige qué quieres hacer visible.
+          </h2>
+          <p className="mt-6 max-w-lg text-lg leading-8 text-muted-foreground">
+            No hay una ruta única. Elige una intención y observa cómo cambia el
+            punto de partida. La selección se puede reiniciar en cualquier
+            momento.
+          </p>
+        </div>
+        <div className="noiacore-glass rounded-[2rem] border border-border/70 bg-card/70 p-4 shadow-2xl shadow-primary/5 backdrop-blur md:p-6">
+          <div
+            className="grid gap-2 md:grid-cols-3"
+            role="tablist"
+            aria-label="Intención de la experiencia"
+          >
+            {experienceModes.map(mode => (
+              <button
+                key={mode.id}
+                type="button"
+                role="tab"
+                aria-selected={activeId === mode.id}
+                onClick={() => setActiveId(mode.id)}
+                className={`rounded-2xl px-4 py-4 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${activeId === mode.id ? mode.accent : "bg-background/40 text-muted-foreground hover:bg-background/70 hover:text-foreground"}`}
+              >
+                <span className="block text-xs font-semibold uppercase tracking-[.2em] opacity-70">
+                  {mode.label}
+                </span>
+                <span className="mt-3 block font-medium">{mode.title}</span>
+              </button>
+            ))}
+          </div>
+          <div className="mt-4 grid gap-5 rounded-2xl border border-border/60 bg-background/50 p-6 md:grid-cols-[1fr_auto] md:items-end">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">
+                Resultado provisional
+              </p>
+              <p className="mt-3 text-2xl font-medium tracking-[-.04em]">
+                {active.title}
+              </p>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
+                {active.text}
+              </p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              className="rounded-full"
+              onClick={() => setActiveId("clarity")}
+            >
+              Reiniciar
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -167,6 +261,13 @@ export default function Home() {
             </CardContent>
           </Card>
         ))}
+      </section>
+
+      <section
+        id="experiencia"
+        className="border-y border-border/60 bg-muted/20 px-6 py-20 lg:px-10"
+      >
+        <PremiumExperience />
       </section>
 
       <section
