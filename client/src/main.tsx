@@ -7,17 +7,14 @@ import superjson from "superjson";
 import App from "./App";
 import { startLogin } from "./const";
 import "./index.css";
+import "./visual.css";
 
 const queryClient = new QueryClient();
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;
   if (typeof window === "undefined") return;
-
-  const isUnauthorized = error.message === UNAUTHED_ERR_MSG;
-
-  if (!isUnauthorized) return;
-
+  if (error.message !== UNAUTHED_ERR_MSG) return;
   startLogin();
 };
 
@@ -43,27 +40,16 @@ const trpcClient = trpc.createClient({
       url: "/api/trpc",
       transformer: superjson,
       headers() {
-        // Preview auto-login fallback: when the browser blocks iframe cookies
-        // (Safari ITP / private browsing / WebView), the runtime mirrors the
-        // session into sessionStorage so we can forward it as a Bearer token.
-        // The regular OAuth cookie flow keeps working and takes priority server-side.
         let csrfToken: string | undefined;
         try {
-          const csrfPair = document.cookie
-            .split(";")
-            .find(s => s.trim().startsWith("noiacore_csrf="));
+          const csrfPair = document.cookie.split(";").find(s => s.trim().startsWith("noiacore_csrf="));
           csrfToken = csrfPair?.trim().slice("noiacore_csrf=".length);
           const raw = sessionStorage.getItem("manus-cookie");
           if (raw) {
             const prefix = `${COOKIE_NAME}=`;
             const pair = raw.split(";").find(s => s.trim().startsWith(prefix));
             const token = pair?.trim().slice(prefix.length);
-            if (token) {
-              return {
-                Authorization: `Bearer ${token}`,
-                ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
-              };
-            }
+            if (token) return { Authorization: `Bearer ${token}`, ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}) };
           }
         } catch {
           // sessionStorage unavailable
@@ -71,10 +57,7 @@ const trpcClient = trpc.createClient({
         return csrfToken ? { "X-CSRF-Token": csrfToken } : {};
       },
       fetch(input, init) {
-        return globalThis.fetch(input, {
-          ...(init ?? {}),
-          credentials: "include",
-        });
+        return globalThis.fetch(input, { ...(init ?? {}), credentials: "include" });
       },
     }),
   ],
