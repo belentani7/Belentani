@@ -21,37 +21,46 @@ class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
+  private handleReload = () => {
+    window.location.reload();
+  };
+
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex items-center justify-center min-h-screen p-8 bg-background">
-          <div className="flex flex-col items-center w-full max-w-2xl p-8">
+        <main
+          className="flex min-h-screen items-center justify-center bg-background p-8"
+          role="alert"
+          aria-labelledby="application-error-title"
+        >
+          <div className="flex w-full max-w-xl flex-col items-center p-8 text-center">
             <AlertTriangle
               size={48}
-              className="text-destructive mb-6 flex-shrink-0"
+              aria-hidden="true"
+              className="mb-6 flex-shrink-0 text-destructive"
             />
 
-            <h2 className="text-xl mb-4">An unexpected error occurred.</h2>
-
-            <div className="p-4 w-full rounded bg-muted overflow-auto mb-6">
-              <pre className="text-sm text-muted-foreground whitespace-break-spaces">
-                {this.state.error?.stack}
-              </pre>
-            </div>
+            <h1 id="application-error-title" className="mb-3 text-xl">
+              No hemos podido cargar esta superficie.
+            </h1>
+            <p className="mb-6 max-w-md text-sm text-muted-foreground">
+              Se produjo un error inesperado. Puedes intentar recargar la página.
+            </p>
 
             <button
-              onClick={() => window.location.reload()}
+              type="button"
+              onClick={this.handleReload}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-lg",
+                "flex items-center gap-2 rounded-lg px-4 py-2",
                 "bg-primary text-primary-foreground",
-                "hover:opacity-90 cursor-pointer"
+                "hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               )}
             >
-              <RotateCcw size={16} />
-              Reload Page
+              <RotateCcw size={16} aria-hidden="true" />
+              Recargar página
             </button>
           </div>
-        </div>
+        </main>
       );
     }
 
