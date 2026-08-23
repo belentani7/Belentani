@@ -83,6 +83,10 @@ export function renderRouteSeoHtml(template: string, pathname: string) {
       `$1${seo.description}$2`
     )
     .replace(
+      /(<meta property="og:url" content=")[^"]*("\s*\/?>)/,
+      `$1${canonical}$2`
+    )
+    .replace(
       /(<meta name="twitter:card" content=")[^"]*("\s*\/?>)/,
       `$1summary$2`
     )
