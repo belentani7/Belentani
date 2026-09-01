@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Link } from "wouter";
 import {
   ArrowUpRight,
@@ -14,6 +14,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { authorizedProfile } from "@/content/profile";
+import ProductCard3D from "@/components/ProductCard3D";
+
+const HeroNetworkGraph = lazy(() => import("@/components/HeroNetworkGraph"));
+const AgentMeshVisualization = lazy(
+  () => import("@/components/AgentMeshVisualization"),
+);
 
 const pillars = [
   {
@@ -149,6 +155,9 @@ export default function Home() {
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
       <section className="relative border-b border-border/60">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,hsl(var(--accent)/.16),transparent_34%),radial-gradient(circle_at_15%_35%,hsl(var(--primary)/.08),transparent_30%)]" />
+        <Suspense fallback={null}>
+          <HeroNetworkGraph />
+        </Suspense>
         <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
           <a
             href="#top"
@@ -367,24 +376,23 @@ export default function Home() {
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {featured.map((item, index) => (
-            <Card
-              key={item.title}
-              className="group min-h-64 overflow-hidden border-border/60 bg-card transition-all duration-200 hover:-translate-y-1 hover:border-primary/40"
-            >
-              <CardHeader>
-                <div className="flex items-center justify-between text-xs uppercase tracking-[.2em] text-muted-foreground">
-                  <span>{item.category}</span>
-                  <span>0{index + 1}</span>
-                </div>
-                <CardTitle className="mt-10 text-2xl tracking-[-.04em]">
-                  {item.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex items-end justify-between text-sm leading-6 text-muted-foreground">
-                {item.text}
-                <ArrowUpRight className="size-4 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </CardContent>
-            </Card>
+            <ProductCard3D key={item.title}>
+              <Card className="group min-h-64 border-transparent bg-transparent shadow-none">
+                <CardHeader>
+                  <div className="flex items-center justify-between text-xs uppercase tracking-[.2em] text-muted-foreground">
+                    <span>{item.category}</span>
+                    <span>0{index + 1}</span>
+                  </div>
+                  <CardTitle className="mt-10 text-2xl tracking-[-.04em]">
+                    {item.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex items-end justify-between text-sm leading-6 text-muted-foreground">
+                  {item.text}
+                  <ArrowUpRight className="size-4 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </CardContent>
+              </Card>
+            </ProductCard3D>
           ))}
         </div>
       </section>
@@ -462,6 +470,9 @@ export default function Home() {
               </Link>
             </Button>
           </div>
+          <Suspense fallback={null}>
+            <AgentMeshVisualization />
+          </Suspense>
         </div>
       </section>
 

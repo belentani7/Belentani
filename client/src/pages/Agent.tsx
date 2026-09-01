@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { ArrowLeft, Bot, Send, ShieldCheck, User } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,10 @@ import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
 import { trackBusinessEvent } from "@/lib/analytics";
 import { notifyCompletion } from "@/lib/completionNotifications";
+
+const AgentMeshVisualization = lazy(
+  () => import("@/components/AgentMeshVisualization"),
+);
 
 type Message = { role: "agent" | "user"; text: string };
 
@@ -149,6 +153,10 @@ export default function Agent() {
             </Button>
           </div>
         </Card>
+
+        <Suspense fallback={null}>
+          <AgentMeshVisualization />
+        </Suspense>
       </div>
     </main>
   );
