@@ -1,0 +1,8 @@
+{
+  "name": "Belentani Workspace & Visual Engine",
+  "description": "Interactive developer workspace, Three.js procedural visual engine, SDD Maestro gatekeeper, and production readiness auditor for the belentani7 ecosystem.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

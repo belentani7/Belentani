@@ -1,0 +1,170 @@
+.aider*
+claude/
+.pnpm-store/
+dsh-web.log
+lingua-aberta-tmp/
+secure-t-tmp/
+archivos_por_tamano.txt
+
+# Regenerable / heavy artifacts (added for 2026-09-23 backup)
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Nested repo backed up separately to belentani7/judas-experience-web
+judas-experience-web/
+
+# --- SEGREDOS: nunca versionar (added 2026-09-27) ---
+.env
+.env.*
+*.env
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa*
+id_ed25519*
+.npmrc
+.netrc
+.htpasswd
+*credential*
+*secrets*.json
+.gh_token
+.github-token
+
+# --- DATOS PERSONALES: fuera del registro de git (added 2026-09-27) ---
+# Documentos legales privados, correspondencia, finanzas y material clinico.
+# No son proyectos: no se inventarian ni se publican. Sin commented names: la
+# carpeta DEUDAFIX es un expediente legal privado y queda fuera de git por su
+# naturaleza, no por Mention nominal.
+Documentos_Legales/
+Facturas/
+Prestamos/
+Emails_Gmail_*/
+*.eml
+*.msg
+*.ost
+# Documentos de escritorio: no se versionan (personal o material de otro)
+*.pdf
+*.docx
+*.doc
+*.xlsx
+*.pptx
+*.numbers
+
+# --- CONTENIDO DE TERCEROS Y DEL SISTEMA: no son proyectos (added 2026-09-27) ---
+# Expedientes legales privados y sus copias: no son proyectos, son documentos
+# privados. Se bloquean por contenido (todo *.pdf/*.docx de escritorio mas los
+# .zip de entrega y los .html/.txt de correspondencia) para NO escribir el nombre
+# del caso en este archivo.
+# Este repo (belentani-workspace) es PRIVADO y solo debe contener codigo propio.
+
+# Accesos directos y configuracion del SO: no son proyectos
+*.lnk
+*.url
+*.reg
+*.inf
+*.msi
+*.exe
+*.dll
+*.sys
+WindowsPowerShell/
+WindowsReconstruction/
+RESCATE-SYSTEM32-*/
+chrome-policy-backup.reg
+RemoteMouse.exe
+Google Password Manager.lnk
+Belentani - Chrome.lnk
+PowerShell Administrador (Escritorio).lnk
+Vercel.lnk
+Kimi.lnk
+Freebuff.lnk
+
+# Carpetas de expediente: se excluyen por patron de ruta, no se nombran aqui
+*DEUDAFIX*
+
+# --- MEDIOS PERSONALES: pesados y no versionables (added 2026-09-27) ---
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.wav
+*.m4a
+*.aiff
+*.mp3
+Recording *.mp4
+Pantalla*.png
+grabaci*
+
+# --- FOTOGRAFIAS / CAPTURAS (added 2026-09-27) ---
+*.jpg
+*.jpeg
+*.webp
+*.heic
+Screen Shot*
+Captura*
+t.png
+
+# Correspondencia real con terceros: nunca en git
+BORRADOR_EMAIL*
+EMAIL_A_*
+ABRIR_BORRADOR_GMAIL.html
+ABRIR_EXPEDIENTE_*.bat
+INDICE_MAESTRO_*.html
+Hola puente de voz*.txt
+Nuevo Text Document*.txt
+
+# --- ARCHIVOS SUPRIMIDOS DEL INDICE QUE NO DEBEN VOLVER (2026-09-27) ---
+# Grabaciones de pantalla y navegacion personal: fuera de git.
+*.mp4
+*.zip
+*.lnk
+*.exe
+*.reg
+
+# --- RELATOS DE SESION Y NOTAS PERSONALES (added 2026-09-27) ---
+# Historiales de trabajo con agents, notas de contexto y borradores
+# personales. No son proyecto: nunca se versionan. Sin nombres de casos.
+*SESION*.md
+GITHUB-CONTEXTO-*
+Informe-Proyectos-*.md
+RELATORIO-*
+*MAESTRO*
+BELENTANI-UNIFIED-INFO/
+belentani-unified/
+CONTEXTO_MAESTRO/
+PLAN-TOTAL-MAESTRO/
+research_guide/
+limpieza/
+
+# --- VOLCADOS DE CUENTAS (added 2026-09-27) ---
+# Inventarios auto-generados de GitHub/Vercel: datos personales, no codigo.
+*-repos.json
+repos_github_*
+local_repos_*
+bucket-*-zips.json
+vercel-*.json
+vercel_projects_*
+deployments_*.txt
+ofertas_empleo_*
+vite-log.txt
+
+# --- FICHEROS DE BORRADOR Y RESTOS (added 2026-09-27) ---
+# Texto suelto del escritorio y duplicados de descarga.
+[a-z][a-z0-9]*.txt
+?.txt
+README_OFFLINE*
+RESUMEN_ORGANIZACION.txt
+*-1.py
+*-1.ps1
+*-1.sh
+*-1.bat
+*-1.txt
+* - copia.*
+[0-9]*.csv
+*cache*.csv
+Reporte_*.csv

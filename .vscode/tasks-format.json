@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 Prettier: formatear todos los archivos (npx prettier --write .)",
+      "type": "shell",
+      "command": "npx prettier --write .",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "🔍 ESLint: corregir problemas automáticamente (npx eslint --fix .)",
+      "type": "shell",
+      "command": "npx eslint --fix .",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "🔍 ESLint: verificar sin corregir (npx eslint .)",
+      "type": "shell",
+      "command": "npx eslint .",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "test"
+    },
+    {
+      "label": "🔍 Biome: verificar (biome check .)",
+      "type": "shell",
+      "command": "biome check .",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "test"
+    },
+    {
+      "label": "🔍 Biome: corregir automáticamente (biome check --write .)",
+      "type": "shell",
+      "command": "biome check --write .",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    }
+  ]
+}

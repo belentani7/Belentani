@@ -1,0 +1,112 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🔄 Git: guardar cambios en stash (git stash)",
+      "type": "shell",
+      "command": "git stash",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "🔄 Git: aplicar stash (git stash pop)",
+      "type": "shell",
+      "command": "git stash pop",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "🔄 Git: limpiar stash (git stash clear)",
+      "type": "shell",
+      "command": "git stash clear",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "🔄 Git: ver stash list (git stash list)",
+      "type": "shell",
+      "command": "git stash list",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "🔄 Git: commit rápido (git commit -am \"\")",
+      "type": "shell",
+      "command": "git commit -am \"${input:commitMessage}\"",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none",
+      "inputs": [
+        {
+          "id": "commitMessage",
+          "type": "promptString",
+          "description": "Mensaje de commit",
+          "default": "feat:"
+        }
+      ]
+    },
+    {
+      "label": "🔄 Git: push rápido (git push)",
+      "type": "shell",
+      "command": "git push",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "🔄 Git: push forzado safe (git push --force-with-lease)",
+      "type": "shell",
+      "command": "git push --force-with-lease",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "commitMessage",
+      "type": "promptString",
+      "description": "Mensaje de commit",
+      "default": "feat:"
+    }
+  ]
+}

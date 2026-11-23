@@ -1,0 +1,25 @@
+{
+  "recommendations": [
+    "tbodt.font-linker",
+    "ms-vscode.vscode-typescript-next",
+    "sleistner.vscode-dark-integer-highlight",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "biomejs.biome",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "tamasfe.vscode-numberwang",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "charliermarsh.ruff",
+    "njpwerner.autodocstring",
+    "ms-azuretools.vscode-docker",
+    "ms-azuretools.vscode-containers",
+    "formulahendry.terminal.commands",
+    "mechatroner.rainbow-csv",
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-spanish",
+    "streetsidesoftware.code-spell-checker-portuguese",
+    "github.vscode-github-actions"
+  ]
+}

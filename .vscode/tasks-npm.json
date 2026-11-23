@@ -1,0 +1,173 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "📦 Instalar dependencias (npm install)",
+      "type": "npm",
+      "script": "install",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true,
+        "showReuseMessage": true,
+        "close": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "🧹 Limpiar dependencias y reinstalar (npm ci)",
+      "type": "npm",
+      "script": "ci",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "build"
+    },
+    {
+      "label": "🧪 Ejecutar tests (npm test)",
+      "type": "npm",
+      "script": "test",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": false
+      },
+      "group": "test",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "javascript",
+        "pattern": {
+          "regexp": "(\\d+)/(\\d+)\\s+tests?\\s+(passed|failed|skipped)",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "starting",
+          "endsPattern": "passing|passing\\s+\\d+|done"
+        }
+      }
+    },
+    {
+      "label": "🧪 Ejecutar tests con coverage (npm run test:coverage)",
+      "type": "npm",
+      "script": "test:coverage",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "test"
+    },
+    {
+      "label": "📝 Ejecutar linter (npm run lint)",
+      "type": "npm",
+      "script": "lint",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "test"
+    },
+    {
+      "label": "📝 Ejecutar linter en 수정 (eslint fix)",
+      "type": "npm",
+      "script": "lint:fix",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "test"
+    },
+    {
+      "label": "📦 Build de producción (npm run build)",
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "build",
+      "isBackground": false
+    },
+    {
+      "label": "▶️ Ejecutar dev server (npm run dev)",
+      "type": "npm",
+      "script": "dev",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "Local:\\s+(https?://[^\\s]+)",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "starting|developing",
+          "endsPattern": "ready|listening|compiled"
+        }
+      }
+    },
+    {
+      "label": "▶️ Ejecutar dev server (npm run start)",
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "Local:\\s+(https?://[^\\s]+)",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "starting|developing",
+          "endsPattern": "ready|listening|compiled"
+        }
+      }
+    }
+  ]
+}

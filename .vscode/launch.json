@@ -1,0 +1,113 @@
+{
+  "// ═════════════════════════════════════════════════════════════════
+  // Eduard Workspace — Debug Configurations
+  // Auto-configurado: 2026-09-20
+  // ═════════════════════════════════════════════════════════════════":
+  "",
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "🚀 Launch React/Vite App (Frontend)",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "autoAttachChildProcesses": true,
+      "smartStep": true,
+      "stopOnEntry": false,
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "🐍 Debug Python (Script)",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "env": {},
+      "python": "${command:python.interpreterPath}",
+      "cwd": "${workspaceFolder}",
+      "args": [],
+      "autoStartBrowser": false,
+      "addImportLinting": true,
+      "addBreakpoints": true,
+      "console": "integratedTerminal",
+      "outputCapture": "std"
+    },
+    {
+      "type": "python",
+      "request": "launch",
+      "name": "🐍 Debug Python (Current File)",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "env": {},
+      "python": "${command:python.interpreterPath}",
+      "cwd": "${workspaceFolder}",
+      "args": [],
+      "autoStartBrowser": false,
+      "addImportLinting": true,
+      "addBreakpoints": true,
+      "console": "integratedTerminal",
+      "outputCapture": "std"
+    },
+    {
+      "type": "python",
+      "request": "launch",
+      "name": "🐍 Debug Python (Script con pytest)",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "module": "pytest",
+      "args": ["${file}", "-v", "--tb=short", "--color=yes"],
+      "justMyCode": false,
+      "env": {},
+      "python": "${command:python.interpreterPath}",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "python",
+      "request": "launch",
+      "name": "🧪 Debug Python (tests con pytest)",
+      "module": "pytest",
+      "args": ["--tb=short", "--color=yes", "${workspaceFolder}"],
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "env": {},
+      "python": "${command:python.interpreterPath}",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "🧪 Debug Node.js (test with mocha)",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/mocha",
+      "args": ["${file}", "--timeout", "10000", "--colors"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [],
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "🔎 Debug Node.js (manual)",
+      "program": "${workspaceFolder}/app.js",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "autoAttachChildProcesses": true,
+      "smartStep": true,
+      "stopOnEntry": false
+    }
+  ]
+}

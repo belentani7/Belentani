@@ -1,0 +1,57 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🐍 Python: ejecutar script actual (python ${file})",
+      "type": "shell",
+      "command": "python ${file}",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "🐍 Python: ejecutar con pytest (pytest ${file})",
+      "type": "shell",
+      "command": "pytest ${file} -v",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "test"
+    },
+    {
+      "label": "🐍 Python: instalar requirements.txt (pip install -r requirements.txt)",
+      "type": "shell",
+      "command": "pip install -r requirements.txt",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "build"
+    },
+    {
+      "label": "🐍 Python: crear venv (python -m venv .venv)",
+      "type": "shell",
+      "command": "python -m venv .venv",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "build"
+    }
+  ]
+}

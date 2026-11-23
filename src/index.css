@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #000000;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .font-display {
+    font-family: 'Orbitron', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .font-ritual {
+    font-family: 'Cinzel Decorative', Georgia, serif;
+  }
+
+  .font-hud {
+    font-family: 'Chakra Petch', 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* Red Milky Glassmorphism & Obsidian Specular Surfaces */
+.judas-milky-glass {
+  position: relative;
+  background: radial-gradient(
+      120% 120% at 0% 0%,
+      rgba(255, 0, 51, 0.2) 0%,
+      rgba(45, 4, 14, 0.5) 55%,
+      rgba(0, 0, 0, 0.88) 100%
+    ),
+    rgba(18, 2, 6, 0.72);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 0, 51, 0.34);
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.88),
+    inset 0 1px 0 0 rgba(255, 220, 225, 0.2),
+    inset 0 0 28px rgba(255, 0, 51, 0.12);
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+}
+
+.judas-milky-glass:hover {
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030104;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3f0a17;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0033;
+}

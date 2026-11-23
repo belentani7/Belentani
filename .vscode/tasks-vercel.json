@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "📦 Desplegar a Vercel (vercel --prod)",
+      "type": "shell",
+      "command": "vercel --prod",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "build"
+    },
+    {
+      "label": "📦 Desplegar preview a Vercel (vercel)",
+      "type": "shell",
+      "command": "vercel",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "build"
+    },
+    {
+      "label": "🔁 Forzar redeploy a Vercel (vercel --force)",
+      "type": "shell",
+      "command": "vercel --force",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "clear": true
+      },
+      "group": "build"
+    }
+  ]
+}

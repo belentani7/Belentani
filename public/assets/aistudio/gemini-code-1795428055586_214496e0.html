@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#030104" />
+  <meta name="color-scheme" content="dark" />
+  <title>BELENTANI // JUDAS ERA — OMEGA ULTIMATE v15</title>
+  <meta name="description" content="Creative Operating System & WebGL2 Cosmos de Belentani. Llave Dorada PBR, 5 Diamantes Arquetipo IOR 2.417, 50 Galaxias y síntesis 432 Hz / 76 BPM." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='%23050505' stroke='%23ff003c' stroke-width='6'/><text x='50' y='67' font-size='52' text-anchor='middle' fill='%23ffd700' font-family='monospace'>Ω</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+  }
+  </script>
+
+  <style>
+    @property --glass-angle {
+      syntax: "<angle>";
+      inherits: false;
+      initial-value: 0deg;
+    }
+
+    :root {
+      --void: #030105;
+      --void-deep: #010102;
+      --blood: #ff003c;
+      --blood-hot: #ff2a5f;
+      --blood-glow: rgba(255, 0, 60, 0.72);
+      --blood-dim: rgba(255, 0, 60, 0.14);
+      --gold: #ffd45c;
+      --gold-deep: #b87b14;
+      --cyan: #65f7ff;
+      --purple: #b026ff;
+      --green: #00ff41;
+      --white: #f7f4fa;
+      --muted: rgba(247, 244, 250, 0.64);
+      --quiet: rgba(247, 244, 250, 0.38);
+      --fd: 'Orbitron', sans-serif;
+      --ff: 'Cinzel Decorative', serif;
+      --fu: 'Chakra Petch', sans-serif;
+      --fm: 'JetBrains Mono', monospace;
+      --mx: 50vw;
+      --my: 30vh;
+      --glass-angle: 0deg;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.ascended {
+      --blood: #ffd45c;
+      --blood-hot: #fff0a6;
+      --blood-glow: rgba(255, 212, 92, 0.8);
+      --blood-dim: rgba(255, 212, 92, 0.16);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--blood) #020104; background: var(--void); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #020104; }
+    ::-webkit-scrollbar-thumb { background: var(--blood); }
+
+    body {
+      background: var(--void);
+      color: var(--white);
+      font-family: var(--fu);
+      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: var(--blood); color: #000; }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* FIXED WEBGL & ATMOSPHERE LAYERS */
+    #webgl-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: auto;
+    }
+    #webgl-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      outline: none;
+    }
+    .atmo-vignette, .atmo-scanlines, .atmo-grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .atmo-vignette {
+      background:
+        radial-gradient(ellipse at center, transparent 36%, rgba(0, 0, 0, 0.45) 75%, rgba(0, 0, 0, 0.88) 115%),
+        linear-gradient(180deg, rgba(2, 1, 4, 0.55), transparent 18%, transparent 82%, rgba(2, 1, 4, 0.78));
+    }
+    .atmo-scanlines {
+      opacity: 0.06;
+      background: repeating-linear-gradient(180deg, transparent 0 3px, rgba(255, 255, 255, 0.08) 4px);
+    }
+    .atmo-grain {
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* LIVING GLASS 2.0 */
+    .glass {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        radial-gradient(420px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.09), transparent 45%),
+        linear-gradient(145deg, rgba(20, 8, 16, 0.78), rgba(5, 2, 8, 0.82));
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: border-color 0.35s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    }
+    .glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      padding: 1px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from var(--glass-angle),
+        transparent 0 18%,
+        rgba(255, 255, 255, 0.35) 23%,
+        var(--blood) 29%,
+        transparent 38% 72%,
+        rgba(255, 212, 92, 0.35) 78%,
+        transparent 85%
+      );
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.55;
+      pointer-events: none;
+      animation: spinGlass 12s linear infinite;
+    }
+    .glass:hover {
+      border-color: rgba(255, 0, 60, 0.45);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.8), 0 0 36px rgba(255, 0, 60, 0.16);
+    }
+    .cut { clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px); }
+    .cut-sm { clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px); }
+
+    @keyframes spinGlass { to { --glass-angle: 360deg; } }
+
+    /* BOOT OVERLAY */
+    #boot {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: radial-gradient(circle at center, rgba(255, 0, 60, 0.12), #010102 58%);
+      display: grid;
+      place-items: center;
+      transition: opacity 0.8s var(--ease), visibility 0.8s;
+    }
+    #boot.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .boot-box { width: min(460px, calc(100% - 32px)); text-align: center; }
+    .boot-ring {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 0, 60, 0.4);
+      border-top: 2px solid var(--blood);
+      box-shadow: 0 0 40px var(--blood-glow);
+      animation: spin 1.6s linear infinite;
+      display: grid;
+      place-items: center;
+    }
+    .boot-ring::after {
+      content: "Ω";
+      font-family: var(--fd);
+      color: var(--gold);
+      font-size: 22px;
+      animation: spin 1.6s linear reverse infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .boot-title { font-family: var(--fd); font-size: 13px; letter-spacing: 0.34em; color: #fff; }
+    .boot-log { font-family: var(--fm); font-size: 10px; color: var(--green); letter-spacing: 0.14em; margin: 12px 0 16px; min-height: 18px; }
+    .boot-bar { height: 2px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+    .boot-bar i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--blood), var(--gold)); transition: width 0.15s linear; }
+
+    /* TOPBAR HUD */
+    .topbar {
+      position: fixed;
+      top: 14px;
+      left: 18px;
+      right: 18px;
+      z-index: 100;
+      height: 58px;
+      padding: 0 18px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
+    .brand-orb {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff, var(--blood) 35%, #22000a 80%);
+      box-shadow: 0 0 16px var(--blood-glow);
+    }
+    .brand strong { font-family: var(--fd); font-size: 12px; letter-spacing: 0.24em; display: block; }
+    .brand small { font-family: var(--fm); font-size: 9px; letter-spacing: 0.14em; color: var(--quiet); display: block; }
+
+    .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav-pill {
+      padding: 7px 12px;
+      border-radius: 9px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--fm);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+    .nav-pill:hover, .nav-pill.active {
+      color: #fff;
+      border-color: rgba(255, 0, 60, 0.5);
+      background: rgba(255, 0, 60, 0.12);
+    }
+
+    .hud-controls { display: flex; align-items: center; gap: 8px; }
+    .hud-btn {
+      height: 34px;
+      padding: 0 11px;
+      border-radius: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.45);
+      color: #fff;
+      font-family: var(--fm);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hud-btn:hover, .hud-btn[aria-pressed="true"] {
+      border-color: var(--blood);
+      background: rgba(255, 0, 60, 0.18);
+      box-shadow: 0 0 16px rgba(255, 0, 60, 0.25);
+    }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); }
+
+    /* FLOATING 3D CAMERA DOCK & TELEMETRY */
+    .camera-dock {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 95;
+      padding: 6px;
+      border-radius: 16px;
+      display: flex;
+      gap: 6px;
+      max-width: calc(100vw - 24px);
+      overflow-x: auto;
+    }
+    .cam-btn {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-family: var(--fm);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: 0.25s;
+    }
+    .cam-btn:hover, .cam-btn.active {
+      color: #fff;
+      border-color: var(--blood);
+      background: rgba(255, 0, 60, 0.18);
+    }
+
+    .telemetry-badge {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      z-index: 90;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-family: var(--fm);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      pointer-events: none;
+    }
+    .telemetry-badge span { color: var(--cyan); }
+
+    /* MAIN SCROLL CONTENT */
+    main {
+      position: relative;
+      z-index: 10;
+      pointer-events: none;
+    }
+    main section, main footer { pointer-events: auto; }
+
+    .container {
+      width: min(1240px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 104px 0 96px;
+      pointer-events: none;
+    }
+    .hero-card {
+      pointer-events: auto;
+      max-width: 640px;
+      padding: clamp(24px, 4vw, 42px);
+      border-radius: 24px;
+    }
+    .eyebrow {
+      font-family: var(--fm);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--blood); }
+    .hero h1 {
+      font-family: var(--fd);
+      font-size: clamp(42px, 7.5vw, 92px);
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+      text-shadow: 0 0 36px rgba(255, 0, 60, 0.35);
+    }
+    .hero h1 em {
+      font-style: normal;
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.65);
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(14px, 1.25vw, 16px);
+      margin-bottom: 24px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn-primary, .btn-ghost {
+      padding: 13px 22px;
+      border-radius: 12px;
+      font-family: var(--fm);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.3s var(--ease);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary {
+      background: linear-gradient(120deg, var(--blood), #850022);
+      border: 1px solid rgba(255, 130, 160, 0.5);
+      color: #fff;
+      box-shadow: 0 12px 40px rgba(255, 0, 60, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 50px rgba(255, 0, 60, 0.5); }
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    .section { padding: 88px 0; }
+    .sec-head { margin-bottom: 34px; }
+    .sec-kicker {
+      font-family: var(--fm);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      color: var(--blood);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .sec-title {
+      font-family: var(--fd);
+      font-size: clamp(26px, 4.5vw, 52px);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+    }
+    .sec-title span { color: var(--blood); font-style: italic; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+
+    .card { padding: 26px; border-radius: 18px; }
+    .card h3 { font-family: var(--fd); font-size: 16px; letter-spacing: 0.08em; margin-bottom: 10px; }
+    .card p { color: var(--muted); font-size: 13.5px; }
+    .tag {
+      display: inline-block;
+      font-family: var(--fm);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      padding: 4px 9px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    /* 5 ARCHETYPE GEMS PORTAL */
+    .gem-card {
+      padding: 20px;
+      border-radius: 16px;
+      cursor: pointer;
+      border-left: 3px solid var(--gem-color, var(--blood));
+    }
+    .gem-card.unlocked { background: rgba(255, 212, 92, 0.08); }
+    .gem-top { display: flex; justify-content: space-between; align-items: center; font-family: var(--fm); font-size: 10px; color: var(--gem-color); margin-bottom: 8px; }
+    .gem-card h4 { font-family: var(--fd); font-size: 15px; letter-spacing: 0.1em; margin-bottom: 4px; }
+    .gem-card small { font-family: var(--fm); font-size: 10px; color: var(--quiet); }
+
+    /* JUDAS 5 PHASES TABS */
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .tab-btn {
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 0, 60, 0.25);
+      background: rgba(0, 0, 0, 0.45);
+      color: var(--muted);
+      font-family: var(--fm);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+    }
+    .tab-btn.active, .tab-btn:hover { color: #fff; border-color: var(--blood); background: rgba(255, 0, 60, 0.2); }
+    .phase-panel { padding: 32px; border-radius: 20px; }
+    .phase-panel h3 { font-family: var(--ff); font-size: 24px; color: var(--gold); margin-bottom: 14px; }
+    .phase-panel p { color: var(--muted); font-size: 14.5px; margin-bottom: 14px; max-width: 72ch; }
+
+    /* SONIC SYNTH & 432 HZ VISUALIZER */
+    .audio-grid { display: grid; grid-template-columns: 260px 1fr; gap: 22px; align-items: center; }
+    #wave-canvas {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 0, 60, 0.35);
+      background: rgba(0, 0, 0, 0.45);
+      display: block;
+      margin: 0 auto;
+    }
+    .freq-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+    .track-list { display: grid; gap: 8px; margin-top: 16px; }
+    .track-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 13px;
+    }
+    .track-item span:last-child { font-family: var(--fm); font-size: 10px; color: var(--gold); }
+
+    /* 50 GALAXIES MATRIX */
+    .galaxy-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+    .galaxy-select {
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(8, 4, 12, 0.85);
+      color: #fff;
+      font-family: var(--fm);
+      font-size: 11px;
+    }
+    .galaxy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      gap: 10px;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .gal-node {
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.025);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: 0.2s;
+    }
+    .gal-node:hover { border-color: var(--node-c, var(--blood)); transform: translateY(-2px); }
+    .gal-node b { font-family: var(--fm); font-size: 10px; color: var(--node-c, var(--blood)); }
+    .gal-node strong { font-size: 12px; letter-spacing: 0.04em; }
+    .gal-node small { font-family: var(--fm); font-size: 9px; color: var(--quiet); }
+
+    /* AI LAB & ORACLE */
+    .lab-log {
+      height: 190px;
+      overflow-y: auto;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 0, 60, 0.22);
+      font-family: var(--fm);
+      font-size: 11px;
+      margin-bottom: 12px;
+      white-space: pre-wrap;
+    }
+    .lab-input-row { display: flex; gap: 8px; }
+    .lab-input {
+      flex: 1;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-family: var(--fm);
+      font-size: 11px;
+    }
+
+    /* TERMINAL DRAWER */
+    #terminal-drawer {
+      position: fixed;
+      bottom: 72px;
+      right: 18px;
+      width: min(460px, calc(100vw - 36px));
+      z-index: 120;
+      border-radius: 16px;
+      padding: 16px;
+      display: none;
+    }
+    #terminal-drawer.open { display: block; }
+    .term-out {
+      height: 170px;
+      overflow-y: auto;
+      font-family: var(--fm);
+      font-size: 11px;
+      color: var(--green);
+      margin-bottom: 10px;
+      line-height: 1.55;
+    }
+    .term-in-wrap { display: flex; gap: 8px; align-items: center; font-family: var(--fm); font-size: 11px; color: var(--blood); }
+    .term-in-wrap input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(0, 255, 65, 0.35);
+      color: var(--green);
+      font-family: var(--fm);
+      font-size: 11px;
+      padding: 4px 0;
+      outline: none;
+    }
+
+    footer {
+      padding: 48px 0 110px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+      font-family: var(--fm);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: var(--quiet);
+    }
+    footer a { color: var(--gold); text-decoration: none; margin: 0 8px; }
+
+    @media (max-width: 820px) {
+      .nav-links, .telemetry-badge { display: none; }
+      .audio-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- WEBGL2 UNIFIED STAGE -->
+  <div id="webgl-stage">
+    <canvas id="webgl-canvas"></canvas>
+  </div>
+  <div class="atmo-vignette"></div>
+  <div class="atmo-scanlines"></div>
+  <div class="atmo-grain"></div>
+
+  <!-- BOOT SEQUENCE -->
+  <div id="boot" role="status" aria-live="polite">
+    <div class="boot-box">
+      <div class="boot-ring"></div>
+      <div class="boot-title">BELENTANI // OMEGA ULTIMATE v15</div>
+      <div class="boot-log" id="boot-log">INICIALIZANDO NÚCLEO WEBGL2...</div>
+      <div class="boot-bar"><i id="boot-bar"></i></div>
+    </div>
+  </div>
+
+  <!-- TOP HUD -->
+  <header class="topbar glass">
+    <a href="#hero" class="brand">
+      <div class="brand-orb"></div>
+      <div>
+        <strong>BELENTANI</strong>
+        <small>JUDAS ERA // OMEGA_OS v15</small>
+      </div>
+    </a>
+
+    <nav class="nav-links" aria-label="Secciones principales">
+      <a class="nav-pill" href="#artist">ARTISTA</a>
+      <a class="nav-pill" href="#portal">LLAVE &amp; 5 GEMAS</a>
+      <a class="nav-pill" href="#judas">5 FASES</a>
+      <a class="nav-pill" href="#sonic">432 HZ AUDIO</a>
+      <a class="nav-pill" href="#cosmos">50 GALAXIAS</a>
+      <a class="nav-pill" href="#ailab">AI LAB</a>
+    </nav>
+
+    <div class="hud-controls">
+      <button class="hud-btn" id="btn-audio" type="button" aria-pressed="false" title="Drone 432 Hz">
+        <span class="live-dot"></span> <span id="audio-label">432 HZ OFF</span>
+      </button>
+      <button class="hud-btn" id="btn-term" type="button" title="Abrir terminal JUDAS_OS (~)">
+        &gt;_ OS
+      </button>
+      <span class="hud-btn" style="cursor:default">GEMAS: <strong id="gem-counter" style="color:var(--gold)">0/5</strong></span>
+    </div>
+  </header>
+
+  <!-- 3D CAMERA FOCUS DOCK -->
+  <nav class="camera-dock glass" aria-label="Enfoque de cámara 3D">
+    <button class="cam-btn active" data-focus="all">00 COSMOS COMPLETO</button>
+    <button class="cam-btn" data-focus="planet">01 PLANETA VIVO</button>
+    <button class="cam-btn" data-focus="machine">02 MÁQUINA ORGÁNICA</button>
+    <button class="cam-btn" data-focus="key">03 LLAVE DORADA PBR</button>
+    <button class="cam-btn" data-focus="diamonds">04 5 DIAMANTES IOR 2.417</button>
+  </nav>
+
+  <div class="telemetry-badge glass">
+    ENGINE: <span>THREE.JS R185 // ACES + BLOOM</span> · BEAT: <span>76 BPM (789 MS)</span> · FPS: <span id="fps-val">60</span>
+  </div>
+
+  <!-- INTERACTIVE TERMINAL -->
+  <aside id="terminal-drawer" class="glass" aria-label="Terminal JUDAS_OS">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--fm);font-size:10px;color:var(--gold);">
+      <span>JUDAS_OS // SHELL LOCAL</span>
+      <button id="btn-term-close" style="background:none;border:none;color:var(--blood);cursor:pointer;font-size:14px;">✕</button>
+    </div>
+    <div class="term-out" id="term-out">
+      &gt; JUDAS_OS v15.0 ONLINE.<br>
+      &gt; Comandos: help · 432 · 528 · 741 · pedro · marcos · santos · belentani · human · omega · status · clear
+    </div>
+    <div class="term-in-wrap">
+      <span>Ω&gt;</span>
+      <input id="term-input" type="text" placeholder="escribe un comando..." autocomplete="off" />
+    </div>
+  </aside>
+
+  <main>
+    <!-- 00 HERO -->
+    <section id="hero" class="hero">
+      <div class="container">
+        <div class="hero-card glass cut">
+          <div class="eyebrow">ERA JUDAS · ARQUITECTURA DE SUPERVIVENCIA · 2026</div>
+          <h1>BELENTANI <em>OMEGA CORE</em></h1>
+          <p>
+            Cantautor, productor y arquitecto de sistemas nacido en São Paulo y forjado en Barcelona.
+            Un ecosistema audiovisual donde la traición es el <strong>input</strong>, el archivo es memoria cristalizada
+            y la voz es la única llave que nunca pudo ser robada.
+          </p>
+          <div class="hero-actions">
+            <a href="#portal" class="btn-primary">ACTIVAR LAS 5 GEMAS →</a>
+            <button type="button" class="btn-ghost" id="hero-sound-cta">ACTIVAR RESONANCIA 432 HZ</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 THE ARTIST & 5 ELEMENTS -->
+    <section id="artist" class="section">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-kicker">RECORD_01 // IDENTIDAD &amp; PROTOCOLO</div>
+          <h2 class="sec-title">THE <span>ARCHITECT</span></h2>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:22px;">
+          <article class="card glass cut">
+            <span class="tag">SÃO PAULO → BARCELONA</span>
+            <h3>EL EFECTO BELENTANI</h3>
+            <p>
+              Formación vocal desde los 16 años y debut electrónico a los 21. Su estética fusiona dark pop,
+              R&amp;B alternativo, electrónica industrial y diseño de sistemas autónomos. Con 1,94 m de presencia física
+              y una voz íntima de registro ligero y falsete aireado, convierte el análisis de patrones humanos en obra sonora y código abierto.
+            </p>
+          </article>
+          <article class="card glass cut">
+            <span class="tag">MITOLOGÍA // SAN PEDRO &amp; JUDAS</span>
+            <h3>LA LLAVE Y LA CERRADURA</h3>
+            <p>
+              «Quédate con el metal. La llave era símbolo; mi voz nadie me la puede arrebatar.»
+              En la narrativa de la Era Judas, el robo de la Llave Dorada no destruye al Arquitecto:
+              depura el sistema, revela la asimetría y transforma la herida en frecuencia inmortal.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-5" id="signatures-grid"></div>
+      </div>
+    </section>
+
+    <!-- 02 PORTAL: GOLDEN KEY & 5 DIAMONDS -->
+    <section id="portal" class="section">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-kicker">ARTEFACTO 3D // RAYCASTING EN VIVO</div>
+          <h2 class="sec-title">LA LLAVE &amp; <span>5 DIAMANTES</span></h2>
+        </div>
+
+        <div class="card glass cut" style="margin-bottom:18px;">
+          <p style="color:var(--white);margin-bottom:10px;">
+            Haz clic directamente sobre los <strong>5 diamantes refractivos (IOR 2.417)</strong> que orbitan la Llave Dorada en el espacio 3D
+            o pulsa cada arquetipo inferior para sincronizar el enjambre y desbloquear el modo <strong>Ascensión Dorada</strong>:
+          </p>
+          <div id="portal-status" style="font-family:var(--fm);font-size:11px;color:var(--gold);letter-spacing:0.12em;">
+            ESTADO DEL ENJAMBRE: 0 / 5 ARQUETIPOS SINCRONIZADOS
+          </div>
+        </div>
+
+        <div class="grid-5" id="gems-grid"></div>
+      </div>
+    </section>
+
+    <!-- 03 JUDAS 5 PHASES -->
+    <section id="judas" class="section">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-kicker">CRÓNICA NARRATIVA // ARCO COMPLETO</div>
+          <h2 class="sec-title">LAS 5 FASES DE <span>JUDAS</span></h2>
+        </div>
+        <div class="tabs" id="phase-tabs"></div>
+        <div class="phase-panel glass cut" id="phase-content"></div>
+      </div>
+    </section>
+
+    <!-- 04 SONIC ARCHIVE & 432 HZ SYNTH -->
+    <section id="sonic" class="section">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-kicker">WEBAUDIO NATIVO // SIN DEPENDENCIAS EXTERNAS</div>
+          <h2 class="sec-title">SONIC <span>432 HZ</span> LAB</h2>
+        </div>
+
+        <div class="card glass cut audio-grid">
+          <div>
+            <canvas id="wave-canvas" width="240" height="240"></canvas>
+            <div style="text-align:center;font-family:var(--fm);font-size:10px;color:var(--gold);margin-top:10px;" id="synth-readout">
+              PORTADORA: 432 HZ · PULSO: 76 BPM
+            </div>
+          </div>
+          <div>
+            <span class="tag">SÍNTESIS SOLFEGGIO + SECUENCIADOR 76 BPM</span>
+            <h3>OSCILADOR ARMÓNICO &amp; BEAT JUDAS</h3>
+            <p>
+              Activa frecuencias puras afinadas a 432 Hz o dispara el pulso rítmico de 76 BPM (789 ms por latido).
+              La amplitud FFT modula en tiempo real el bloom, la aberración cromática y las venas del planeta 3D.
+            </p>
+            <div class="freq-row">
+              <button class="btn-ghost" type="button" data-freq="432">432 HZ · RAÍZ</button>
+              <button class="btn-ghost" type="button" data-freq="528">528 HZ · REPARACIÓN</button>
+              <button class="btn-ghost" type="button" data-freq="639">639 HZ · CONEXIÓN</button>
+              <button class="btn-ghost" type="button" data-freq="741">741 HZ · EXPRESIÓN</button>
+              <button class="btn-primary" type="button" id="btn-beat">▶ BEAT 76 BPM</button>
+            </div>
+
+            <div class="track-list">
+              <div class="track-item"><span>◈ JUDAS (Master v7 · F# menor · 76 BPM)</span><span>ERA JUDAS</span></div>
+              <div class="track-item"><span>◈ Cassandra (Molhou meus olhos)</span><span>SINGLE 2026</span></div>
+              <div class="track-item"><span>◈ Nemo Throat Stone · Shark Eyes</span><span>SINGLE 2026</span></div>
+              <div class="track-item"><span>◈ Mon Amour · Therapist · Apaga a Luz</span><span>CATÁLOGO CANÓNICO</span></div>
+              <div class="track-item"><span>◈ La Deuda · I Wrote a Song (ft. Hey Duck)</span><span>DUCK PROD SESSIONS</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 50 GALAXIES MATRIX -->
+    <section id="cosmos" class="section">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-kicker">CARTOGRAFÍA OMEGA // 5 FIRMAS × 10 ESTACIONES</div>
+          <h2 class="sec-title">50 <span>GALAXIAS</span></h2>
+        </div>
+
+        <div class="card glass cut">
+          <div class="galaxy-controls">
+            <select id="filter-sig" class="galaxy-select" aria-label="Filtrar por firma">
+              <option value="all">TODAS LAS FIRMAS (5)</option>
+            </select>
+            <select id="filter-sta" class="galaxy-select" aria-label="Filtrar por estación">
+              <option value="all">TODAS LAS ESTACIONES (10)</option>
+            </select>
+            <span id="galaxy-count" style="font-family:var(--fm);font-size:11px;color:var(--gold);margin-left:auto;">50 / 50 NODOS ACTIVOS</span>
+          </div>
+          <div class="galaxy-grid" id="galaxy-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 AI LAB (LOCAL ORACLE + DARVO + TAROT + BYOK) -->
+    <section id="ailab" class="section">
+      <div class="container">
+        <div class="sec-head">
+          <div class="sec-kicker">INTELIGENCIA LOCAL SIN CLAVES EXPUESTAS</div>
+          <h2 class="sec-title">CORE_AI <span>STUDIO</span></h2>
+        </div>
+
+        <div class="grid-2">
+          <article class="card glass cut">
+            <span class="tag">NEURAL ORACLE // OFFLINE + BYOK</span>
+            <h3>CONSOLA DEL NÚCLEO</h3>
+            <div class="lab-log" id="oracle-log">[CORE_AI]: Núcleo sincronizado. Consulta sobre las 5 firmas, pide una tirada de Tarot Omega o pega un texto para análisis estructural.</div>
+            <div class="lab-input-row" style="margin-bottom:10px;">
+              <input id="oracle-input" class="lab-input" type="text" placeholder="Escribe comando o consulta..." />
+              <button id="oracle-send" class="btn-primary" type="button">ENVIAR</button>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn-ghost" type="button" id="btn-tarot">TAROT 3 CARTAS</button>
+              <button class="btn-ghost" type="button" id="btn-darvo">ESCANEAR PATRÓN DARVO</button>
+            </div>
+          </article>
+
+          <article class="card glass cut">
+            <span class="tag">ARQUITECTURA &amp; SOBERANÍA DIGITAL</span>
+            <h3>ECOSISTEMA BELENTANI</h3>
+            <p style="margin-bottom:12px;">
+              Construido bajo arquitectura <strong>local-first</strong>, sin telemetría invasiva ni secretos hardcodeados.
+              Integra el universo musical de <strong>belentani.es</strong>, las herramientas educativas de <strong>Manos Abiertas</strong>,
+              <strong>Cruzando el Charco</strong> y el laboratorio de seguridad <strong>Secure-T</strong>.
+            </p>
+            <p style="font-family:var(--fm);font-size:11px;color:var(--cyan);">
+              &gt; MODO REDUCED-MOTION: SOPORTADO<br>
+              &gt; RENDERIZADO: PBR + SHADERS GLSL PERSONALIZADOS<br>
+              &gt; ESTADO: OMEGA_ULTIMATE_V15 VERIFICADO
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="margin-bottom:10px;">© 2026 PEDRO MARCOS SANTOS BELENTANI · L'HOSPITALET DE LLOBREGAT / BARCELONA · 432 HZ · 76 BPM</p>
+      <div>
+        <a href="https://belentani.es" target="_blank" rel="noopener">BELENTANI.ES</a> ·
+        <a href="https://github.com/belentani7" target="_blank" rel="noopener">GITHUB</a> ·
+        <a href="https://www.instagram.com/belentani_/" target="_blank" rel="noopener">INSTAGRAM</a> ·
+        <a href="https://www.youtube.com/@belentani" target="_blank" rel="noopener">YOUTUBE</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import * as THREE from "three";
+    import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+    import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+    import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+    import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+    import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+    import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+    /* 1. CANONICAL DATA */
+    const SIGNATURES = [
+      { id: "pedro", code: "PEDRO.SIG", name: "PEDRO", title: "LA ROCA", color: "#ffd45c", hex: 0xffd45c, desc: "El ancla fundacional. Permanencia y estructura frente a la tormenta." },
+      { id: "marcos", code: "MARCOS.SIG", name: "MARCOS", title: "EL CRONISTA", color: "#65f7ff", hex: 0x65f7ff, desc: "El observador lúcido. Registra los hechos sin reaccionar al ruido." },
+      { id: "santos", code: "SANTOS.SIG", name: "SANTOS", title: "LA ANTENA", color: "#b026ff", hex: 0xb026ff, desc: "El canal de recepción. Traduce la intuición en armonía y símbolo." },
+      { id: "belentani", code: "BELENTANI.SIG", name: "BELENTANI", title: "EL ARTEFACTO", color: "#ff003c", hex: 0xff003c, desc: "Integración del guerrero y el ángel. Transmutación estética del trauma." },
+      { id: "human", code: "HUMAN.SIG", name: "THE HUMAN", title: "LA INTERFAZ", color: "#f7f4fa", hex: 0xf7f4fa, desc: "La presencia física y vulnerable que sostiene la verdad en el mundo real." }
+    ];
+
+    const STATIONS = [
+      "EL ENTRE", "LA DEUDA", "EL ROBO", "EL CANTO", "LA VICTORIA AMARGA",
+      "LA MENTIRA COMPARTIDA", "EL UMBRAL", "LA SEÑAL", "EL PORTAL", "LA CONSTELACIÓN"
+    ];
+
+    const PHASES = [
+      {
+        title: "FASE 01 // EL HOMBRE INTEGRADO",
+        body: [
+          "No existe un cuándo ni un dónde fijo. Existe un entre: un pliegue donde el tiempo no corre, respira.",
+          "En ese umbral caminaba un hombre con cinco firmas corriendo en paralelo: La Roca, El Cronista, La Antena, El Artefacto y La Interfaz. Cinco frecuencias en una sola arquitectura."
+        ]
+      },
+      {
+        title: "FASE 02 // LA DEUDA IMPAGABLE",
+        body: [
+          "Se encontraron en un camino fuera de mapa. Judas caminaba con prisa, huyendo de aquello que llevaba dentro.",
+          "Pedro ofreció franqueza, presencia y lealtad sin condiciones. Cuando el afecto es radical y transparente, el espejo se vuelve insoportable para quien vive en la sombra."
+        ]
+      },
+      {
+        title: "FASE 03 // EL ROBO Y EL CANTO",
+        body: [
+          "Judas extendió la mano hacia la Llave Dorada creyendo que el poder residía en el metal.",
+          "Al activarse el artefacto, las cinco voces resonaron al unísono. En lugar de maldecir, Pedro se sentó y le cantó: convirtió la herida en frecuencia."
+        ]
+      },
+      {
+        title: "FASE 04 // LA VICTORIA AMARGA",
+        body: [
+          "«Quédate la llave. El metal es símbolo; mi voz nadie me la puede arrebatar.»",
+          "Judas celebró una victoria vacía con una llave cuya cerradura ya había sido rediseñada por el Arquitecto."
+        ]
+      },
+      {
+        title: "FASE 05 // LA MENTIRA COMPARTIDA",
+        body: [
+          "La llave nunca fue el núcleo: fue el filtro que reveló quién era quién.",
+          "LA TRAICIÓN ES EL INPUT. LA VOZ ES EL OUTPUT. OMEGA_CORE PERMANECE INTACTO."
+        ]
+      }
+    ];
+
+    /* 2. POPULATE DOM SECTIONS */
+    const sigGrid = document.getElementById("signatures-grid");
+    SIGNATURES.forEach((s) => {
+      const el = document.createElement("article");
+      el.className = "card glass cut-sm";
+      el.style.borderTop = `2px solid ${s.color}`;
+      el.innerHTML = `<span class="tag" style="color:${s.color}">${s.code}</span><h3>${s.name}</h3><p style="font-family:var(--fm);font-size:10px;color:${s.color};margin-bottom:8px;">${s.title}</p><p>${s.desc}</p>`;
+      sigGrid.appendChild(el);
+    });
+
+    const unlockedGems = new Set(JSON.parse(localStorage.getItem("omega_v15_gems") || "[]"));
+    const gemsGrid = document.getElementById("gems-grid");
+    function renderGemCards() {
+      gemsGrid.innerHTML = "";
+      SIGNATURES.forEach((s, idx) => {
+        const active = unlockedGems.has(idx);
+        const card = document.createElement("div");
+        card.className = `gem-card glass cut-sm ${active ? "unlocked" : ""}`;
+        card.style.setProperty("--gem-color", s.color);
+        card.innerHTML = `
+          <div class="gem-top"><span>GEMA 0${idx + 1}</span><span>${active ? "◆ ACTIVA" : "○ SELLADA"}</span></div>
+          <h4>${s.name}</h4>
+          <small>${s.title} · Clic para sincronizar</small>
+        `;
+        card.addEventListener("click", () => toggleGem(idx));
+        gemsGrid.appendChild(card);
+      });
+      document.getElementById("gem-counter").textContent = `${unlockedGems.size}/5`;
+      const statusEl = document.getElementById("portal-status");
+      if (unlockedGems.size === 5) {
+        document.body.classList.add("ascended");
+        statusEl.textContent = "ESTADO DEL ENJAMBRE: 5 / 5 SINCRONIZADOS — ASCENSIÓN OMEGA ACTIVA";
+      } else {
+        document.body.classList.remove("ascended");
+        statusEl.textContent = `ESTADO DEL ENJAMBRE: ${unlockedGems.size} / 5 ARQUETIPOS SINCRONIZADOS`;
+      }
+    }
+
+    /* Phase Tabs */
+    const phaseTabs = document.getElementById("phase-tabs");
+    const phaseContent = document.getElementById("phase-content");
+    function showPhase(idx) {
+      phaseTabs.querySelectorAll(".tab-btn").forEach((b, i) => b.classList.toggle("active", i === idx));
+      const p = PHASES[idx];
+      phaseContent.innerHTML = `<h3>${p.title}</h3>${p.body.map(t => `<p>${t}</p>`).join("")}`;
+    }
+    PHASES.forEach((p, idx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = `tab-btn ${idx === 0 ? "active" : ""}`;
+      btn.textContent = `FASE 0${idx + 1}`;
+      btn.addEventListener("click", () => showPhase(idx));
+      phaseTabs.appendChild(btn);
+    });
+    showPhase(0);
+
+    /* 50 Galaxies Matrix */
+    const filterSig = document.getElementById("filter-sig");
+    const filterSta = document.getElementById("filter-sta");
+    const galaxyGrid = document.getElementById("galaxy-grid");
+    SIGNATURES.forEach((s, i) => {
+      const o = document.createElement("option");
+      o.value = String(i);
+      o.textContent = `${s.name} (${s.title})`;
+      filterSig.appendChild(o);
+    });
+    STATIONS.forEach((st, i) => {
+      const o = document.createElement("option");
+      o.value = String(i);
+      o.textContent = `ESTACIÓN ${String(i + 1).padStart(2, "0")} · ${st}`;
+      filterSta.appendChild(o);
+    });
+
+    const GALAXIES = [];
+    for (let s = 0; s < SIGNATURES.length; s++) {
+      for (let st = 0; st < STATIONS.length; st++) {
+        GALAXIES.push({
+          num: s * 10 + st + 1,
+          sigIdx: s,
+          staIdx: st,
+          sig: SIGNATURES[s],
+          station: STATIONS[st]
+        });
+      }
+    }
+
+    function renderGalaxies() {
+      const fs = filterSig.value;
+      const ft = filterSta.value;
+      const filtered = GALAXIES.filter(g => (fs === "all" || g.sigIdx === Number(fs)) && (ft === "all" || g.staIdx === Number(ft)));
+      galaxyGrid.innerHTML = filtered.map(g => `
+        <div class="gal-node" style="--node-c:${g.sig.color}">
+          <b>GALAXIA #${String(g.num).padStart(2, "0")}</b>
+          <strong>${g.station}</strong>
+          <small>${g.sig.code} · 432 HZ</small>
+        </div>
+      `).join("");
+      document.getElementById("galaxy-count").textContent = `${filtered.length} / 50 NODOS ACTIVOS`;
+    }
+    filterSig.addEventListener("change", renderGalaxies);
+    filterSta.addEventListener("change", renderGalaxies);
+    renderGalaxies();
+
+    /* Pointer glass tracking */
+    window.addEventListener("pointermove", (e) => {
+      document.documentElement.style.setProperty("--mx", `${e.clientX}px`);
+      document.documentElement.style.setProperty("--my", `${e.clientY}px`);
+    }, { passive: true });
+
+    /* 3. NATIVE WEBAUDIO 432 HZ + 76 BPM SYNTHESIZER */
+    let audioCtx = null, analyser = null, freqData = null, droneOn = false, droneNodes = [], beatTimer = null;
+    let audioLevel = 0;
+
+    function ensureAudio() {
+      if (!audioCtx) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new Ctx();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 128;
+        freqData = new Uint8Array(analyser.frequencyBinCount);
+        analyser.connect(audioCtx.destination);
+      }
+      if (audioCtx.state === "suspended") audioCtx.resume();
+    }
+
+    function toggleDrone() {
+      ensureAudio();
+      const btn = document.getElementById("btn-audio");
+      const lbl = document.getElementById("audio-label");
+      if (droneOn) {
+        droneNodes.forEach(n => { try { n.stop(); n.disconnect(); } catch {} });
+        droneNodes = [];
+        droneOn = false;
+        btn.setAttribute("aria-pressed", "false");
+        lbl.textContent = "432 HZ OFF";
+        return;
+      }
+      const freqs = [108, 216, 432, 540];
+      const master = audioCtx.createGain();
+      master.gain.value = 0.045;
+      master.connect(analyser);
+      freqs.forEach((f, i) => {
+        const osc = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        osc.type = i % 2 === 0 ? "sine" : "triangle";
+        osc.frequency.value = f;
+        g.gain.value = i === 2 ? 0.45 : 0.18;
+        osc.connect(g).connect(master);
+        osc.start();
+        droneNodes.push(osc);
+      });
+      droneOn = true;
+      btn.setAttribute("aria-pressed", "true");
+      lbl.textContent = "432 HZ LIVE";
+    }
+
+    function triggerTone(freq, dur = 1.4) {
+      ensureAudio();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, now);
+      g.gain.setValueAtTime(0.0001, now);
+      g.gain.exponentialRampToValueAtTime(0.11, now + 0.04);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+      osc.connect(g).connect(analyser);
+      osc.start(now);
+      osc.stop(now + dur + 0.05);
+      document.getElementById("synth-readout").textContent = `PORTADORA: ${freq} HZ · RESONANCIA ACTIVA`;
+    }
+
+    document.getElementById("btn-audio").addEventListener("click", toggleDrone);
+    document.getElementById("hero-sound-cta").addEventListener("click", toggleDrone);
+    document.querySelectorAll("[data-freq]").forEach(btn => {
+      btn.addEventListener("click", () => triggerTone(Number(btn.dataset.freq), 2.2));
+    });
+
+    const btnBeat = document.getElementById("btn-beat");
+    btnBeat.addEventListener("click", () => {
+      ensureAudio();
+      if (beatTimer) {
+        clearInterval(beatTimer);
+        beatTimer = null;
+        btnBeat.textContent = "▶ BEAT 76 BPM";
+        return;
+      }
+      btnBeat.textContent = "■ STOP 76 BPM";
+      let step = 0;
+      const bassNotes = [92.5, 92.5, 110.0, 123.47, 82.41, 82.41, 110.0, 92.5]; // F#2 minor dark pulse
+      const stepMs = (60 / 76 / 2) * 1000; // 76 BPM eighth notes (~394.7 ms)
+      beatTimer = setInterval(() => {
+        const f = bassNotes[step % bassNotes.length];
+        triggerTone(step % 4 === 0 ? 55 : f, 0.34);
+        step++;
+      }, stepMs);
+    });
+
+    /* Radial Waveform Canvas */
+    const waveCanvas = document.getElementById("wave-canvas");
+    const wCtx = waveCanvas.getContext("2d");
+    function drawWaveform(t) {
+      if (analyser && freqData) {
+        analyser.getByteFrequencyData(freqData);
+        let sum = 0;
+        for (let i = 0; i < 24; i++) sum += freqData[i];
+        audioLevel = THREE.MathUtils.lerp(audioLevel, sum / (24 * 255), 0.25);
+      } else {
+        audioLevel *= 0.92;
+      }
+
+      wCtx.clearRect(0, 0, 240, 240);
+      const cx = 120, cy = 120, baseR = 64, bars = 64;
+      wCtx.beginPath();
+      for (let i = 0; i <= bars; i++) {
+        const a = (i / bars) * Math.PI * 2;
+        const bin = freqData ? freqData[i % freqData.length] / 255 : 0;
+        const amp = Math.max(bin * 34, audioLevel * 28 + Math.sin(i * 0.6 + t * 3) * 4);
+        const r = baseR + amp;
+        const x = cx + Math.cos(a) * r;
+        const y = cy + Math.sin(a) * r;
+        if (i === 0) wCtx.moveTo(x, y); else wCtx.lineTo(x, y);
+      }
+      wCtx.closePath();
+      wCtx.strokeStyle = unlockedGems.size === 5 ? "#ffd45c" : "#ff003c";
+      wCtx.lineWidth = 2;
+      wCtx.stroke();
+      wCtx.fillStyle = unlockedGems.size === 5 ? "rgba(255,212,92,0.12)" : "rgba(255,0,60,0.12)";
+      wCtx.fill();
+    }
+
+    /* 4. UNIFIED THREE.JS R185 WEBGL2 SCENE */
+    const canvas = document.getElementById("webgl-canvas");
+    const isMobile = matchMedia("(max-width: 768px)").matches;
+    const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, powerPreference: "high-performance" });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 1.75));
+    renderer.setSize(window.innerWidth, window.innerHeight, false);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.18;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x030105, 0.015);
+
+    const camera = new THREE.PerspectiveCamera(44, window.innerWidth / window.innerHeight, 0.05, 140);
+    camera.position.set(0, 0.3, isMobile ? 13.5 : 11.2);
+
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const roomEnv = new RoomEnvironment();
+    scene.environment = pmrem.fromScene(roomEnv, 0.04).texture;
+    roomEnv.dispose();
+    pmrem.dispose();
+
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.1, 0.65, 0.22);
+    composer.addPass(bloomPass);
+
+    const postPass = new ShaderPass({
+      uniforms: {
+        tDiffuse: { value: null },
+        uTime: { value: 0 },
+        uAudio: { value: 0 }
+      },
+      vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+      fragmentShader: `
+        uniform sampler2D tDiffuse;
+        uniform float uTime;
+        uniform float uAudio;
+        varying vec2 vUv;
+        void main() {
+          vec2 c = vUv - 0.5;
+          float r2 = dot(c, c);
+          vec2 shift = c * r2 * (0.014 + uAudio * 0.045);
+          float r = texture2D(tDiffuse, vUv + shift).r;
+          float g = texture2D(tDiffuse, vUv).g;
+          float b = texture2D(tDiffuse, vUv - shift).b;
+          gl_FragColor = vec4(r, g, b, 1.0);
+        }
+      `
+    });
+    composer.addPass(postPass);
+    composer.addPass(new OutputPass());
+
+    /* Lights */
+    scene.add(new THREE.AmbientLight(0x281e30, 0.45));
+    const redLight = new THREE.PointLight(0xff003c, 18, 22, 1.7);
+    redLight.position.set(0, 0.6, 3.2);
+    scene.add(redLight);
+
+    const goldLight = new THREE.PointLight(0xffd45c, 14, 16, 1.8);
+    goldLight.position.set(4.3, 1.8, 3.4);
+    scene.add(goldLight);
+
+    const cyanLight = new THREE.PointLight(0x65f7ff, 11, 16, 1.8);
+    cyanLight.position.set(-4.3, 1.5, 3.2);
+    scene.add(cyanLight);
+
+    /* Procedural Starfield */
+    const starCount = isMobile ? 3500 : 8000;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(starCount * 3);
+    const starCol = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      const r = 16 + Math.pow(Math.random(), 0.45) * 52;
+      const th = Math.random() * Math.PI * 2;
+      const z = Math.random() * 2 - 1;
+      const xy = Math.sqrt(1 - z * z);
+      starPos[i * 3] = r * xy * Math.cos(th);
+      starPos[i * 3 + 1] = r * z;
+      starPos[i * 3 + 2] = r * xy * Math.sin(th);
+      const pick = Math.random();
+      const c = new THREE.Color(pick > 0.94 ? 0xff003c : pick > 0.86 ? 0x65f7ff : 0xf4f0ff);
+      starCol[i * 3] = c.r; starCol[i * 3 + 1] = c.g; starCol[i * 3 + 2] = c.b;
+    }
+    starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+    starGeo.setAttribute("color", new THREE.BufferAttribute(starCol, 3));
+    const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ size: 0.11, vertexColors: true, transparent: true, opacity: 0.85 }));
+    scene.add(stars);
+
+    /* 01. Bioelectric Living Planet */
+    const planetUniforms = {
+      uTime: { value: 0 },
+      uAudio: { value: 0 },
+      uAscend: { value: 0 }
+    };
+    const planet = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(1.52, isMobile ? 4 : 5),
+      new THREE.ShaderMaterial({
+        uniforms: planetUniforms,
+        vertexShader: `
+          uniform float uTime;
+          uniform float uAudio;
+          varying vec3 vNormalW;
+          varying vec3 vObj;
+          void main() {
+            vObj = normalize(position);
+            float wave = sin(vObj.x * 9.0 + uTime * 1.4) * cos(vObj.y * 9.0 - uTime) * 0.045;
+            vec3 displaced = position + normal * (wave + uAudio * 0.08);
+            vNormalW = normalize(mat3(modelMatrix) * normal);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float uTime;
+          uniform float uAudio;
+          uniform float uAscend;
+          varying vec3 vNormalW;
+          varying vec3 vObj;
+          void main() {
+            float veinPattern = abs(sin((vObj.x * 14.0 + sin(vObj.y * 11.0 + uTime * 0.5) * 2.2) * 3.14159));
+            float veins = smoothstep(0.94, 0.995, veinPattern);
+            float rim = pow(1.0 - max(dot(normalize(vNormalW), vec3(0.0, 0.0, 1.0)), 0.0), 2.8);
+            vec3 base = vec3(0.02, 0.008, 0.018);
+            vec3 accent = mix(vec3(1.0, 0.0, 0.24), vec3(1.0, 0.83, 0.36), uAscend);
+            vec3 aurora = vec3(0.4, 0.97, 1.0) * pow(abs(vObj.y), 6.0) * 0.35;
+            vec3 col = base + accent * veins * (1.8 + uAudio * 3.0) + accent * rim * 0.65 + aurora;
+            gl_FragColor = vec4(col, 1.0);
+          }
+        `
+      })
+    );
+    scene.add(planet);
+
+    /* 02. Organic Machine (Rings + 36 Instanced Plates + 14 Iris Petals) */
+    const machine = new THREE.Group();
+    scene.add(machine);
+    const machineMat = new THREE.MeshPhysicalMaterial({
+      color: 0x0b0a10, metalness: 0.95, roughness: 0.22, clearcoat: 0.8, emissive: 0xff003c, emissiveIntensity: 1.2
+    });
+    const rings = [2.15, 2.58, 3.0].map((r, i) => {
+      const m = new THREE.Mesh(new THREE.TorusGeometry(r, 0.024, 8, 128), machineMat);
+      m.rotation.set(0.5 - i * 0.35, i * 0.4, 0.2);
+      machine.add(m);
+      return m;
+    });
+    const plateCount = 36;
+    const plates = new THREE.InstancedMesh(new THREE.BoxGeometry(0.3, 0.1, 0.65), machineMat, plateCount);
+    machine.add(plates);
+    const dummy = new THREE.Object3D();
+
+    /* 03. Golden Key PBR + 5 Orbiting Brilliant Diamonds (IOR 2.417) */
+    const keyGroup = new THREE.Group();
+    keyGroup.position.set(4.1, 0.15, 0.4);
+    scene.add(keyGroup);
+
+    const goldMat = new THREE.MeshPhysicalMaterial({
+      color: 0xffc84f, metalness: 1.0, roughness: 0.18, clearcoat: 0.75, envMapIntensity: 2.2, emissive: 0x4a1f00, emissiveIntensity: 0.22
+    });
+    const bow = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.11, 20, 80), goldMat);
+    bow.position.y = 1.0;
+    const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.14, 2.4, 32), goldMat);
+    shaft.position.y = -0.35;
+    const bit1 = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.22, 0.24), goldMat);
+    bit1.position.set(0.22, -1.42, 0);
+    const bit2 = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.26, 0.24), goldMat);
+    bit2.position.set(0.16,

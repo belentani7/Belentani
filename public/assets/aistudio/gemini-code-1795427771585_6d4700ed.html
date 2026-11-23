@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BELENTANI // THE JUDAS EXPERIENCE — OMEGA WEBGL ENGINE</title>
+  <meta name="description" content="Portal WebGL interactivo, arquitectura sonora 432 Hz, galaxia de 44 nodos y códice de lore de BELENTANI." />
+
+  <!-- Tipografías de alto contraste y terminal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,800;1,400&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS — RED MILKY GLASSMORPHISM & OBSIDIAN 4K TV ARCHITECTURE
+       ========================================================================== */
+    :root {
+      --obsidian: #000000;
+      --obsidian-soft: #070103;
+      --crimson-neon: #ff002b;
+      --crimson-blood: #b8001f;
+      --crimson-deep: #3d000b;
+      --liquid-gold: #e6b84c;
+      --liquid-gold-bright: #ffe18c;
+      --milky-glass: rgba(20, 3, 8, 0.64);
+      --milky-glass-strong: rgba(12, 1, 4, 0.86);
+      --milky-highlight: rgba(255, 225, 232, 0.08);
+      --border-crimson: rgba(255, 0, 43, 0.36);
+      --border-gold: rgba(230, 184, 76, 0.42);
+      --text-primary: #f7eef0;
+      --text-secondary: #c9a8b0;
+      --text-muted: #8a636d;
+      --font-display: 'Cinzel', Georgia, serif;
+      --font-sans: 'Space Grotesk', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --blur-glass: blur(22px) saturate(160%);
+      --shadow-crimson: 0 0 38px rgba(255, 0, 43, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      --shadow-gold: 0 0 32px rgba(230, 184, 76, 0.22), inset 0 1px 0 rgba(255, 240, 190, 0.18);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--obsidian);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: clamp(14px, 1.05vw, 18px);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+
+    /* Canvas principal WebGL */
+    #webgl-stage {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      display: block;
+      cursor: grab;
+    }
+
+    #webgl-stage:active {
+      cursor: grabbing;
+    }
+
+    /* Capa atmosférica de scanlines y viñeta cinematográfica */
+    .cinematic-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 50%, transparent 48%, rgba(0, 0, 0, 0.78) 100%),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 0, 43, 0.018) 0px,
+          rgba(255, 0, 43, 0.018) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+    }
+
+    /* Aura reactiva del puntero */
+    #cursor-aura {
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255, 0, 43, 0.14) 0%, rgba(230, 184, 76, 0.04) 42%, transparent 72%);
+      mix-blend-mode: screen;
+      transition: opacity 0.3s ease;
+    }
+
+    /* ==========================================================================
+       2. PRELOADER RITUAL DE INICIALIZACIÓN
+       ========================================================================== */
+    #boot-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: radial-gradient(circle at center, #180006 0%, #000000 78%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 2rem;
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.9s;
+    }
+
+    #boot-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .boot-sigil {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      border: 2px solid var(--crimson-neon);
+      box-shadow: 0 0 50px rgba(255, 0, 43, 0.55), inset 0 0 28px rgba(230, 184, 76, 0.35);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--liquid-gold-bright);
+      animation: pulseSigil 2.4s infinite ease-in-out;
+    }
+
+    @keyframes pulseSigil {
+      0%, 100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 36px rgba(255, 0, 43, 0.45); }
+      50% { transform: scale(1.06) rotate(180deg); box-shadow: 0 0 68px rgba(230, 184, 76, 0.65); }
+    }
+
+    .boot-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3.6rem);
+      font-weight: 900;
+      letter-spacing: 0.24em;
+      text-align: center;
+      background: linear-gradient(135deg, #ffffff 0%, #ff002b 48%, #e6b84c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .boot-log {
+      width: min(680px, 92vw);
+      background: rgba(14, 2, 5, 0.85);
+      border: 1px solid var(--border-crimson);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      min-height: 110px;
+    }
+
+    .boot-log span.ok { color: var(--liquid-gold); font-weight: 600; }
+    .boot-log span.err { color: var(--crimson-neon); font-weight: 600; }
+
+    #btn-enter-experience {
+      padding: 1rem 2.6rem;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #000000;
+      background: linear-gradient(135deg, var(--crimson-neon) 0%, var(--liquid-gold) 100%);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 0 35px rgba(255, 0, 43, 0.6);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    #btn-enter-experience:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 55px rgba(230, 184, 76, 0.85);
+    }
+
+    /* ==========================================================================
+       3. HUD PRINCIPAL — GLASSMORPHISM CARMESÍ LECHOSO
+       ========================================================================== */
+    .hud-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(12px, 1.8vw, 26px);
+      gap: 14px;
+    }
+
+    .glass-panel {
+      pointer-events: auto;
+      background: var(--milky-glass);
+      backdrop-filter: var(--blur-glass);
+      -webkit-backdrop-filter: var(--blur-glass);
+      border: 1px solid var(--border-crimson);
+      box-shadow: var(--shadow-crimson);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--milky-highlight) 0%, transparent 45%, rgba(255, 0, 43, 0.05) 100%);
+      pointer-events: none;
+    }
+
+    /* Barra superior */
+    .hud-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 1.4rem;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--crimson-neon);
+      box-shadow: 0 0 16px var(--crimson-neon);
+      animation: blinkDot 1.6s infinite alternate;
+    }
+
+    @keyframes blinkDot {
+      from { opacity: 0.45; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1.2); }
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 1.8vw, 1.75rem);
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      color: #ffffff;
+    }
+
+    .brand-sub {
+      font-size: 0.76rem;
+      color: var(--liquid-gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .hud-btn {
+      background: rgba(255, 0, 43, 0.1);
+      border: 1px solid var(--border-crimson);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 0.55rem 0.95rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      text-transform: uppercase;
+    }
+
+    .hud-btn:hover, .hud-btn.active {
+      background: rgba(255, 0, 43, 0.28);
+      border-color: var(--liquid-gold);
+      color: var(--liquid-gold-bright);
+      box-shadow: 0 0 20px rgba(255, 0, 43, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .hud-btn.gold {
+      border-color: var(--border-gold);
+      background: rgba(230, 184, 76, 0.12);
+      color: var(--liquid-gold-bright);
+    }
+
+    /* Zona media: paneles laterales flotantes + centro libre para WebGL */
+    .hud-middle {
+      display: grid;
+      grid-template-columns: minmax(290px, 370px) 1fr minmax(300px, 390px);
+      gap: 16px;
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 0;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .side-column::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .side-column::-webkit-scrollbar-thumb {
+      background: var(--crimson-blood);
+      border-radius: 99px;
+    }
+
+    .panel-card {
+      padding: 1.15rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 0, 43, 0.24);
+      padding-bottom: 0.55rem;
+    }
+
+    .panel-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--liquid-gold);
+    }
+
+    .panel-badge {
+      font-size: 0.7rem;
+      padding: 0.18rem 0.5rem;
+      border-radius: 6px;
+      background: rgba(255, 0, 43, 0.2);
+      border: 1px solid var(--border-crimson);
+      color: #fff;
+    }
+
+    /* Sliders de Shader Lab */
+    .control-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+    }
+
+    .control-label span.val {
+      color: var(--liquid-gold-bright);
+      font-weight: 600;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--crimson-neon), var(--liquid-gold));
+      cursor: pointer;
+      box-shadow: 0 0 12px var(--crimson-neon);
+    }
+
+    /* Lista de Tracks & Audio Deck */
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      max-height: 230px;
+      overflow-y: auto;
+    }
+
+    .track-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0.75rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .track-item:hover, .track-item.playing {
+      background: rgba(255, 0, 43, 0.16);
+      border-color: var(--border-crimson);
+    }
+
+    .track-item.playing .track-name {
+      color: var(--liquid-gold-bright);
+    }
+
+    .track-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .track-meta {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    #audio-visualizer {
+      width: 100%;
+      height: 58px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 0, 43, 0.22);
+    }
+
+    .dropzone-audio {
+      border: 1px dashed var(--border-gold);
+      border-radius: 10px;
+      padding: 0.6rem;
+      text-align: center;
+      font-size: 0.73rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .dropzone-audio:hover {
+      background: rgba(230, 184, 76, 0.1);
+    }
+
+    /* Inspector de Planeta / Nodo Galáctico */
+    .planet-readout {
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(230, 184, 76, 0.25);
+      border-radius: 12px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .planet-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--liquid-gold-bright);
+    }
+
+    .planet-desc {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .planet-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
+    }
+
+    .tag-chip {
+      font-size: 0.68rem;
+      padding: 0.15rem 0.48rem;
+      border-radius: 99px;
+      background: rgba(255, 0, 43, 0.18);
+      border: 1px solid rgba(255, 0, 43, 0.35);
+      color: #ffd6de;
+    }
+
+    /* Consola / Terminal inferior */
+    .hud-bottombar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+    }
+
+    .terminal-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      width: 100%;
+    }
+
+    .terminal-prompt {
+      color: var(--crimson-neon);
+      font-weight: 800;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    #terminal-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--liquid-gold-bright);
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+    }
+
+    .telemetry-strip {
+      display: flex;
+      gap: 1.1rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .telemetry-strip strong {
+      color: var(--crimson-neon);
+    }
+
+    /* ==========================================================================
+       4. MODAL CÓDICE DE LORE, GALAXIA 44 NODOS Y ARQUITECTURA
+       ========================================================================== */
+    #codex-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(18px);
+      display: none;
+      place-items: center;
+      padding: clamp(14px, 3vw, 40px);
+    }
+
+    #codex-modal.open {
+      display: grid;
+    }
+
+    .codex-window {
+      width: min(1180px, 95vw);
+      max-height: 88vh;
+      background: var(--milky-glass-strong);
+      border: 1px solid var(--border-gold);
+      box-shadow: 0 0 80px rgba(255, 0, 43, 0.35);
+      border-radius: 20px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      overflow: hidden;
+    }
+
+    .codex-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 1.6rem;
+      border-bottom: 1px solid var(--border-crimson);
+      background: rgba(255, 0, 43, 0.08);
+    }
+
+    .codex-body {
+      padding: 1.6rem;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .lore-card {
+      background: rgba(18, 2, 7, 0.78);
+      border: 1px solid var(--border-crimson);
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .lore-card h3 {
+      font-family: var(--font-display);
+      color: var(--liquid-gold-bright);
+      font-size: 1.12rem;
+      letter-spacing: 0.08em;
+    }
+
+    .lore-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Tooltip flotante 3D sobre planetas */
+    #planet-tooltip {
+      position: fixed;
+      z-index: 30;
+      pointer-events: none;
+      background: rgba(10, 0, 3, 0.9);
+      border: 1px solid var(--liquid-gold);
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      color: #fff;
+      transform: translate(14px, -50%);
+      display: none;
+      box-shadow: 0 0 20px rgba(255, 0, 43, 0.45);
+    }
+
+    /* Responsive para pantallas medianas */
+    @media (max-width: 1080px) {
+      .hud-middle {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+        pointer-events: auto;
+      }
+      .side-column {
+        max-height: 36vh;
+      }
+      .telemetry-strip {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ========================================================================
+       STAGE WEBGL + OVERLAYS ATMOSFÉRICOS
+       ======================================================================== -->
+  <canvas id="webgl-stage"></canvas>
+  <div class="cinematic-overlay"></div>
+  <div id="cursor-aura"></div>
+  <div id="planet-tooltip"></div>
+
+  <!-- ========================================================================
+       PANTALLA DE INICIALIZACIÓN RITUAL
+       ======================================================================== -->
+  <section id="boot-screen">
+    <div class="boot-sigil">B</div>
+    <h1 class="boot-title">THE JUDAS EXPERIENCE</h1>
+    <div class="boot-log" id="boot-log">
+      <div>&gt; Inicializando núcleo gráfico WebGL2 + GLSL 4D Simplex FBM... <span class="ok">[OK]</span></div>
+      <div>&gt; Compilando shaders de Vidrio Carmesí Lechoso y Oro Líquido... <span class="ok">[OK]</span></div>
+      <div>&gt; Generando Galaxia Espiral VIAJE-3D (44 nodos orbitales)... <span class="ok">[OK]</span></div>
+      <div>&gt; Calibrando oscilador armónico Web Audio API a 432.00 Hz... <span class="ok">[LISTO]</span></div>
+    </div>
+    <button id="btn-enter-experience">ENTRAR AL SANTUARIO OMEGA</button>
+  </section>
+
+  <!-- ========================================================================
+       HUD TÁCTICO GLASSMORPHISM
+       ======================================================================== -->
+  <main class="hud-layer" id="hud-root">
+    <!-- TOPBAR -->
+    <header class="glass-panel hud-topbar">
+      <div class="brand-cluster">
+        <div class="brand-dot"></div>
+        <div>
+          <div class="brand-name">BELENTANI // OMEGA</div>
+          <div class="brand-sub">THE JUDAS EXPERIENCE · VIAJE 3D · 432 HZ ENGINE</div>
+        </div>
+      </div>
+
+      <nav class="nav-pills">
+        <button class="hud-btn active" data-cam="core">01. Núcleo Judas</button>
+        <button class="hud-btn" data-cam="galaxy">02. Galaxia 44 Nodos</button>
+        <button class="hud-btn" data-cam="throne">03. Órbita Cenit</button>
+        <button class="hud-btn gold" id="btn-shatter-toggle">Fracturar Espejos</button>
+        <button class="hud-btn gold" id="btn-open-codex">Códice &amp; Lore</button>
+        <button class="hud-btn" id="btn-toggle-hud">Ocultar HUD [H]</button>
+      </nav>
+    </header>
+
+    <!-- MIDDLE GRID -->
+    <section class="hud-middle" id="hud-middle">
+      <!-- COLUMNA IZQUIERDA: SHADER LAB & MOTOR FÍSICO -->
+      <aside class="side-column">
+        <div class="glass-panel panel-card">
+          <div class="panel-header">
+            <span class="panel-title">GLSL Shader Lab</span>
+            <span class="panel-badge">LIVE UNIFORMS</span>
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Distorsión Simplex Líquida</span>
+              <span class="val" id="val-morph">1.35</span>
+            </div>
+            <input type="range" id="ctrl-morph" min="0.1" max="3.2" step="0.05" value="1.35" />
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Alquimia Oro Líquido</span>
+              <span class="val" id="val-gold">0.48</span>
+            </div>
+            <input type="range" id="ctrl-gold" min="0.0" max="1.0" step="0.02" value="0.48" />
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Expansión Espejos Rotos</span>
+              <span class="val" id="val-shatter">0.25</span>
+            </div>
+            <input type="range" id="ctrl-shatter" min="0.0" max="2.5" step="0.05" value="0.25" />
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Velocidad Rotación Galáctica</span>
+              <span class="val" id="val-speed">1.00x</span>
+            </div>
+            <input type="range" id="ctrl-speed" min="0.0" max="3.5" step="0.1" value="1.0" />
+          </div>
+
+          <div class="control-row">
+            <div class="control-label">
+              <span>Aberración Cromática</span>
+              <span class="val" id="val-chroma">0.35</span>
+            </div>
+            <input type="range" id="ctrl-chroma" min="0.0" max="1.5" step="0.05" value="0.35" />
+          </div>
+        </div>
+
+        <div class="glass-panel panel-card">
+          <div class="panel-header">
+            <span class="panel-title">Manifiesto Estético</span>
+            <span class="panel-badge">BARCELONA · BR</span>
+          </div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary);">
+            Obsidiana pura <strong style="color:#fff">#000000</strong>, cuero líquido carmesí neón, reflejos de espejo fracturado y oro alquímico. Una arquitectura sonora y visual nacida entre L'Hospitalet de Llobregat y el Nordeste brasileño.
+          </p>
+          <div class="planet-tags">
+            <span class="tag-chip">Dark Pop</span>
+            <span class="tag-chip">Electro-R&amp;B</span>
+            <span class="tag-chip">Funk Carioca 2000s</span>
+            <span class="tag-chip">MPB Nocturna</span>
+            <span class="tag-chip">432 Hz</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTRO LIBRE PARA EL CANVAS 3D -->
+      <div></div>
+
+      <!-- COLUMNA DERECHA: SINTETIZADOR 432 HZ & INSPECTOR PLANETARIO -->
+      <aside class="side-column">
+        <div class="glass-panel panel-card">
+          <div class="panel-header">
+            <span class="panel-title">Motor Sonoro 432 Hz</span>
+            <button class="hud-btn gold" id="btn-audio-toggle" style="padding:0.28rem 0.65rem; font-size:0.72rem;">ACTIVAR DRONE</button>
+          </div>
+
+          <canvas id="audio-visualizer" width="340" height="58"></canvas>
+
+          <div class="track-list" id="track-list"></div>
+
+          <label class="dropzone-audio" id="audio-dropzone">
+            + Arrastra aquí tu WAV / MP3 / FLAC masterizado (o haz clic)
+            <input type="file" id="audio-file-input" accept="audio/*" hidden />
+          </label>
+        </div>
+
+        <div class="glass-panel panel-card">
+          <div class="panel-header">
+            <span class="panel-title">Inspector Orbital (44 Nodos)</span>
+            <span class="panel-badge" id="node-index-badge">NODO #01</span>
+          </div>
+
+          <div class="planet-readout" id="planet-readout">
+            <div class="planet-title" id="inspector-title">01. BELENTANI.ES — NÚCLEO JUDAS</div>
+            <div class="planet-desc" id="inspector-desc">
+              Portal central del universo multimedia The Judas Experience. Haz clic sobre cualquier planeta de la espiral 3D para viajar hacia él o escribe /galaxy en la terminal.
+            </div>
+            <div class="planet-tags" id="inspector-tags">
+              <span class="tag-chip">WebGL</span>
+              <span class="tag-chip">San Pedro vs Judas</span>
+              <span class="tag-chip">Era 2026</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- BOTTOM TERMINAL BAR -->
+    <footer class="glass-panel hud-bottombar">
+      <div class="terminal-input-wrap">
+        <span class="terminal-prompt">belentani@omega:~$</span>
+        <input
+          type="text"
+          id="terminal-input"
+          placeholder="Escribe un comando (/help, /shatter, /gold, /432hz, /galaxy, /nodo 14, /lore)..."
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="telemetry-strip">
+        <span>FPS: <strong id="stat-fps">60</strong></span>
+        <span>NODOS: <strong>44</strong></span>
+        <span>ESPEJOS: <strong>180</strong></span>
+        <span>BASS FFT: <strong id="stat-bass">0.00</strong></span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ========================================================================
+       MODAL CÓDICE DE LORE Y DISCOGRAFÍA COMPLETA
+       ======================================================================== -->
+  <div id="codex-modal">
+    <div class="codex-window">
+      <div class="codex-header">
+        <div>
+          <div class="brand-name" style="font-size:1.3rem;">CÓDICE DE LORE &amp; ARCHIVO DISCOGRÁFICO</div>
+          <div class="brand-sub">MITOLOGÍA SAN PEDRO / JUDAS · PSICOLOGÍA EVOLUTIVA · CATÁLOGO</div>
+        </div>
+        <button class="hud-btn" id="btn-close-codex">CERRAR [ESC]</button>
+      </div>
+      <div class="codex-body" id="codex-body"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       SHADERS GLSL PERSONALIZADOS
+       ======================================================================== -->
+  <script type="x-shader/x-vertex" id="liquidCoreVert">
+    uniform float uTime;
+    uniform float uMorph;
+    uniform float uBass;
+    uniform float uMid;
+
+    varying vec3 vNormal;
+    varying vec3 vWorldPos;
+    varying vec2 vUv;
+    varying float vDisplacement;
+
+    // 3D Simplex Noise (Ashima / Gustavson)
+    vec4 permute(vec4 x) { return mod(((x * 34.0) + 1.0) * x, 289.0); }
+    vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+
+    float snoise(vec3 v) {
+      const vec2 C = vec2(1.0 / 6.0, 1.0 / 3.0);
+      const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+
+      vec3 i  = floor(v + dot(v, C.yyy));
+      vec3 x0 = v - i + dot(i, C.xxx);
+
+      vec3 g = step(x0.yzx, x0.xyz);
+      vec3 l = 1.0 - g;
+      vec3 i1 = min(g.xyz, l.zxy);
+      vec3 i2 = max(g.xyz, l.zxy);
+
+      vec3 x1 = x0 - i1 + C.xxx;
+      vec3 x2 = x0 - i2 + C.yyy;
+      vec3 x3 = x0 - D.yyy;
+
+      i = mod(i, 289.0);
+      vec4 p = permute(permute(permute(
+                i.z + vec4(0.0, i1.z, i2.z, 1.0))
+              + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+              + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+
+      float n_ = 1.0 / 7.0;
+      vec3 ns = n_ * D.wyz - D.xzx;
+
+      vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+      vec4 x_ = floor(j * ns.z);
+      vec4 y_ = floor(j - 7.0 * x_);
+
+      vec4 x = x_ * ns.x + ns.yyyy;
+      vec4 y = y_ * ns.x + ns.yyyy;
+      vec4 h = 1.0 - abs(x) - abs(y);
+
+      vec4 b0 = vec4(x.xy, y.xy);
+      vec4 b1 = vec4(x.zw, y.zw);
+
+      vec4 s0 = floor(b0) * 2.0 + 1.0;
+      vec4 s1 = floor(b1) * 2.0 + 1.0;
+      vec4 sh = -step(h, vec4(0.0));
+
+      vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
+      vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
+
+      vec3 p0 = vec3(a0.xy, h.x);
+      vec3 p1 = vec3(a0.zw, h.y);
+      vec3 p2 = vec3(a1.xy, h.z);
+      vec3 p3 = vec3(a1.zw, h.w);
+
+      vec4 norm = taylorInvSqrt(vec4(dot(p0, p0), dot(p1, p1), dot(p2, p2), dot(p3, p3)));
+      p0 *= norm.x;
+      p1 *= norm.y;
+      p2 *= norm.z;
+      p3 *= norm.w;
+
+      vec4 m = max(0.6 - vec4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);
+      m = m * m;
+      return 42.0 * dot(m * m, vec4(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));
+    }
+
+    void main() {
+      vUv = uv;
+      float t = uTime * 0.65;
+      float n1 = snoise(position * 1.45 + vec3(t, -t * 0.7, t * 0.4));
+      float n2 = snoise(position * 3.1 - vec3(t * 1.2));
+      float disp = (n1 * 0.68 + n2 * 0.32) * (uMorph * 0.28 + uBass * 0.45);
+
+      vDisplacement = disp;
+      vec3 newPosition = position + normal * disp;
+
+      vec4 worldPosition = modelMatrix * vec4(newPosition, 1.0);
+      vWorldPos = worldPosition.xyz;
+      vNormal = normalize(normalMatrix * normal);
+
+      gl_Position = projectionMatrix * viewMatrix * worldPosition;
+    }
+  </script>
+
+  <script type="x-shader/x-fragment" id="liquidCoreFrag">
+    uniform float uTime;
+    uniform float uGoldMix;
+    uniform float uBass;
+    uniform float uHigh;
+    uniform vec3 uCameraPos;
+
+    varying vec3 vNormal;
+    varying vec3 vWorldPos;
+    varying vec2 vUv;
+    varying float vDisplacement;
+
+    void main() {
+      vec3 N = normalize(vNormal);
+      vec3 V = normalize(uCameraPos - vWorldPos);
+      float fresnel = pow(1.0 - max(dot(N, V), 0.0), 2.8);
+
+      // Paleta Obsidiana + Carmesí Cuero Líquido + Oro Alquímico
+      vec3 obsidian = vec3(0.02, 0.0, 0.01);
+      vec3 crimsonDeep = vec3(0.45, 0.0, 0.07);
+      vec3 crimsonNeon = vec3(1.0, 0.02, 0.18);
+      vec3 liquidGold = vec3(0.95, 0.74, 0.26);
+
+      float vein = smoothstep(0.06, 0.36, abs(vDisplacement) + sin(vWorldPos.y * 5.0 + uTime * 2.0) * 0.08);
+      vec3 baseColor = mix(obsidian, crimsonDeep, smoothstep(-0.25, 0.25, vDisplacement));
+      baseColor = mix(baseColor, crimsonNeon, vein * (0.65 + uBass * 0.5));
+
+      // Vetas de oro líquido en crestas de desplazamiento
+      float goldMask = smoothstep(0.18, 0.42, vDisplacement + fresnel * 0.35) * uGoldMix;
+      baseColor = mix(baseColor, liquidGold, clamp(goldMask, 0.0, 0.92));
+
+      // Reflejo especular tipo látex / vidrio húmedo
+      vec3 lightDir = normalize(vec3(2.5, 4.0, 3.0));
+      vec3 H = normalize(lightDir + V);
+      float spec = pow(max(dot(N, H), 0.0), 48.0);
+
+      vec3 rimGlow = mix(crimsonNeon, liquidGold, uGoldMix * 0.65) * fresnel * (1.35 + uHigh * 0.8);
+      vec3 finalColor = baseColor + rimGlow + vec3(1.0, 0.9, 0.85) * spec * 0.65;
+
+      gl_FragColor = vec4(finalColor, 0.96);
+    }
+  </script>
+
+  <script type="x-shader/x-vertex" id="nebulaVert">
+    varying vec3 vDir;
+    void main() {
+      vDir = position;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  </script>
+
+  <script type="x-shader/x-fragment" id="nebulaFrag">
+    uniform float uTime;
+    uniform float uChroma;
+    varying vec3 vDir;
+
+    float hash(vec3 p) {
+      p = fract(p * 0.3183099 + 0.1);
+      p *= 17.0;
+      return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+    }
+
+    float noise(vec3 x) {
+      vec3 i = floor(x);
+      vec3 f = fract(x);
+      f = f * f * (3.0 - 2.0 * f);
+      return mix(
+        mix(mix(hash(i + vec3(0,0,0)), hash(i + vec3(1,0,0)), f.x),
+            mix(hash(i + vec3(0,1,0)), hash(i + vec3(1,1,0)), f.x), f.y),
+        mix(mix(hash(i + vec3(0,0,1)), hash(i + vec3(1,0,1)), f.x),
+            mix(hash(i + vec3(0,1,1)), hash(i + vec3(1,1,1)), f.x), f.y),
+        f.z
+      );
+    }
+
+    void main() {
+      vec3 d = normalize(vDir);
+      float n = noise(d * 3.2 + vec3(uTime * 0.03));
+      float n2 = noise(d * 7.5 - vec3(uTime * 0.05));
+      float nebula = smoothstep(0.42, 0.88, n * 0.65 + n2 * 0.35);
+
+      vec3 col = vec3(0.0);
+      col += vec3(0.22, 0.0, 0.04) * nebula;
+      col += vec3(0.14, 0.09, 0.02) * pow(nebula, 3.0) * (0.5 + uChroma * 0.5);
+
+      // Estrellas nítidas de fondo
+      float star = pow(hash(floor(d * 420.0)), 28.0) * 1.8;
+      col += vec3(1.0, 0.85, 0.88) * star;
+
+      gl_FragColor = vec4(col, 1.0);
+    }
+  </script>
+
+  <!-- ========================================================================
+       THREE.JS CDN + MOTOR PRINCIPAL OMEGA
+       ======================================================================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ======================================================================
+         A. BASE DE DATOS DE LORE, DISCOGRAFÍA Y 44 PLANETAS (VIAJE 3D)
+         ====================================================================== */
+      const DISCOGRAPHY = [
+        {
+          id: "judas",
+          title: "JUDAS (The Judas Experience)",
+          year: "2026",
+          prod: "Prod. Hey Duck",
+          bpm: 118,
+          freq: 108, // Sub-armónico 432/4
+          genre: "Dark Pop / Electro-R&B",
+          lore: "Manifiesto central de la era. Explora la anatomía de la traición íntima, la ruptura con el arquetipo de Thiago y la transmutación del duelo en soberanía estética."
+        },
+        {
+          id: "cassandra",
+          title: "Cassandra (Molhou meus olhos)",
+          year: "Nov 2026",
+          prod: "BELENTANI",
+          bpm: 104,
+          freq: 144,
+          genre: "MPB Nocturna / Whisper-Pop",
+          lore: "La maldición de ver el colapso antes de que ocurra. Falsete aéreo de micrófono cercano, quiebres vocales controlados ('gallo') y melancolía atlántica."
+        },
+        {
+          id: "nemo",
+          title: "Nemo Throat Stone",
+          year: "Nov 2026",
+          prod: "BELENTANI",
+          bpm: 96,
+          freq: 128,
+          genre: "Experimental R&B / Ambient Bass",
+          lore: "El nudo en la garganta convertido en mineral abisal. Texturas subacuáticas y vocal fry sobre graves inspirados en la afinación a 432 Hz."
+        },
+        {
+          id: "la-deuda",
+          title: "La Deuda",
+          year: "2026",
+          prod: "Prod. Hey Duck",
+          bpm: 126,
+          freq: 162,
+          genre: "Funk Carioca / Dark Club",
+          lore: "Percusión carioca de los 2000s cruzada con sintetizadores industriales de Barcelona. Cobro emocional sin concesiones."
+        },
+        {
+          id: "shark-eyes",
+          title: "Shark Eyes",
+          year: "2026",
+          prod: "BELENTANI",
+          bpm: 112,
+          freq: 136,
+          genre: "Dark Pop / Synth Noir",
+          lore: "Estudio sobre la mirada depredadora, el sesgo de atribución y la frialdad necesaria para sobrevivir a entornos hostiles."
+        },
+        {
+          id: "apaga-a-luz",
+          title: "Apaga a Luz",
+          year: "2026",
+          prod: "BELENTANI",
+          bpm: 122,
+          freq: 152,
+          genre: "Brazilian Bass / R&B",
+          lore: "Intimidad nocturna en portugués, contraste entre sombra absoluta y destellos carmesí."
+        },
+        {
+          id: "avesso-do-mar",
+          title: "O Avesso do Mar (WIP)",
+          year: "2026",
+          prod: "BELENTANI",
+          bpm: 98,
+          freq: 116,
+          genre: "MPB / Dark Electronic",
+          lore: "Lo que ocurre bajo la marea cuando la superficie aparenta calma. Puente sonoro entre Brasil y el Mediterráneo."
+        }
+      ];
+
+      const LORE_CHAPTERS = [
+        {
+          title: "I. LA DUALIDAD SAN PEDRO / JUDAS",
+          body: "Pedro frente al espejo fracturado: el nombre de la piedra fundacional enfrentado al arquetipo de la traición. En The Judas Experience, Judas no es solo el otro; es la proyección que obliga al creador a abandonar la ingenuidad y blindar su propio templo."
+        },
+        {
+          title: "II. ARQUITECTURA VOCAL & 432 HZ",
+          body: "Grabación íntima con Blue Yeti X: susurros cercanos al diafragma, inicios con vocal fry, falsete etéreo y el 'gallo' emocional sin corregir artificialmente. El motor sonoro utiliza frecuencias divisoras de 432 Hz (108 Hz, 216 Hz, 432 Hz) para inducir resonancia física profunda."
+        },
+        {
+          title: "III. RED MILKY GLASSMORPHISM & ORO LÍQUIDO",
+          body: "Estética de alto contraste nacida de la oscuridad total (#000000), cuero carmesí brillante, cristal translúcido teñido de sangre y oro fundido que sella las grietas como un kintsugi digital."
+        },
+        {
+          title: "IV. PSICOLOGÍA DE LAS SOMBRAS",
+          body: "Cada pista y nodo de la galaxia incorpora mecanismos de psicología evolutiva y sesgos cognitivos (Error Fundamental de Atribución, Síndrome de Amapola Alta, Hipótesis del Mundo Justo) diseccionados con frialdad quirúrgica."
+        },
+        {
+          title: "V. PUENTE BARCELONA — NORDESTE BRASIL",
+          body: "Desde L'Hospitalet de Llobregat hasta Recife y Aracaju junto al productor Hey Duck: una alianza independiente que fusiona el funk melody brasileño de los 2000s con el dark pop europeo y la ingeniería WebGL."
+        },
+        {
+          title: "VI. ECOSISTEMA SOBERANO (44 PLANETAS)",
+          body: "Cada planeta de la espiral VIAJE 3D representa un repositorio, una obra sonora, un manifiesto o una herramienta abierta del estudio unipersonal de Belentani: desde belentani.es y NOIACORE hasta Secure-T y Manos Abiertas."
+        }
+      ];
+
+      // 44 Planetas de la Galaxia Espiral VIAJE 3D
+      const GALAXY_NODES = [
+        { name: "BELENTANI.ES", category: "Core Portal", desc: "Santuario principal y experiencia inmersiva The Judas Experience." },
+        { name: "JUDAS MASTER", category: "Single", desc: "Pista titular producida junto a Hey Duck. Núcleo emocional del proyecto." },
+        { name: "CASSANDRA", category: "Single", desc: "Molhou meus olhos — balada oscura de clarividencia emocional." },
+        { name: "NEMO THROAT STONE", category: "Single", desc: "Piedra abisal en la garganta; frecuencias graves a 432 Hz." },
+        { name: "LA DEUDA", category: "Single", desc: "Fusión funk carioca e industrial sobre cuentas pendientes." },
+        { name: "SHARK EYES", category: "Single", desc: "Anatomía de la frialdad y la percepción depredadora." },
+        { name: "APAGA A LUZ", category: "Single", desc: "Nocturno electrónico en portugués." },
+        { name: "NOIACORE", category: "AI System", desc: "Arquitectura de orquestación multi-agente y automatización creativa." },
+        { name: "SECURE-T", category: "Platform", desc: "Universidad digital abierta de ciberseguridad e inteligencia artificial." },
+        { name: "META-SKILL", category: "Dev Tool", desc: "Enrutador de habilidades de cero tokens para agentes autónomos." },
+        { name: "MANOS ABIERTAS", category: "PWA Social", desc: "Plataforma educativa multilingüe en 39 idiomas con currículum de IA." },
+        { name: "ABRAZO", category: "Web Guide", desc: "Guía sobre límites emocionales y dinámicas interpersonales." },
+        { name: "CRUZANDO EL CHARCO", category: "Civic Guide", desc: "Mapa de orientación comunitaria en L'Hospitalet y Barcelona." },
+        { name: "HEY DUCK STUDIO", category: "Alianza BR", desc: "Plataforma web y press kit del productor brasileño Hey Duck." },
+        { name: "ARTE QUE VESTE", category: "Brand", desc: "Identidad visual y prototipo web de moda artesanal del Nordeste." },
+        { name: "MTAXIMO", category: "Toolkit", desc: "Suite de auditoría estructural, drones 432 Hz y nodos WebGL." },
+        { name: "VFX ORCHESTRATOR", category: "AI Video", desc: "Pipeline de dirección artística y síntesis visual cinematográfica." },
+        { name: "O AVESSO DO MAR", category: "Unreleased", desc: "Composición en desarrollo entre MPB y electrónica abisal." },
+        { name: "CEREAL FACEBOY", category: "Unreleased", desc: "Sátira dark-pop sobre máscaras sociales contemporáneas." },
+        { name: "NO TE DA PA' MÁS", category: "Unreleased", desc: "Corte directo en español con pulso club minimalista." },
+        { name: "CATLÓMA", category: "Unreleased", desc: "Pieza experimental de texturas vocales y percusión orgánica." },
+        { name: "HEART BREAKING", category: "Catalog", desc: "Archivo discográfico distribuido en plataformas globales." },
+        { name: "THERAPIST", category: "Catalog", desc: "Catarsis clínica convertida en canción pop." },
+        { name: "MON AMOUR", category: "Catalog", desc: "Romance nocturno multilingüe." },
+        { name: "I WROTE A SONG", category: "Catalog", desc: "Metacomposición sobre el oficio de escribir desde la herida." },
+        { name: "SAN PEDRO CODEX", category: "Lore", desc: "Archivo filosófico sobre la dualidad del nombre y la lealtad." },
+        { name: "THIAGO ARCHIVE", category: "Lore", desc: "Crónica de la ruptura de febrero de 2026 y su transmutación." },
+        { name: "ESPEJO FRACTURADO", category: "Visual", desc: "Geometría de 180 fragmentos reflectantes en física orbital." },
+        { name: "CUERO CARMESÍ", category: "Couture", desc: "Motivo visual insignia: sastrería brillante rojo neón sobre negro." },
+        { name: "ORO ALQUÍMICO", category: "Shader", desc: "Vetas metálicas líquidas que sellan las fracturas del núcleo." },
+        { name: "432 HZ LAB", category: "Audio", desc: "Laboratorio de afinación natural y síntesis sub-armónica." },
+        { name: "BLUE YETI X", category: "Vocal Chain", desc: "Cadena de captura íntima de susurros, vocal fry y falsete." },
+        { name: "RVC / APPLIO", category: "Voice AI", desc: "Investigación local de clonación vocal y conversión audio-a-audio." },
+        { name: "SALA AQUARELLA", category: "Live Stage", desc: "Memoria escénica en Gran Via de les Corts Catalanes, Barcelona." },
+        { name: "TORRE GLÒRIES", category: "History", desc: "Cinco años analizando desinformación y seguridad digital en 22@." },
+        { name: "SESGO DE ATRIBUCIÓN", category: "Psychology", desc: "Nodo sobre cómo juzgamos intenciones ajenas frente a circunstancias." },
+        { name: "AMAPOLA ALTA", category: "Psychology", desc: "Estudio sobre la envidia social hacia quien destaca sin pedir permiso." },
+        { name: "MUNDO JUSTO", category: "Psychology", desc: "Desmontaje de la falacia moral de que cada quien recibe lo que merece." },
+        { name: "CARQUIDEC", category: "Architecture", desc: "Colaboración digital y narrativa arquitectónica." },
+        { name: "CTG PSICOLOGÍA", category: "Web Design", desc: "Modernización digital para clínica psicológica en L'Hospitalet." },
+        { name: "BELENTANI UNIFIED", category: "Monorepo", desc: "Ecosistema centralizado de plantillas y utilidades de estudio." },
+        { name: "GLSL SHADER VAULT", category: "Graphics", desc: "Biblioteca de ruido Simplex 4D, Fresnel y post-procesado." },
+        { name: "FELINOS & SOMBRAS", category: "Observation", desc: "Estudio del lenguaje corporal felino: sigilo, caza y soberanía." },
+        { name: "OMEGA HORIZON", category: "Singularity", desc: "Punto de convergencia final de la espiral de 44 mundos." }
+      ];
+
+      /* ======================================================================
+         B. ESTADO GLOBAL DE LA APLICACIÓN
+         ====================================================================== */
+      const state = {
+        time: 0,
+        speed: 1.0,
+        morph: 1.35,
+        goldMix: 0.48,
+        shatterAmount: 0.25,
+        shatteredMode: false,
+        chroma: 0.35,
+        mouse: new THREE.Vector2(0, 0),
+        targetCamPos: new THREE.Vector3(0, 3.2, 13.5),
+        targetLookAt: new THREE.Vector3(0, 0, 0),
+        selectedNodeIndex: 0,
+        audioActive: false,
+        bass: 0,
+        mid: 0,
+        high: 0,
+        currentTrackIndex: 0
+      };
+
+      /* ======================================================================
+         C. INICIALIZACIÓN DE ESCENA THREE.JS & SHADERS
+         ====================================================================== */
+      const canvas = document.getElementById("webgl-stage");
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        powerPreference: "high-performance"
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.25;
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x050002, 0.016);
+
+      const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 250);
+      camera.position.copy(state.targetCamPos);
+
+      // Iluminación dramática carmesí y oro
+      const ambientLight = new THREE.AmbientLight(0x28040c, 1.4);
+      scene.add(ambientLight);
+
+      const crimsonLight = new THREE.PointLight(0xff002b, 5.5, 45);
+      crimsonLight.position.set(6, 5, 8);
+      scene.add(crimsonLight);
+
+      const goldLight = new THREE.PointLight(0xe6b84c, 4.2, 45);
+      goldLight.position.set(-7, -4, 6);
+      scene.add(goldLight);
+
+      const rimLight = new THREE.DirectionalLight(0xffccd5, 1.6);
+      rimLight.position.set(0, 12, -10);
+      scene.add(rimLight);
+
+      // 1. Skybox Nebula Shader
+      const skyGeo = new THREE.SphereGeometry(110, 32, 32);
+      const skyMat = new THREE.ShaderMaterial({
+        vertexShader: document.getElementById("nebulaVert").textContent,
+        fragmentShader: document.getElementById("nebulaFrag").textContent,
+        side: THREE.BackSide,
+        depthWrite: false,
+        uniforms: {
+          uTime: { value: 0 },
+          uChroma: { value: state.chroma }
+        }
+      });
+      const skyMesh = new THREE.Mesh(skyGeo, skyMat);
+      scene.add(skyMesh);
+
+      // 2. Núcleo Central de Vidrio Líquido Carmesí & Oro ("El Corazón de Judas")
+      const coreGeo = new THREE.IcosahedronGeometry(2.35, 64);
+      const coreUniforms = {
+        uTime: { value: 0 },
+        uMorph: { value: state.morph },
+        uGoldMix: { value: state.goldMix },
+        uBass: { value: 0 },
+        uMid: { value: 0 },
+        uHigh: { value: 0 },
+        uCameraPos: { value: camera.position }
+      };
+      const coreMat = new THREE.ShaderMaterial({
+        vertexShader: document.getElementById("liquidCoreVert").textContent,
+        fragmentShader: document.getElementById("liquidCoreFrag").textContent,
+        transparent: true,
+        uniforms: coreUniforms
+      });
+      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+      scene.add(coreMesh);
+
+      // 3. Anillos Alquímicos de Oro Líquido
+      const ringsGroup = new THREE.Group();
+      const ringMat = new THREE.MeshStandardMaterial({
+        color: 0xe6b84c,
+        emissive: 0x4a2c00,
+        metalness: 0.95,
+        roughness: 0.14
+      });
+
+      const ring1 = new THREE.Mesh(new THREE.TorusGeometry(3.45, 0.045, 24, 160), ringMat);
+      ring1.rotation.x = Math.PI * 0.38;
+      ringsGroup.add(ring1);
+
+      const ring2 = new THREE.Mesh(new THREE.TorusGeometry(4.15, 0.028, 20, 160), ringMat);
+      ring2.rotation.y = Math.PI * 0.28;
+      ring2.rotation.x = -Math.PI * 0.22;
+      ringsGroup.add(ring2);
+
+      scene.add(ringsGroup);
+
+      // 4. Constelación de 180 Espejos Fracturados (InstancedMesh)
+      const SHARD_COUNT = 180;
+      const shardGeo = new THREE.OctahedronGeometry(0.26, 0);
+      shardGeo.scale(1.4, 2.2, 0.14); // Forma de esquirla plana de espejo
+      const shardMat = new THREE.MeshPhysicalMaterial({
+        color: 0xffd6de,
+        emissive: 0x2a0008,
+        metalness: 0.92,
+        roughness: 0.08,
+        reflectivity: 1.0,
+        clearcoat: 1.0
+      });
+      const shardInstanced = new THREE.InstancedMesh(shardGeo, shardMat, SHARD_COUNT);
+      const shardData = [];
+      const dummy = new THREE.Object3D();
+
+      for (let i = 0; i < SHARD_COUNT; i++) {
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        const baseRadius = 3.2 + Math.random() * 3.8;
+        shardData.push({
+          theta,
+          phi,
+          baseRadius,
+          rotSpeed: new THREE.Vector3(
+            (Math.random() - 0.5) * 2.2,
+            (Math.random() - 0.5) * 2.2,
+            (Math.random() - 0.5) * 2.2
+          ),
+          phase: Math.random() * Math.PI * 2,
+          scale: 0.45 + Math.random() * 1.15
+        });
+      }
+      scene.add(shardInstanced);
+
+      // 5. Galaxia Espiral VIAJE-3D (44 Planetas Interactivos)
+      const galaxyGroup = new THREE.Group();
+      const planetMeshes = [];
+      const goldenAngle = Math.PI * (3 - Math.sqrt(5)); // Ángulo áureo
+
+      // Línea orbital espiral conectora
+      const spiralPoints = [];
+
+      GALAXY_NODES.forEach((node, idx) => {
+        const t = idx / (GALAXY_NODES.length - 1);
+        const radius = 5.4 + t * 14.5;
+        const angle = idx * goldenAngle * 1.65;
+        const yOffset = Math.sin(idx * 0.65) * 1.85;
+
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        spiralPoints.push(new THREE.Vector3(x, yOffset, z));
+
+        const isGold = idx % 4 === 0;
+        const pGeo = new THREE.SphereGeometry(0.28 + (idx === 0 ? 0.18 : 0), 28, 28);
+        const pMat = new THREE.MeshStandardMaterial({
+          color: isGold ? 0xe6b84c : 0xff002b,
+          emissive: isGold ? 0x6e4700 : 0x7a0014,
+          emissiveIntensity: 0.85,
+          metalness: 0.75,
+          roughness: 0.2
+        });
+
+        const pMesh = new THREE.Mesh(pGeo, pMat);
+        pMesh.position.set(x, yOffset, z);
+        pMesh.userData = { index: idx, node, basePos: new THREE.Vector3(x, yOffset, z) };
+
+        // Halo sutil alrededor de cada planeta
+        const halo = new THREE.Mesh(
+          new THREE.RingGeometry(0.38, 0.46, 32),
+          new THREE.MeshBasicMaterial({
+            color: isGold ? 0xffe18c : 0xff3355,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.55
+          })
+        );
+        halo.rotation.x = Math.PI / 2;
+        pMesh.add(halo);
+
+        galaxyGroup.add(pMesh);
+        planetMeshes.push(pMesh);
+      });
+
+      const spiralCurve = new THREE.CatmullRomCurve3(spiralPoints);
+      const spiralGeo = new THREE.BufferGeometry().setFromPoints(spiralCurve.getPoints(320));
+      const spiralLine = new THREE.Line(
+        spiralGeo,
+        new THREE.LineBasicMaterial({ color: 0xff002b, transparent: true, opacity: 0.28 })
+      );
+      galaxyGroup.add(spiralLine);
+      scene.add(galaxyGroup);
+
+      // 6. Campo de 3,500 Partículas de Ceniza Carmesí y Polvo de Oro
+      const PARTICLE_COUNT = 3500;
+      const pPositions = new Float32Array(PARTICLE_COUNT * 3);
+      const pColors = new Float32Array(PARTICLE_COUNT * 3);
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const r = 3 + Math.random() * 34;
+        const a = Math.random() * Math.PI * 2;
+        const y = (Math.random() - 0.5) * 18;
+        pPositions[i * 3] = Math.cos(a) * r;
+        pPositions[i * 3 + 1] = y;
+        pPositions[i * 3 + 2] = Math.sin(a) * r;
+
+        const gold = Math.random() > 0.72;
+        pColors[i * 3] = gold ? 0.92 : 1.0;
+        pColors[i * 3 + 1] = gold ? 0.72 : 0.04;
+        pColors[i * 3 + 2] = gold ? 0.28 : 0.18;
+      }
+
+      const particlesGeo = new THREE.BufferGeometry();
+      particlesGeo.setAttribute("position", new THREE.BufferAttribute(pPositions, 3));
+      particlesGeo.setAttribute("color", new THREE.BufferAttribute(pColors, 3));
+
+      const particlesMat = new THREE.PointsMaterial({
+        size: 0.085,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.78,
+        blending: THREE.AdditiveBlending
+      });
+      const particleSystem = new THREE.Points(particlesGeo, particlesMat);
+      scene.add(particleSystem);
+
+      /* ======================================================================
+         D. MOTOR WEB AUDIO API (SINTETIZADOR 432 HZ + ANALIZADOR FFT + DROPZONE)
+         ====================================================================== */
+      let audioCtx = null;
+      let analyser = null;
+      let freqData = null;
+      let droneOsc1 = null;
+      let droneOsc2 = null;
+      let subOsc = null;
+      let droneGain = null;
+      let externalAudioEl = null;
+      let externalSource = null;
+
+      function initAudioEngine() {
+        if (audioCtx) return;
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContextClass();
+
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 256;
+        freqData = new Uint8Array(analyser.frequencyBinCount);
+
+        droneGain = audioCtx.createGain();
+        droneGain.gain.value = 0.0;
+
+        // Filtro paso-bajo cálido analógico
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = "lowpass";
+        filter.frequency.value = 420;
+        filter.Q.value = 3.5;
+
+        // Osciladores armónicos centrados en 432 Hz (108 Hz fundamental + 216 Hz octava + 162 Hz quinta)
+        droneOsc1 = audioCtx.createOscillator();
+        droneOsc1.type = "sawtooth";
+        droneOsc1.frequency.value = 108; // 432 / 4
+
+        droneOsc2 = audioCtx.createOscillator();
+        droneOsc2.type = "triangle";
+        droneOsc2.frequency.value = 162; // Quinta justa sobre 108 Hz
+
+        subOsc = audioCtx.createOscillator();
+        subOsc.type = "sine";
+        subOsc.frequency.value = 54; // Sub-grave 432 / 8
+
+        droneOsc1.connect(filter);
+        droneOsc2.connect(filter);
+        subOsc.connect(filter);
+        filter.connect(droneGain);
+        droneGain.connect(analyser);
+        analyser.connect(audioCtx.destination);
+
+        droneOsc1.start();
+        droneOsc2.start();
+        subOsc.start();
+      }
+
+      function toggleDrone(forceState) {
+        initAudioEngine();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+
+        state.audioActive = typeof forceState === "boolean" ? forceState : !state.audioActive;
+        const btn = document.getElementById("btn-audio-toggle");
+
+        if (state.audioActive) {
+          droneGain.gain.setTargetAtTime(0.18, audioCtx.currentTime, 0.35);
+          btn.textContent = "SILENCIAR 432 HZ";
+          btn.classList.add("active");
+        } else {
+          droneGain.gain.setTargetAtTime(0.0, audioCtx.currentTime, 0.25);
+          if (externalAudioEl) externalAudioEl.pause();
+          btn.textContent = "ACTIVAR DRONE";
+          btn.classList.remove("active");
+        }
+      }
+
+      function playHarmonicPulse(freq = 216) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, now + 0.35);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+        osc.connect(gain);
+        gain.connect(analyser);
+        osc.start(now);
+        osc.stop(now + 0.46);
+      }
+
+      function tuneDroneToTrack(track, idx) {
+        state.currentTrackIndex = idx;
+        renderTrackList();
+        if (!state.audioActive) toggleDrone(true);
+        if (audioCtx && droneOsc1 && droneOsc2 && subOsc) {
+          const base = track.freq || 108;
+          droneOsc1.frequency.setTargetAtTime(base, audioCtx.currentTime, 0.3);
+          droneOsc2.frequency.setTargetAtTime(base * 1.5, audioCtx.currentTime, 0.3);
+          subOsc.frequency.setTargetAtTime(base * 0.5, audioCtx.currentTime, 0.3);
+          playHarmonicPulse(base * 2);
+        }
+      }
+
+      function loadExternalAudioFile(file) {
+        if (!file) return;
+        initAudioEngine();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        if (droneGain) droneGain.gain.setTargetAtTime(0.0, audioCtx.currentTime, 0.15);
+
+        if (externalAudioEl) {
+          externalAudioEl.pause();
+          externalAudioEl.remove();
+        }
+        externalAudioEl = new Audio();
+        externalAudioEl.src = URL.createObjectURL(file);
+        externalAudioEl.crossOrigin = "anonymous";
+        externalAudioEl.loop = true;
+
+        externalSource = audioCtx.createMediaElementSource(externalAudioEl);
+        externalSource.connect(analyser);
+        externalAudioEl.play();
+        state.audioActive = true;
+        document.getElementById("btn-audio-toggle").textContent = "SONANDO MASTER";
+        document.getElementById("audio-dropzone").textContent = "Master activo: " + file.name;
+      }
+
+      /* ======================================================================
+         E. RENDERIZADO DE UI (TRACKS, CÓDICE, INSPECTOR Y CONTROLES)
+         ====================================================================== */
+      function renderTrackList() {
+        const container = document.getElementById("track-list");
+        container.innerHTML = "";
+        DISCOGRAPHY.forEach((tr, i) => {
+          const el = document.createElement("div");
+          el.className = "track-item" + (i === state.currentTrackIndex ? " playing" : "");
+          el.innerHTML = `
+            <div>
+              <div class="track-name">${String(i + 1).padStart(2, "0")}. ${tr.title}</div>
+              <div class="track-meta">${tr.genre} · ${tr.prod}</div>
+            </div>
+            <div class="panel-badge">${tr.freq} Hz</div>
+          `;
+          el.addEventListener("click", () => tuneDroneToTrack(tr, i));
+          container.appendChild(el);
+        });
+      }
+
+      function renderCodex() {
+        const body = document.getElementById("codex-body");
+        body.innerHTML = "";
+
+        LORE_CHAPTERS.forEach((ch) => {
+          const card = document.createElement("article");
+          card.className = "lore-card";
+          card.innerHTML = `<h3>${ch.title}</h3><p>${ch.body}</p>`;
+          body.appendChild(card);
+        });
+
+        DISCOGRAPHY.forEach((tr) => {
+          const card = document.createElement("article");
+          card.className = "lore-card";
+          card.style.borderColor = "var(--border-gold)";
+          card.innerHTML = `
+            <h3>TRACK // ${tr.title} (${tr.year})</h3>
+            <p><strong>Producción:</strong> ${tr.prod} · <strong>Género:</strong> ${tr.genre} · <strong>Base:</strong> ${tr.freq} Hz</p>
+            <p>${tr.lore}</p>
+          `;
+          body.appendChild(card);
+        });
+      }
+
+      function selectGalaxyNode(idx) {
+        const clamped = ((idx % GALAXY_NODES.length) + GALAXY_NODES.length) % GALAXY_NODES.length;
+        state.selectedNodeIndex = clamped;
+        const targetMesh = planetMeshes[clamped];
+        const info = GALAXY_NODES[clamped];
+
+        document.getElementById("node-index-badge").textContent = `NODO #${String(clamped + 1).padStart(2, "0")}`;
+        document.getElementById("inspector-title").textContent = `${String(clamped + 1).padStart(2, "0")}. ${info.name}`;
+        document.getElementById("inspector-desc").textContent = info.desc;
+        document.getElementById("inspector-tags").innerHTML = `
+          <span class="tag-chip">${info.category}</span>
+          <span class="tag-chip">VIAJE 3D</span>
+          <span class="tag-chip">BELENTANI</span>
+        `;
+
+        // Calcular posición mundial del planeta y volar hacia él
+        const worldPos = new THREE.Vector3();
+        targetMesh.getWorldPosition(worldPos);
+        state.targetLookAt.copy(worldPos);
+        state.targetCamPos.copy(worldPos).add(new THREE.Vector3(0, 1.35, 3.8));
+        playHarmonicPulse(216 + clamped * 6);
+      }
+
+      /* ======================================================================
+         F. INTERACCIÓN DE RATÓN, RAYCASTER 3D Y TERMINAL DE COMANDOS
+         ====================================================================== */
+      const raycaster = new THREE.Raycaster();
+      const pointerNDC = new THREE.Vector2();
+      const tooltip = document.getElementById("planet-tooltip");
+      const cursorAura = document.getElementById("cursor-aura");
+
+      window.addEventListener("pointermove", (e) => {
+        cursorAura.style.left = e.clientX + "px";
+        cursorAura.style.top = e.clientY + "px";
+
+        pointerNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+        pointerNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        state.mouse.copy(pointerNDC);
+
+        raycaster.setFromCamera(pointerNDC, camera);
+        const hits = raycaster.intersectObjects(planetMeshes, false);
+
+        if (hits.length > 0) {
+          const hit = hits[0].object;
+          const { index, node } = hit.userData;
+          tooltip.style.display = "block";
+          tooltip.style.left = e.clientX + "px";
+          tooltip.style.top = e.clientY + "px";
+          tooltip.innerHTML = `<strong>#${String(index + 1).padStart(2, "0")} ${node.name}</strong><br/><span style="color:#e6b84c">${node.category}</span>`;
+          document.body.style.cursor = "pointer";
+        } else {
+          tooltip.style.display = "none";
+          document.body.style.cursor = "default";
+        }
+      });
+
+      canvas.addEventListener("click", () => {
+        raycaster.setFromCamera(pointerNDC, camera);
+        const hits = raycaster.intersectObjects(planetMeshes, false);
+        if (hits.length > 0) {
+          selectGalaxyNode(hits[0].object.userData.index);
+        }
+      });
+
+      // Comandos de terminal
+      const terminalInput = document.getElementById("terminal-input");
+      terminalInput.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter") return;
+        const raw = terminalInput.value.trim();
+        if (!raw) return;
+        terminalInput.value = "";
+        executeCommand(raw);
+      });
+
+      function executeCommand(cmdRaw) {
+        const parts = cmdRaw.toLowerCase().split(/\s+/);
+        const cmd = parts[0];
+
+        if (cmd === "/help") {
+          terminalInput.placeholder = "Comandos: /shatter | /gold | /432hz | /galaxy | /core | /nodo [1-44] | /lore | /overload";
+        } else if (cmd === "/shatter") {
+          toggleShatter();
+        } else if (cmd === "/gold") {
+          state.goldMix = state.goldMix > 0.7 ? 0.25 : 0.95;
+          document.getElementById("ctrl-gold").value = state.goldMix;
+          document.getElementById("val-gold").textContent = state.goldMix.toFixed(2);
+        } else if (cmd === "/432hz") {
+          toggleDrone();
+        } else if (cmd === "/galaxy") {
+          setCameraPreset("galaxy");
+        } else if (cmd === "/core") {
+          setCameraPreset("core");
+        } else if (cmd === "/nodo" && parts[1]) {
+          const num = parseInt(parts[1], 10);
+          if (!isNaN(num)) selectGalaxyNode(num - 1);
+        } else if (cmd === "/lore") {
+          document.getElementById("codex-modal").classList.add("open");
+        } else if (cmd === "/overload") {
+          state.morph = 2.8;
+          state.goldMix = 0.92;
+          state.shatterAmount = 2.1;
+          state.speed = 2.6;
+          toggleDrone(true);
+        } else {
+          // Buscar planeta por nombre parcial
+          const matchIdx = GALAXY_NODES.findIndex((n) => n.name.toLowerCase().includes(cmd.replace("/", "")));
+          if (matchIdx !== -1) {
+            selectGalaxyNode(matchIdx);
+          } else {
+            terminalInput.placeholder = `Comando no reconocido: ${cmdRaw} (usa /help)`;
+          }
+        }
+      }
+
+      function setCameraPreset(preset) {
+        document.querySelectorAll(".nav-pills .hud-btn[data-cam]").forEach((b) => {
+          b.classList.toggle("active", b.dataset.cam === preset);
+        });
+
+        if (preset === "core") {
+          state.targetCamPos.set(0, 2.4, 11.5);
+          state.targetLookAt.set(0, 0, 0);
+        } else if (preset === "galaxy") {
+          state.targetCamPos.set(0, 16.5, 24.0);
+          state.targetLookAt.set(0, 0, 0);
+        } else if (preset === "throne") {
+          state.targetCamPos.set(0, 28.0, 4.5);
+          state.targetLookAt.set(0, 0, 0);
+        }
+      }
+
+      function toggleShatter() {
+        state.shatteredMode = !state.shatteredMode;
+        state.shatterAmount = state.shatteredMode ? 1.85 : 0.25;
+        document.getElementById("ctrl-shatter").value = state.shatterAmount;
+        document.getElementById("val-shatter").textContent = state.shatterAmount.toFixed(2);
+        document.getElementById("btn-shatter-toggle").textContent = state.shatteredMode
+          ? "Reconstruir Espejos"
+          : "Fracturar Espejos";
+        playHarmonicPulse(state.shatteredMode ? 324 : 162);
+      }
+
+      /* ======================================================================
+         G. LISTENERS DE CONTROLES & ATAJOS DE TECLADO
+         ====================================================================== */
+      document.getElementById("btn-enter-experience").addEventListener("click", () => {
+        document.getElementById("boot-screen").classList.add("hidden");
+        toggleDrone(true);
+      });
+
+      document.querySelectorAll(".nav-pills .hud-btn[data-cam]").forEach((btn) => {
+        btn.addEventListener("click", () => setCameraPreset(btn.dataset.cam));
+      });
+
+      document.getElementById("btn-shatter-toggle").addEventListener("click", toggleShatter);
+      document.getElementById("btn-audio-toggle").addEventListener("click", () => toggleDrone());
+
+      document.getElementById("btn-open-codex").addEventListener("click", () => {
+        document.getElementById("codex-modal").classList.add("open");
+      });
+
+      document.getElementById("btn-close-codex").addEventListener("click", () => {
+        document.getElementById("codex-modal").classList.remove("open");
+      });
+
+      document.getElementById("btn-toggle-hud").addEventListener("click", () => {
+        const mid = document.getElementById("hud-middle");
+        const hidden = mid.style.visibility === "hidden";
+        mid.style.visibility = hidden ? "visible" : "hidden";
+        document.getElementById("btn-toggle-hud").textContent = hidden ? "Ocultar HUD [H]" : "Mostrar HUD [H]";
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (document.activeElement === terminalInput) return;
+        if (e.key.toLowerCase() === "h") {
+          document.getElementById("btn-toggle-hud").click();
+        } else if (e.key === "Escape") {
+          document.getElementById("codex-modal").classList.remove("open");
+        } else if (e.key === "ArrowRight") {
+          selectGalaxyNode(state.selectedNodeIndex + 1);
+        } else if (e.key === "ArrowLeft") {
+          selectGalaxyNode(state.selectedNodeIndex - 1);
+        }
+      });
+
+      // Sliders en vivo
+      const bindSlider = (id, valId, key, suffix = "") => {
+        const el = document.getElementById(id);
+        const out = document.getElementById(valId);
+        el.addEventListener("input", () => {
+          state[key] = parseFloat(el.value);
+          out.textContent = state[key].toFixed(2) + suffix;
+        });
+      };
+
+      bindSlider("ctrl-morph", "val-morph", "morph");
+      bindSlider("ctrl-gold", "val-gold", "goldMix");
+      bindSlider("ctrl-shatter", "val-shatter", "shatterAmount");
+      bindSlider("ctrl-speed", "val-speed", "speed", "x");
+      bindSlider("ctrl-chroma", "val-chroma", "chroma");
+
+      // Drag & Drop de audio local
+      const dropzone = document.getElementById("audio-dropzone");
+      const fileInput = document.getElementById("audio-file-input");
+      fileInput.addEventListener("change", (e) => loadExternalAudioFile(e.target.files[0]));
+      dropzone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropzone.style.background = "rgba(230, 184, 76, 0.22)";
+      });
+      dropzone.addEventListener("dragleave", () => {
+        dropzone.style.background = "transparent";
+      });
+      dropzone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropzone.style.background = "transparent";
+        if (e.dataTransfer.files.length) loadExternalAudioFile(e.dataTransfer.files[0]);
+      });
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      /* ======================================================================
+         H. VISUALIZADOR DE ESPECTRO HUD & BUCLE PRINCIPAL DE ANIMACIÓN
+         ====================================================================== */
+      const visCanvas = document.getElementById("audio-visualizer");
+      const visCtx = visCanvas.getContext("2d");
+      const currentLookAt = new THREE.Vector3(0, 0, 0);
+      let lastFrameTime = performance.now();
+      let frameCounter = 0;
+
+      function updateAudioMetrics() {
+        visCtx.clearRect(0, 0, visCanvas.width, visCanvas.height);
+
+        if (analyser && freqData && state.audioActive) {
+          analyser.getByteFrequencyData(freqData);
+
+          let bassSum = 0;
+          let midSum = 0;
+          let highSum = 0;
+
+          for (let i = 0; i < 12; i++) bassSum += freqData[i];
+          for (let i = 12; i < 48; i++) midSum += freqData[i];
+          for (let i = 48; i < 96; i++) highSum += freqData[i];
+
+          state.bass = THREE.MathUtils.lerp(state.bass, bassSum / (12 * 255), 0.25);
+          state.mid = THREE.MathUtils.lerp(state.mid, midSum / (36 * 255), 0.25);
+          state.high = THREE.MathUtils.lerp(state.high, highSum / (48 * 255), 0.25);
+
+          const bars = 48;
+          const barW = visCanvas.width / bars;
+          for (let i = 0; i < bars; i++) {
+            const v = freqData[i] / 255;
+            const h = Math.max(3, v * visCanvas.height * 0.9);
+            const grad = visCtx.createLinearGradient(0, visCanvas.height, 0, 0);
+            grad.addColorStop(0, "#ff002b");
+            grad.addColorStop(1, "#e6b84c");
+            visCtx.fillStyle = grad;
+            visCtx.fillRect(i * barW + 1, visCanvas.height - h, barW - 2, h);
+          }
+        } else {
+          // Onda latente en reposo
+          state.bass = 0.08 + Math.sin(state.time * 2.2) * 0.04;
+          state.mid = 0.05;
+          state.high = 0.04;
+
+          visCtx.strokeStyle = "rgba(255, 0, 43, 0.55)";
+          visCtx.lineWidth = 1.5;
+          visCtx.beginPath();
+          for (let x = 0; x < visCanvas.width; x += 4) {
+            const y = visCanvas.height * 0.5 + Math.sin(x * 0.04 + state.time * 4) * 6;
+            if (x === 0) visCtx.moveTo(x, y);
+            else visCtx.lineTo(x, y);
+          }
+          visCtx.stroke();
+        }
+
+        document.getElementById("stat-bass").textContent = state.bass.toFixed(2);
+      }
+
+      function animate(now) {
+        requestAnimationFrame(animate);
+
+        const dt = Math.min((now - lastFrameTime) / 1000, 0.05);
+        lastFrameTime = now;
+        state.time += dt * state.speed;
+
+        // Cálculo de FPS cada 20 frames
+        frameCounter++;
+        if (frameCounter % 20 === 0) {
+          document.getElementById("stat-fps").textContent = Math.round(1 / Math.max(dt, 0.001));
+        }
+
+        updateAudioMetrics();
+
+        // Actualizar uniforms GLSL
+        coreUniforms.uTime.value = state.time;
+        coreUniforms.uMorph.value = state.morph;
+        coreUniforms.uGoldMix.value = state.goldMix;
+        coreUniforms.uBass.value = state.bass;
+        coreUniforms.uMid.value = state.mid;
+        coreUniforms.uHigh.value = state.high;
+        coreUniforms.uCameraPos.value.copy(camera.position);
+
+        skyMat.uniforms.uTime.value = state.time;
+        skyMat.uniforms.uChroma.value = state.chroma;
+
+        // Rotación del núcleo y anillos de oro
+        coreMesh.rotation.y += dt * 0.25 * state.speed;
+        ringsGroup.rotation.z += dt * 0.35 * state.speed;
+        ringsGroup.rotation.y -= dt * 0.2 * state.speed;
+
+        // Actualizar los 180 espejos fracturados
+        for (let i = 0; i < SHARD_COUNT; i++) {
+          const s = shardData[i];
+          const r = s.baseRadius + state.shatterAmount * 2.4 + Math.sin(state.time * 1.5 + s.phase) * 0.35 + state.bass * 1.2;
+          const angleOffset = state.time * 0.18 + s.phase;
+
+          const x = r * Math.sin(s.phi) * Math.cos(s.theta + angleOffset);
+          const y = r * Math.cos(s.phi) + Math.sin(state.time + s.phase) * 0.4;
+          const z = r * Math.sin(s.phi) * Math.sin(s.theta + angleOffset);
+
+          dummy.position.set(x, y, z);
+          dummy.rotation.set(
+            s.rotSpeed.x * state.time,
+            s.rotSpeed.y * state.time,
+            s.rotSpeed.z * state.time
+          );
+          const pulseScale = s.scale * (1 + state.bass * 0.45);
+          dummy.scale.set(pulseScale, pulseScale, pulseScale);
+          dummy.updateMatrix();
+          shardInstanced.setMatrixAt(i, dummy.matrix);
+        }
+        shardInstanced.instanceMatrix.needsUpdate = true;
+
+        // Rotación suave de la Galaxia de 44 Planetas
+        galaxyGroup.rotation.y += dt * 0.08 * state.speed;
+        planetMeshes.forEach((pm, idx) => {
+          const isSelected = idx === state.selectedNodeIndex;
+          const targetScale = isSelected ? 1.55 + Math.sin(state.time * 6) * 0.12 : 1.0 + state.bass * 0.25;
+          pm.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.12);
+        });
+
+        particleSystem.rotation.y -= dt * 0.03 * state.speed;
+
+        // Interpolación suave de cámara + paralaje con el ratón
+        const parallaxX = state.mouse.x * 1.6;
+        const parallaxY = state.mouse.y * 1.1;
+        const desiredCam = state.targetCamPos.clone().add(new THREE.Vector3(parallaxX, parallaxY, 0));
+
+        camera.position.lerp(desiredCam, 0.055);
+        currentLookAt.lerp(state.targetLookAt, 0.075);
+        camera.lookAt(currentLookAt);
+
+        renderer.render(scene, camera);
+      }
+
+      // Inicializar UI y arrancar loop
+      renderTrackList();
+      renderCodex();
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html>

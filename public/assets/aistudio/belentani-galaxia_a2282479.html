@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07040a">
+<title>Belentani — uma galáxia que se percorre</title>
+<noscript><style>#boot{display:none}.m>span,p,.cta{transform:none!important;opacity:1!important}</style></noscript>
+<style>
+:root{--void:#07040a;--abyss:#120812;--blood:#e01e37;--ember:#ff6a3d;--bone:#f4ece6;--signal:#37e0ff;--ash:#a89aa2;--nav:56px;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{background:var(--void);scroll-behavior:smooth;scroll-padding-top:calc(var(--nav) + env(safe-area-inset-top,0px));scrollbar-width:thin;scrollbar-color:var(--blood) var(--abyss)}
+body{margin:0;color:var(--bone);font:400 1rem/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.nogl body{background:radial-gradient(ellipse at 50% 70%,#e01e3744,transparent 55%),radial-gradient(ellipse at 15% 15%,#37e0ff22,transparent 50%),var(--void)}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+#c:active{cursor:grabbing}.nogl #c{display:none}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+#c:focus-visible{outline-offset:-4px}
+header{position:fixed;z-index:5;inset:0 0 auto;display:flex;align-items:center;gap:1.25rem;height:calc(var(--nav) + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) clamp(16px,4vw,48px) 0;background:linear-gradient(#07040acc,#07040a00)}
+header b{margin-right:auto;font:600 1.1rem/1 ui-serif,Georgia,serif;letter-spacing:.05em}
+nav{display:flex;gap:clamp(.8rem,2vw,1.8rem)}
+nav a,header button{font:inherit;font-size:.9rem;color:var(--ash);text-decoration:none;background:none;border:0;border-bottom:1px solid transparent;padding:.4rem .1rem;cursor:pointer;transition:color .25s,border-color .25s}
+nav a:hover,header button:hover,nav a[aria-current]{color:var(--bone)}
+nav a[aria-current]{border-color:var(--blood)}
+#pg{position:fixed;z-index:6;left:0;width:100%;height:2px;top:calc(var(--nav) + env(safe-area-inset-top,0px));background:linear-gradient(90deg,var(--blood),var(--ember));transform-origin:0 50%;transform:scaleX(0)}
+main{position:relative;z-index:2;pointer-events:none}
+section{min-height:100svh;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:calc(var(--nav) + 2rem) clamp(20px,5vw,72px) clamp(40px,9vh,96px)}
+h1,h2{margin:0;font:300 clamp(3.2rem,11vw,9.5rem)/.92 ui-serif,"Iowan Old Style","Palatino Linotype",Georgia,serif;letter-spacing:-.035em}
+h2{font-size:clamp(2.8rem,9vw,7.5rem)}
+.m{display:block;overflow:hidden;padding-bottom:.1em}
+.m>span{display:block;transform:translateY(108%);transition:transform 1.2s cubic-bezier(.2,.8,.1,1)}
+p,.cta{opacity:0;transform:translateY(12px);transition:opacity 1s .35s,transform 1s .35s}
+p{max-width:36ch;margin:1.4rem 0 0;color:#f4ece6cc;font-size:clamp(1rem,1.4vw,1.2rem);line-height:1.65}
+p.s{font-size:.8rem;color:var(--ash);margin-top:2.2rem}
+.cta{pointer-events:auto;margin-top:1.8rem;padding:.8rem 1.4rem;color:var(--bone);text-decoration:none;border:1px solid var(--blood);border-radius:999px;background:#e01e3722}
+.cta:hover{background:var(--blood)}
+.on .m>span{transform:none}.on p,.on .cta{opacity:1;transform:none}
+#deck{position:fixed;z-index:7;right:clamp(12px,3vw,32px);bottom:calc(clamp(12px,3vw,32px) + env(safe-area-inset-bottom,0px));width:min(320px,calc(100vw - 24px));max-height:70svh;overflow:auto;padding:1rem 1.1rem;background:#120812d9;backdrop-filter:blur(14px);border:1px solid #e01e3755;border-radius:14px;scrollbar-width:thin;scrollbar-color:var(--blood) transparent}
+#deck[hidden]{display:none}
+#deck label{display:grid;grid-template-columns:1fr auto;gap:.2rem .8rem;margin-bottom:.7rem;font-size:.85rem;color:var(--ash)}
+#deck input{grid-column:1/-1;width:100%;accent-color:var(--blood)}
+#deck output{color:var(--ember);font-variant-numeric:tabular-nums}
+.row{display:flex;gap:.5rem;flex-wrap:wrap}
+.row button{flex:1;padding:.55rem .7rem;font:inherit;font-size:.85rem;color:var(--bone);background:#e01e3722;border:1px solid #e01e3788;border-radius:8px;cursor:pointer}
+.row button:hover{background:#e01e3755}
+#boot{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:var(--void);color:var(--ash);font-size:.85rem;letter-spacing:.2em;transition:opacity .9s}
+#boot.x{opacity:0;pointer-events:none}
+@media(max-width:640px){nav{display:none}}
+@media(prefers-reduced-motion:reduce){.m>span,p,.cta{transition:none;transform:none;opacity:1}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="boot">Carregando galáxia</div>
+<canvas id="c" tabindex="0" role="img" aria-label="Galáxia interativa. Arraste ou use as setas para orbitar; clique ou pressione Enter para soltar um pulso."></canvas>
+<div id="pg"></div>
+<header>
+  <b>Belentani</b>
+  <nav><a href="#s0">Gênese</a><a href="#s1">Traição</a><a href="#s2">A dívida</a><a href="#s3">Redenção</a></nav>
+  <button id="tg" aria-expanded="false" aria-controls="deck">Painel</button>
+</header>
+<main>
+  <section id="s0" class="on"><h1><span class="m"><span>Belentani</span></span></h1><p>Uma galáxia que se percorre. Role para atravessar quatro capítulos, arraste para orbitar, clique para soltar um pulso.</p></section>
+  <section id="s1"><h2><span class="m"><span>Traição</span></span></h2><p>Judas não é o traidor: é quem observa. O caos é o material; o sistema, a forma.</p></section>
+  <section id="s2"><h2><span class="m"><span>A dívida</span></span></h2><p>Vinte e um lançamentos em outubro de 2026. Vinte e uma portas para a mesma ferida, vistas de outro ângulo.</p></section>
+  <section id="s3"><h2><span class="m"><span>Redenção</span></span></h2><p>“Not a human being. Human becoming.” Nem tudo que quebra desaparece: às vezes encontra outra forma de emitir luz.</p><a class="cta" href="https://belentani.es" target="_blank" rel="noopener">Entrar em belentani.es</a><p class="s">Judas, aqui, é arquétipo de cena: ficção simbólica. Fundo volumétrico adaptado de Star Nest (Kali, MIT).</p></section>
+</main>
+<div id="deck" hidden><div id="sl"></div><div class="row"><button id="bp">Pulso</button><button id="bx">Exportar PNG</button><button id="br">Redefinir</button></div></div>
+<script>
+/* Belentani // Galáxia — WebGL2 puro, sem bibliotecas, sem CDN.
+   Fundo: Star Nest (Pablo Román Andrioli “Kali”, MIT), adaptado. */
+(()=>{'use strict';
+const $=s=>document.querySelector(s),de=document.documentElement,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cv=$('#c'),boot=$('#boot'),secs=[...document.querySelectorAll('section')];
+const gl=cv.getContext('webgl2',{antialias:false,alpha:false,depth:false,powerPreference:'high-performance'});
+if(!gl){de.classList.add('nogl');boot.remove();secs.forEach(s=>s.classList.add('on'));return}
+
+/* ---------- shaders ---------- */
+const VS=`#version 300 es
+void main(){vec2 p=vec2((gl_VertexID<<1)&2,gl_VertexID&2);gl_Position=vec4(p*2.-1.,0,1);}`;
+const ROT=`mat3 rx(float a){float c=cos(a),s=sin(a);return mat3(1,0,0,0,c,s,0,-s,c);}
+mat3 ry(float a){float c=cos(a),s=sin(a);return mat3(c,0,-s,0,1,0,s,0,c);}`;
+const BG=`#version 300 es
+precision highp float;uniform vec2 uR;uniform float uT,uYaw,uPit;uniform vec3 uA,uB;out vec4 o;${ROT}
+void main(){
+ vec2 uv=(gl_FragCoord.xy-.5*uR)/uR.y;
+ vec3 d=ry(-uYaw)*rx(-uPit)*normalize(vec3(uv,.9));
+ vec3 f=vec3(1.,.5,.5)+vec3(uT*.012,uT*.006,-2.);
+ float s=.1,fd=1.;vec3 v=vec3(0);
+ for(int r=0;r<8;r++){
+  vec3 p=abs(vec3(.85)-mod(f+s*d*.5,vec3(1.7)));
+  float pa=0.,a=0.;
+  for(int i=0;i<11;i++){p=abs(p)/dot(p,p)-.53;float l=length(p);a+=abs(l-pa);pa=l;}
+  float dm=max(0.,.3-a*a*.001);a*=a*a;
+  if(r>2)fd*=1.-dm;
+  v+=fd+vec3(s,s*s,s*s*s*s)*a*.0016*fd;
+  fd*=.73;s+=.1;}
+ vec3 c=v*.011;float t=dot(c,vec3(.333));
+ o=vec4(mix(c,mix(uB,uA,.5)*t*2.2,.7)*.75,1);}`;
+const PV=`#version 300 es
+precision highp float;
+layout(location=0)in vec4 aA;layout(location=1)in vec3 aO;
+uniform float uT,uYaw,uPit,uDist,uAsp,uK,uSpin,uPT,uRad;uniform vec3 uIn,uOut;
+out vec3 vC;out float vF;${ROT}
+void main(){
+ float r=pow(aA.x,1.5)*uRad;
+ float ang=floor(aA.y*3.)*2.0943951+r*.55+uT*.22*uSpin/(1.+r*.6);
+ vec3 p=vec3(cos(ang),0.,sin(ang))*r+aO*(.1+r*.34);
+ p.y+=sin(ang*3.+uT*.4+aA.w*6.28)*.04*r;
+ float dd=r-uPT*uRad*1.5,k=exp(-dd*dd*2.)*step(uPT,.999)*(1.-uPT);
+ p.y+=k*sin(aA.w*40.)*.8;p*=1.+k*.1;
+ vec3 q=rx(uPit)*ry(uYaw)*p;q.z-=uDist;
+ float n=.1,fr=100.,f=1.7;
+ gl_Position=vec4(q.x*f/uAsp,q.y*f,(q.z*(fr+n)+2.*fr*n)/(n-fr),-q.z);
+ gl_PointSize=clamp(uK*(.6+aA.z*2.2)/-q.z,1.,56.);
+ vC=mix(uIn,uOut,smoothstep(0.,uRad,r))*(.5+aA.z)*(.8+.2*sin(uT*2.+aA.w*60.))*(1.+k*3.);
+ vF=smoothstep(.2,1.4,-q.z);}`;
+const PF=`#version 300 es
+precision highp float;in vec3 vC;in float vF;uniform float uG;out vec4 o;
+void main(){float d=length(gl_PointCoord-.5)*2.;o=vec4(vC*pow(max(0.,1.-d),2.5)*uG*vF*.9,1);}`;
+const BR=`#version 300 es
+precision highp float;uniform sampler2D uT0;uniform float uTh;out vec4 o;
+void main(){vec2 t=1./vec2(textureSize(uT0,0)),uv=gl_FragCoord.xy*t*4.;
+ vec3 c=(texture(uT0,uv+t*vec2(-1,-1)*2.)+texture(uT0,uv+t*vec2(1,-1)*2.)+texture(uT0,uv+t*vec2(-1,1)*2.)+texture(uT0,uv+t*vec2(1,1)*2.)).rgb*.25;
+ o=vec4(c*smoothstep(uTh,uTh+.4,max(c.r,max(c.g,c.b))),1);}`;
+const BL=`#version 300 es
+precision highp float;uniform sampler2D uT0;uniform vec2 uD;out vec4 o;
+void main(){vec2 uv=gl_FragCoord.xy/vec2(textureSize(uT0,0));
+ vec3 c=texture(uT0,uv).rgb*.227027;
+ c+=(texture(uT0,uv+uD*1.3846)+texture(uT0,uv-uD*1.3846)).rgb*.316216;
+ c+=(texture(uT0,uv+uD*3.2308)+texture(uT0,uv-uD*3.2308)).rgb*.07027;
+ o=vec4(c,1);}`;
+const CP=`#version 300 es
+precision highp float;uniform sampler2D uS,uB;uniform vec2 uR;uniform float uBl,uCA,uT;out vec4 o;
+vec3 aces(vec3 x){return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.,1.);}
+void main(){
+ vec2 uv=gl_FragCoord.xy/uR,d=uv-.5;float r2=dot(d,d);vec2 off=d*r2*uCA*.06;
+ vec3 c=vec3(texture(uS,uv+off).r,texture(uS,uv).g,texture(uS,uv-off).b)+texture(uB,uv).rgb*uBl;
+ c=aces(c*1.1);
+ c*=1.-smoothstep(.2,.95,r2*2.2)*.75;
+ c+=(fract(sin(dot(gl_FragCoord.xy+uT,vec2(12.9898,78.233)))*43758.5453)-.5)*.035;
+ o=vec4(c,1);}`;
+
+const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(o));return o};
+const prog=(v,f,...smp)=>{const p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,v));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,f));gl.linkProgram(p);
+ if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));
+ const u={};for(let i=0,n=gl.getProgramParameter(p,gl.ACTIVE_UNIFORMS);i<n;i++){const a=gl.getActiveUniform(p,i);u[a.name]=gl.getUniformLocation(p,a.name)}
+ gl.useProgram(p);smp.forEach((n,i)=>gl.uniform1i(u[n],i));return{p,u}};
+let Pbg,Ppt,Pbr,Pbl,Pcp;
+try{Pbg=prog(VS,BG);Ppt=prog(VS.replace(/void main[\s\S]*/,'')+PV.replace('#version 300 es',''),PF);Pbr=prog(VS,BR,'uT0');Pbl=prog(VS,BL,'uT0');Pcp=prog(VS,CP,'uS','uB')}
+catch(e){console.error(e);de.classList.add('nogl');boot.remove();secs.forEach(s=>s.classList.add('on'));return}
+const set=(P,n,a,b,c)=>{const l=P.u[n];c!==undefined?gl.uniform3f(l,a,b,c):b!==undefined?gl.uniform2f(l,a,b):gl.uniform1f(l,a)};
+const use=P=>{gl.useProgram(P.p);return P};
+
+/* ---------- galáxia: 120k pontos, posição calculada na GPU ---------- */
+let sd=7;const R=()=>{sd=sd+0x6D2B79F5|0;let t=Math.imul(sd^sd>>>15,1|sd);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const N=120000,A=new Float32Array(N*7),sg=()=>(R()<.5?-1:1)*R()**3;
+for(let i=0;i<N;i++)A.set([R(),R(),R(),R(),sg(),sg()*.45,sg()],i*7);
+const vao=gl.createVertexArray();gl.bindVertexArray(vao);
+const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,A,gl.STATIC_DRAW);
+gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,4,gl.FLOAT,false,28,0);
+gl.enableVertexAttribArray(1);gl.vertexAttribPointer(1,3,gl.FLOAT,false,28,16);
+gl.bindVertexArray(null);
+
+/* ---------- alvos de render ---------- */
+const fbo=(w,h)=>{const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+ [gl.TEXTURE_MIN_FILTER,gl.TEXTURE_MAG_FILTER].forEach(k=>gl.texParameteri(gl.TEXTURE_2D,k,gl.LINEAR));
+ [gl.TEXTURE_WRAP_S,gl.TEXTURE_WRAP_T].forEach(k=>gl.texParameteri(gl.TEXTURE_2D,k,gl.CLAMP_TO_EDGE));
+ const f=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,f);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,t,0);return{f,t,w,h}};
+const CAP=Math.min(devicePixelRatio||1,1.75);let q=Math.min(CAP,1),W=2,H=2,F={},need=1;
+const mk=()=>{for(const k in F){gl.deleteTexture(F[k].t);gl.deleteFramebuffer(F[k].f)}
+ W=Math.max(2,cv.clientWidth*q|0);H=Math.max(2,cv.clientHeight*q|0);cv.width=W;cv.height=H;
+ F.s=fbo(W,H);F.a=fbo((W>>2)||1,(H>>2)||1);F.b=fbo((W>>2)||1,(H>>2)||1)};
+new ResizeObserver(()=>{need=1}).observe(cv);
+
+/* ---------- painel (16 controles do spec → 5 essenciais) ---------- */
+const CFG=[['bloom','Bloom',0,2,.9],['spin','Giro',0,3,1],['dens','Densidade',.1,1,.75],['gain','Intensidade',.3,2.2,1],['ca','Aberração',0,2,.8]];
+const S={},resets=[],D=$('#deck');
+CFG.forEach(([k,l,a,b,v])=>{const e=document.createElement('label');e.innerHTML=`${l}<output></output><input type="range" min="${a}" max="${b}" step=".01" value="${v}">`;
+ const i=e.querySelector('input'),o=e.querySelector('output'),f=()=>{S[k]=+i.value;o.textContent=(+i.value).toFixed(2)};
+ i.oninput=f;f();resets.push(()=>{i.value=v;f()});$('#sl').append(e)});
+$('#tg').onclick=()=>{const h=D.hidden=!D.hidden;$('#tg').setAttribute('aria-expanded',String(!h))};
+$('#br').onclick=()=>resets.forEach(r=>r());
+let exp=0;$('#bx').onclick=()=>{exp=1};
+
+/* ---------- câmera, paletas, interação ---------- */
+const hx=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255);
+const PAL=[['#f4ece6','#7aa2ff'],['#ffb020','#e01e37'],['#ff6a3d','#8b1e37'],['#3ddc84','#37e0ff']].map(p=>p.flatMap(hx));
+const CH=[[.3,.95,13],[1.4,.22,9],[2.6,.5,4.6],[3.6,1.35,14.5]];
+const TG=CH.map((c,i)=>[...c,...PAL[i]]);
+const cur=[...TG[0]],clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),ss=t=>t*t*(3-2*t);
+let drag=0,lx=0,ly=0,vy=0,uy=0,up=0,down=null,pt=1;
+const pulse=()=>{if(!RM)pt=0};
+cv.addEventListener('pointerdown',e=>{drag=1;lx=e.clientX;ly=e.clientY;down=[lx,ly,performance.now()];cv.setPointerCapture(e.pointerId)});
+cv.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-lx,dy=e.clientY-ly;lx=e.clientX;ly=e.clientY;uy+=dx*.005;up=clamp(up+dy*.004,-.7,.7);vy=dx*.3});
+cv.addEventListener('pointerup',e=>{if(!drag)return;drag=0;if(Math.hypot(e.clientX-down[0],e.clientY-down[1])<6&&performance.now()-down[2]<350)pulse()});
+cv.addEventListener('pointercancel',()=>{drag=0});
+cv.addEventListener('keydown',e=>{const m={ArrowLeft:[-.12,0],ArrowRight:[.12,0],ArrowUp:[0,-.08],ArrowDown:[0,.08]}[e.key];
+ if(m){e.preventDefault();uy+=m[0];up=clamp(up+m[1],-.7,.7)}else if(e.key==='Enter'||e.key===' '){e.preventDefault();pulse()}});
+$('#bp').onclick=pulse;
+
+const links=[...document.querySelectorAll('nav a')],pg=$('#pg');let ci=-1,lost=0,T=0,last=performance.now(),first=1,acc=0,n=0,cool=3;
+const setCh=i=>{if(i===ci)return;ci=i;secs.forEach((s,j)=>s.classList.toggle('on',j===i));links.forEach((a,j)=>j===i?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current'))};
+cv.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=1;de.classList.add('nogl');secs.forEach(s=>s.classList.add('on'))});
+
+const tx=(i,t)=>{gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,t)};
+const to=o=>{gl.bindFramebuffer(gl.FRAMEBUFFER,o&&o.f);gl.viewport(0,0,o?o.w:W,o?o.h:H)};
+const tri=()=>gl.drawArrays(gl.TRIANGLES,0,3);
+
+/* ---------- um único bucle ---------- */
+const loop=now=>{
+ requestAnimationFrame(loop);if(lost)return;
+ const raw=(now-last)/1000,dt=Math.min(.05,raw);last=now;
+ if(!RM)T+=dt;
+ /* governador: nunca muda a qualidade durante o arrasto */
+ if(raw<.2){acc+=raw;n++}
+ if(n>=45){const avg=acc/n;acc=n=0;if(cool<=0&&!drag){
+  if(avg>.036&&q>.5){q=Math.max(.5,q*.85);need=1;cool=2}else if(avg<.019&&q<CAP){q=Math.min(CAP,q*1.12);need=1;cool=4}}}
+ cool-=dt;
+ if(need){need=0;mk()}
+ /* scroll → capítulo contínuo */
+ const m=de.scrollHeight-innerHeight,pr=m>0?clamp(de.scrollTop/m,0,1):0,c=pr*3,i=Math.min(2,c|0),t=ss(c-i);
+ pg.style.transform=`scaleX(${pr})`;setCh(Math.round(c));
+ const k=1-Math.exp(-dt*2.6);
+ for(let j=0;j<cur.length;j++){const tv=TG[i][j]+(TG[i+1][j]-TG[i][j])*t;cur[j]+=(tv-cur[j])*k}
+ if(!drag){uy+=vy*dt;vy*=Math.exp(-dt*3)}
+ if(!RM)uy+=dt*.02;
+ if(pt<1)pt=Math.min(1,pt+dt/2.6);
+ const yaw=cur[0]+uy,pit=cur[1]+up,inn=cur.slice(3,6),out=cur.slice(6,9);
+
+ to(F.s);gl.disable(gl.BLEND);
+ let p=use(Pbg);set(p,'uR',W,H);set(p,'uT',T);set(p,'uYaw',yaw);set(p,'uPit',pit);set(p,'uA',...inn);set(p,'uB',...out);tri();
+ gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);
+ p=use(Ppt);set(p,'uT',T);set(p,'uYaw',yaw);set(p,'uPit',pit);set(p,'uDist',cur[2]);set(p,'uAsp',W/H);set(p,'uK',H*.018);
+ set(p,'uSpin',S.spin);set(p,'uPT',pt);set(p,'uRad',6);set(p,'uIn',...inn);set(p,'uOut',...out);set(p,'uG',S.gain);
+ gl.bindVertexArray(vao);gl.drawArrays(gl.POINTS,0,Math.floor(N*S.dens));gl.bindVertexArray(null);gl.disable(gl.BLEND);
+
+ to(F.a);p=use(Pbr);tx(0,F.s.t);set(p,'uTh',.55);tri();
+ for(const rd of [1,2.2]){
+  to(F.b);p=use(Pbl);tx(0,F.a.t);set(p,'uD',rd/F.a.w,0);tri();
+  to(F.a);tx(0,F.b.t);set(p,'uD',0,rd/F.a.h);tri()}
+ to(null);p=use(Pcp);tx(0,F.s.t);tx(1,F.a.t);set(p,'uR',W,H);set(p,'uBl',S.bloom);set(p,'uCA',S.ca);set(p,'uT',(T*40)%97);tri();
+ if(exp){exp=0;cv.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='belentani-galaxia-'+Date.now()+'.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1e3)})}
+ if(first){first=0;boot.classList.add('x');setTimeout(()=>boot.remove(),1000)}
+};
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
