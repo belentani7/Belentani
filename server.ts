@@ -9,6 +9,23 @@ const __dirname = path.dirname(__filename);
 
 const PORT = Number(process.env.PORT || 3000);
 const IS_PROD = process.env.NODE_ENV === 'production';
+const GEMINI_MODEL = process.env.GEMINI_MODEL?.trim() || 'gemini-4-hydrogen';
+
+// Rate limit en memoria para /api/lore: protege la cuota de Gemini sin
+// dependencias nuevas. Ventana fija por IP.
+const LORE_WINDOW_MS = 60_000;
+const LORE_MAX_PER_WINDOW = 30;
+const loreHits = new Map<string, { count: number; resetAt: number }>();
+
+function loreRateLimited(ip: string, now = Date.now()): boolean {
+  const entry = loreHits.get(ip);
+  if (!entry || now >= entry.resetAt) {
+    loreHits.set(ip, { count: 1, resetAt: now + LORE_WINDOW_MS });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > LORE_MAX_PER_WINDOW;
+}
 
 const SYSTEM_LORE_CONTEXT = `Eres KERNEL_OMEGA, la inteligencia de archivo de "BELENTANI // THE JUDAS EXPERIENCE" (belentani.es).
 Contexto canónico:
@@ -33,6 +50,14 @@ interface LoreRequestBody {
 
 async function createApp() {
   const app = express();
+  app.disable('x-powered-by');
+  app.use((_req: Request, res: Response, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    next();
+  });
   app.use(express.json({ limit: '64kb' }));
 
   app.get('/api/health', (_req: Request, res: Response) => {
@@ -44,6 +69,10 @@ async function createApp() {
   });
 
   app.post('/api/lore', async (req: Request, res: Response) => {
+    if (loreRateLimited(req.ip || 'unknown')) {
+      res.status(429).json({ error: 'Demasiadas consultas. Espera un minuto.', code: 'RATE_LIMITED' });
+      return;
+    }
     const body = (req.body || {}) as LoreRequestBody;
     const rawQuery = typeof body.query === 'string' ? body.query.trim() : '';
     const mode = typeof body.mode === 'string' ? body.mode : 'lore';
@@ -80,7 +109,7 @@ async function createApp() {
       const promptText = `[MODO: ${mode.toUpperCase()} | IDIOMA: ${lang} | GEMAS_ACTIVAS: ${unlockedCount}/5]\nConsulta del visitante: ${rawQuery}`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-4-hydrogen',
+        model: GEMINI_MODEL,
         contents: promptText,
         config: {
           systemInstruction: SYSTEM_LORE_CONTEXT,
@@ -101,7 +130,7 @@ async function createApp() {
 
       res.json({
         reply: replyText,
-        model: 'gemini-4-hydrogen',
+        model: GEMINI_MODEL,
         mode,
       });
     } catch (err: unknown) {
@@ -112,8 +141,15 @@ async function createApp() {
           : message.includes('429') || message.includes('RESOURCE_EXHAUSTED')
             ? 429
             : 502;
+      // El detalle upstream se registra en el servidor, nunca se filtra al cliente.
+      console.error('[/api/lore] Gemini error:', message);
       res.status(status).json({
-        error: message,
+        error:
+          status === 403
+            ? 'El núcleo rechazó la credencial configurada.'
+            : status === 429
+              ? 'Cuota de Gemini agotada. Inténtalo más tarde.'
+              : 'El núcleo no respondió. Inténtalo de nuevo.',
         code: 'UPSTREAM_GEMINI_ERROR',
       });
     }
@@ -128,7 +164,17 @@ async function createApp() {
     app.use(vite.middlewares);
   } else {
     const distDir = path.resolve(__dirname, 'dist');
-    app.use(express.static(distDir));
+    app.use(
+      express.static(distDir, {
+        maxAge: '1y',
+        immutable: true,
+        index: false,
+        setHeaders: (res, filePath) => {
+          // El HTML nunca se cachea: siempre referencia los assets vigentes.
+          if (filePath.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
+        },
+      }),
+    );
     app.get('/{*splat}', (_req: Request, res: Response) => {
       res.sendFile(path.join(distDir, 'index.html'));
     });

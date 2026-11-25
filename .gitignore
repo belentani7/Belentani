@@ -168,3 +168,8 @@ RESUMEN_ORGANIZACION.txt
 [0-9]*.csv
 *cache*.csv
 Reporte_*.csv
+
+# Build y tests
+dist/
+test-results/
+playwright-report/
