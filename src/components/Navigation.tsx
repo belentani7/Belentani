@@ -113,7 +113,8 @@ export const Navigation: React.FC<NavProps> = ({
                 key={tab.id}
                 type="button"
                 onClick={() => onTabChange(tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
+                aria-current={active ? "page" : undefined}
+                className={`flex items-center gap-1.5 min-h-11 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                   active
                     ? activeClasses
                     : 'text-zinc-400 hover:text-zinc-100 border border-transparent'
@@ -135,7 +136,9 @@ export const Navigation: React.FC<NavProps> = ({
                 type="button"
                 onClick={() => onLangChange(l.id)}
                 title={l.label}
-                className={`px-2 py-1 rounded-lg text-xs font-mono font-bold transition-colors uppercase whitespace-nowrap cursor-pointer ${
+                aria-label={l.label}
+                aria-pressed={lang === l.id}
+                className={`min-h-11 min-w-11 px-2 py-1 rounded-lg text-xs font-mono font-bold transition-colors uppercase whitespace-nowrap cursor-pointer ${
                   lang === l.id
                     ? 'bg-rose-600 text-white'
                     : 'text-zinc-400 hover:text-zinc-200'
