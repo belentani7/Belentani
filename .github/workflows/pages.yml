@@ -1,0 +1,84 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Dependencias
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck
+        run: bun run typecheck
+
+      - name: Build Vite
+        run: bunx vite build --base=/Belentani/
+
+      - name: Verificar base en el HTML
+        run: |
+          test -f dist/index.html
+          grep -q 'src="/Belentani/assets/' dist/index.html || { echo "::error::base no aplicada: el HTML no referencia /Belentani/assets/"; exit 1; }
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Causa exacta si falla el deploy
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "=== Sitio Pages ==="
+          gh api "repos/${{ github.repository }}/pages" --jq '{build_type, status, html_url, source}' || true
+          echo "=== Ultimo build de Pages ==="
+          gh api "repos/${{ github.repository }}/pages/builds/latest" --jq '{status, error, created_at}' || true
+
+      - name: Smoke test
+        if: success()
+        run: |
+          url="${{ steps.deployment.outputs.page_url }}"
+          origin=$(printf '%s' "$url" | cut -d/ -f1-3)
+          code=000
+          for i in $(seq 1 20); do
+            code=$(curl -s -o /tmp/index.html -w '%{http_code}' "$url")
+            [ "$code" = "200" ] && break
+            sleep 6
+          done
+          echo "index.html: HTTP $code"
+          [ "$code" = "200" ] || { echo "::error::la home no responde 200"; exit 1; }
+          asset=$(grep -oE 'src="/[^"]+\.js"' /tmp/index.html | head -1 | cut -d'"' -f2)
+          [ -n "$asset" ] || { echo "::error::el HTML no incluye bundle JS"; exit 1; }
+          acode=$(curl -s -o /dev/null -w '%{http_code}' "$origin$asset")
+          echo "$asset -> HTTP $acode"
+          [ "$acode" = "200" ] || { echo "::error::el bundle da 404: base mal o artifact vacio"; exit 1; }
