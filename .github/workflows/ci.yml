@@ -24,7 +24,7 @@ jobs:
           fail=0
           tracked=$(git ls-files)
           for pattern in '\.env$' '\.env\.[a-z]+$' '\.pem$' '\.p12$' '\.pfx$' 'id_rsa$' 'id_ed25519$' '\.keystore$' '\.npmrc$' '\.netrc$'; do
-            hits=$(echo "$tracked" | grep -E "$pattern" || true)
+            hits=$(echo "$tracked" | grep -E "$pattern" | grep -vE '(^|/)\.env\.example$' || true)
             if [ -n "$hits" ]; then
               echo "::error file=.env::Fichero sensible trackeado ($pattern):"
               echo "$hits"
