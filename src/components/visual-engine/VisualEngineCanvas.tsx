@@ -489,7 +489,7 @@ export const VisualEngineCanvas: React.FC<CanvasProps> = ({
     let animTime = 0;
 
     const animate = (timestamp: number) => {
-      animFrameRef.current = requestAnimationFrame(animate);
+      // El re-scheduling lo controla `loop` (visibilidad + reduced-motion).
 
       // FPS calculation
       frameCount.current++;
@@ -575,9 +575,31 @@ export const VisualEngineCanvas: React.FC<CanvasProps> = ({
       }
     };
 
-    animFrameRef.current = requestAnimationFrame(animate);
+    // prefers-reduced-motion: un único frame estático, sin bucle de animación.
+    // Pestaña oculta: se pausa el rAF (ahorro de GPU/CPU) y se reanuda al volver.
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const loop = (timestamp: number) => {
+      if (!reducedMotion) animFrameRef.current = requestAnimationFrame(loop);
+      animate(timestamp);
+    };
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+        animFrameRef.current = null;
+      } else if (!reducedMotion && animFrameRef.current === null) {
+        lastFpsTime.current = performance.now();
+        frameCount.current = 0;
+        animFrameRef.current = requestAnimationFrame(loop);
+      }
+    };
+
+    animFrameRef.current = requestAnimationFrame(loop);
+    document.addEventListener('visibilitychange', onVisibilityChange);
 
     return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange);
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, [settings.speed, settings.rotationSpeed, settings.generator]);

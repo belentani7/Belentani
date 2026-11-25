@@ -1,60 +1,49 @@
-# belentani-workspace
+# Belentani Workspace & Visual Engine
 
-Espacio de trabajo de Pedro Belentani (`belentani7`). Repositorio **privado**.
+Aplicación web interactiva de Pedro Belentani (`belentani7`): experiencia
+**THE JUDAS EXPERIENCE // OMEGA** (Three.js, audio 432 Hz / 76 BPM, terminal IA
+con Gemini), protocolo OMEGA-PRIME, Visual Engine procedural 3D, gatekeeper
+SDD Maestro, auditor de producción y hub del workspace. Interfaz en
+PT / ES / EN / CA.
 
-Aquí vive configuración de editor, automatización de GitHub y scripts de
-mantenimiento del equipo. **No** contiene código de aplicación, ni documentos
-personales, ni historiales de sesión: cada proyecto tiene su propio repositorio.
+## ▶️ Desarrollo
 
-## 📦 Contenido
+```bash
+bun install          # o npm install
+cp .env.example .env # GEMINI_API_KEY solo es necesaria para /api/lore
+bun run dev          # servidor Express + Vite en http://0.0.0.0:3000
+```
 
-22 ficheros versionados:
+## 🧪 Verificación
+
+```bash
+bun run typecheck    # tsc --noEmit
+bun run test         # Vitest: navegación, paridad i18n, integridad de datos
+bun run test:e2e     # Playwright: camino feliz en navegador real (instala Chromium en CI)
+bun run build        # tsc + vite build → dist/
+```
+
+En producción: `NODE_ENV=production node server.ts` sirve `dist/` con caché
+inmutable de 1 año para assets y `no-cache` para el HTML. La vista de cada
+pestaña se carga bajo demanda (`React.lazy` + chunks `vendor-three` /
+`vendor-react`), así que el JS inicial es solo el de la vista activa.
+
+## 📁 Estructura
 
 | Ruta | Qué es |
 |---|---|
-| `.gitignore` | Exclusiones: secretos, documentos personales, medios |
-| `.editorconfig` | Formato de código y fin de línea |
-| `.vscode/` | 7 ficheros de extensiones, launch y tareas por lenguaje |
-| `.github/workflows/ci.yml` | Auditoría de higiene en cada push y PR |
-| `.github/pull_request_template.md` | Plantilla de pull request |
-| `README.md`, `CONTRIBUTING.md`, `SECURITY.md` | Documentación del repositorio |
-| `PRODUCTION_CHECKLIST.md` | Criterios de publicación de un proyecto |
-| `PROTOCOLO-SDD-MAESTRO.md`, `PROTOCOLO_COMPLETO_BELENTANI_VISUAL_ENGINE.md` | Método de trabajo |
-| `WinPurge.ps1`, `fix-keyboard-p30.ps1`, `test-teclado.ps1`, `mantenimiento.bat` | Scripts de mantenimiento de Windows |
-| `.freebuff/project-id` | Identificador de proyecto Freebuff |
-
-## 🔗 Clonar
-
-```bash
-git clone https://github.com/belentani7/belentani-workspace.git
-```
-
-## 🔍 Auditoría en CI
-
-`.github/workflows/ci.yml` se ejecuta en cada push a `main` y en cada PR:
-
-- **Bloqueante** — ningún fichero de credenciales trackeado (`.env`, `.pem`,
-  `.p12`, `.pfx`, `id_rsa`, `id_ed25519`, `.keystore`, `.npmrc`, `.netrc`).
-- **Bloqueante** — ningún patrón de credenciales en el contenido
-  (claves de OpenAI, Google, AWS, Anthropic, Slack, claves PEM, tokens de GitHub).
-- **Informativo** — JSON válido y HTML con `<title>` y meta description.
-
-## 📋 Protocolo
-
-Este repo sigue **protocolo-etapas (E0-E6)** — SDD para agentes:
-
-1. **E0 Intake** → Entender
-2. **E1 Spec** → Qué es "terminado"
-3. **E2 Plan** → Tareas + dependencias
-4. **E3 Build** → Ejecutar + verificar local
-5. **E4 Verify** → Evidencia real (no promesas)
-6. **E5 Ship** → Commit + Push + URL verificada
-7. **E6 Learn** → Memoria + cerrar sesión
+| `src/App.tsx`, `src/components/` | SPA React 19 (6 vistas lazy) |
+| `src/lib/navigation.ts` | Parsing de `?view=` e idioma persistido (testeado) |
+| `src/locales/i18n.ts` | Traducciones pt/es/en/ca con paridad verificada por test |
+| `server.ts` | API Express: `/api/health`, `/api/lore` (Gemini, rate-limit 30/min/IP) |
+| `tests/`, `e2e/` | Suite Vitest y e2e Playwright |
+| `archive/aistudio/` | HTML histórico de AI Studio (fuera de `public/`: no se despliega) |
+| `.github/workflows/` | CI: higiene de secretos + typecheck/tests/build/e2e; deploy a Pages |
+| `WinPurge.ps1`, `*.ps1`, `mantenimiento.bat` | Scripts de mantenimiento de Windows |
 
 ## 🌐 Idiomas
 
-Orden fijo: **PT > ES > EN > CA** — `["pt","es","en","ca"]`
+Orden fijo: **PT > ES > EN > CA** — `["pt","es","en","ca"]` (por defecto `es`).
 
 ---
-
-*Generado automáticamente via protocolo-etapas E5 Ship*
+*Protocolo de trabajo: protocolo-etapas E0–E6 (ver documentos de protocolo en la raíz).*

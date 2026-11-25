@@ -1,36 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Language, NavTabId } from './types';
 import { Navigation } from './components/Navigation';
-import { JudasExperienceView } from './components/judas-omega/JudasExperienceView';
-import { OmegaPrimeView } from './components/omega-prime/OmegaPrimeView';
-import { VisualEngineView } from './components/visual-engine/VisualEngineView';
-import { SddMaestroView } from './components/sdd-maestro/SddMaestroView';
-import { ProductionChecklistView } from './components/production-checklist/ProductionChecklistView';
-import { WorkspaceHubView } from './components/workspace-hub/WorkspaceHubView';
+import { LANGUAGE_KEY, readStoredLanguage, readView } from './lib/navigation';
 import { ShieldCheck } from 'lucide-react';
 
-const VIEW_IDS: readonly NavTabId[] = ['judas_omega', 'omega_prime', 'visual_engine', 'sdd_maestro', 'production_checklist', 'workspace_hub'];
-const LANGUAGE_IDS: readonly Language[] = ['pt', 'es', 'en', 'ca'];
-const LANGUAGE_KEY = 'belentani-workspace-language';
-const SKIP_LABELS: Record<Language, string> = { es: 'Saltar al contenido', pt: 'Ir para o conteúdo', en: 'Skip to content', ca: 'Salta al contingut' };
+// Cada vista se carga bajo demanda: la vista inicial no arrastra el código
+// (ni Three.js duplicado) de las demás. Ver manualChunks en vite.config.ts.
+const JudasExperienceView = lazy(() =>
+  import('./components/judas-omega/JudasExperienceView').then((m) => ({ default: m.JudasExperienceView })),
+);
+const OmegaPrimeView = lazy(() =>
+  import('./components/omega-prime/OmegaPrimeView').then((m) => ({ default: m.OmegaPrimeView })),
+);
+const VisualEngineView = lazy(() =>
+  import('./components/visual-engine/VisualEngineView').then((m) => ({ default: m.VisualEngineView })),
+);
+const SddMaestroView = lazy(() =>
+  import('./components/sdd-maestro/SddMaestroView').then((m) => ({ default: m.SddMaestroView })),
+);
+const ProductionChecklistView = lazy(() =>
+  import('./components/production-checklist/ProductionChecklistView').then((m) => ({
+    default: m.ProductionChecklistView,
+  })),
+);
+const WorkspaceHubView = lazy(() =>
+  import('./components/workspace-hub/WorkspaceHubView').then((m) => ({ default: m.WorkspaceHubView })),
+);
 
-function readView(): NavTabId {
-  const value = new URL(window.location.href).searchParams.get('view');
-  return VIEW_IDS.find(id => id === value) ?? 'judas_omega';
-}
-function readLanguage(): Language {
-  try {
-    const value = window.localStorage.getItem(LANGUAGE_KEY);
-    return LANGUAGE_IDS.find(id => id === value) ?? 'es';
-  } catch { return 'es'; }
-}
+const SKIP_LABELS: Record<Language, string> = { es: 'Saltar al contenido', pt: 'Ir para o conteúdo', en: 'Skip to content', ca: 'Salta al contingut' };
+const LOADING_LABELS: Record<Language, string> = { es: 'Cargando vista…', pt: 'Carregando vista…', en: 'Loading view…', ca: 'Carregant vista…' };
 
 export const App: React.FC = () => {
-  const [currentTab, setCurrentTab] = useState<NavTabId>(readView);
-  const [lang, setLang] = useState<Language>(readLanguage);
+  const [currentTab, setCurrentTab] = useState<NavTabId>(() => readView(window.location.href));
+  const [lang, setLang] = useState<Language>(() => readStoredLanguage(window.localStorage));
 
   useEffect(() => {
-    const onPopState = () => setCurrentTab(readView());
+    const onPopState = () => setCurrentTab(readView(window.location.href));
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
@@ -60,12 +65,20 @@ export const App: React.FC = () => {
       />
 
       <main id="workspace-content" tabIndex={-1} className="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6">
-        {currentTab === 'judas_omega' && <JudasExperienceView lang={lang} />}
-        {currentTab === 'omega_prime' && <OmegaPrimeView lang={lang} />}
-        {currentTab === 'visual_engine' && <VisualEngineView lang={lang} />}
-        {currentTab === 'sdd_maestro' && <SddMaestroView lang={lang} />}
-        {currentTab === 'production_checklist' && <ProductionChecklistView lang={lang} />}
-        {currentTab === 'workspace_hub' && <WorkspaceHubView lang={lang} />}
+        <Suspense
+          fallback={
+            <p role="status" className="py-16 text-center font-mono text-sm text-zinc-400">
+              {LOADING_LABELS[lang]}
+            </p>
+          }
+        >
+          {currentTab === 'judas_omega' && <JudasExperienceView lang={lang} />}
+          {currentTab === 'omega_prime' && <OmegaPrimeView lang={lang} />}
+          {currentTab === 'visual_engine' && <VisualEngineView lang={lang} />}
+          {currentTab === 'sdd_maestro' && <SddMaestroView lang={lang} />}
+          {currentTab === 'production_checklist' && <ProductionChecklistView lang={lang} />}
+          {currentTab === 'workspace_hub' && <WorkspaceHubView lang={lang} />}
+        </Suspense>
       </main>
 
       <footer className="border-t border-zinc-900 bg-black py-4 px-6 text-xs text-zinc-500">
@@ -87,4 +100,3 @@ export const App: React.FC = () => {
 };
 
 export default App;
-
